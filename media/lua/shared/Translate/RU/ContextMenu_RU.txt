@@ -1,0 +1,6 @@
+ContextMenu_RU = {
+	ContextMenu_Stop_music = "Выключить музыку",
+	ContextMenu_Play_music = "Играть музыку",
+    ContextMenu_Sound_carrier_not_install = "Носитель не установлен",
+    ContextMenu_Song = "Петь",
+}
