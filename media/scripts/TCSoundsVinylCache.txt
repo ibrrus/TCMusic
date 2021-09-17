@@ -1,0 +1,275 @@
+module Tsarcraft
+{
+		
+	sound AndyWilliams-ItsTheMostWonderfulTimeOfTheYear(1963)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/AndyWilliams-ItsTheMostWonderfulTimeOfTheYear(1963).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BennyGoodman-ThatsAPlenty(1931)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BennyGoodman-ThatsAPlenty(1931).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BillHaley-RockAroundTheClock(1955)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BillHaley-RockAroundTheClock(1955).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BingCrosby-IWillBeHomeForChristmas(1943)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BingCrosby-IWillBeHomeForChristmas(1943).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BingCrosby-WhiteChristmas(1942)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BingCrosby-WhiteChristmas(1942).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BingCrosby-WinterWonderland(1945)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BingCrosby-WinterWonderland(1945).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BobbyDarin-BrandNewHouse(1958)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BobbyDarin-BrandNewHouse(1958).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BobbyDarin-HallelujahILoveHerSo(1956)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BobbyDarin-HallelujahILoveHerSo(1956).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BobbyHelms-JingleBellRock(1957)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BobbyHelms-JingleBellRock(1957).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BootsRandolph-YaketySax(1963)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BootsRandolph-YaketySax(1963).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BrendaLee-RockinAroundTheChristmasTree(1958)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/BrendaLee-RockinAroundTheChristmasTree(1958).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound DeanMartin-WalkingInAWinterWonderland(1959)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/DeanMartin-WalkingInAWinterWonderland(1959).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound EarthaKitt-SantaBaby(1953)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/EarthaKitt-SantaBaby(1953).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound ElvisPresley-BlueChristmas(1957)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/ElvisPresley-BlueChristmas(1957).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound ElvisPresley-JailhouseRock(1958)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/ElvisPresley-JailhouseRock(1958).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound EnricoCaruso-UnaFurtivaLagrima(1904)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/EnricoCaruso-UnaFurtivaLagrima(1904).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound GeneAutry-FrostyTheSnowMan(1951)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/GeneAutry-FrostyTheSnowMan(1951).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound GuyMitchell-HeartacheByTheNumbers50s(1959)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/GuyMitchell-HeartacheByTheNumbers50s(1959).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound HankWilliams-LovesickBlues(1949)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/HankWilliams-LovesickBlues(1949).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JohnFahey-SteelGuitarRag(1965)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/JohnFahey-SteelGuitarRag(1965).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JohnnyHorton-NorthToAlaska(1965)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/JohnnyHorton-NorthToAlaska(1965).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JudyGarland-HaveYourselfAMerryLittleChristmas(1944)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/JudyGarland-HaveYourselfAMerryLittleChristmas(1944).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound KirstenFlagstad-DieWalkure(1938)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/KirstenFlagstad-DieWalkure(1938).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound LightninHopkins-JackstropperBlues(1950)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/LightninHopkins-JackstropperBlues(1950).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound MelCarter-HoldMeThrillMeKissMe(1965)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/MelCarter-HoldMeThrillMeKissMe(1965).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound NatKingCole-TheChristmasSong(1961)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/NatKingCole-TheChristmasSong(1961).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound RickyNelson-TravellinMan(1961)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/RickyNelson-TravellinMan(1961).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound RighteousBrothers-UnchainedMelody(1965)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/RighteousBrothers-UnchainedMelody(1965).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound RobertJohnson-WalkingBlues(1936)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/RobertJohnson-WalkingBlues(1936).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound ThurlRavenscroft-YoureAMeanOneMrGrinch(1966)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCVinylplayer/ThurlRavenscroft-YoureAMeanOneMrGrinch(1966).ogg,
+			distanceMax = 150,
+		}
+	}
+	
+}

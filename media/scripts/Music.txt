@@ -118,8 +118,15 @@ item TCBassguitar
 		Type			= Moveable,
 		WorldObjectSprite	= tsarcraft_music_01_28,
     }
-	
-item TCBoombox
+
+	model TCBoombox2_Ground
+	{
+		mesh = WorldItems/Boombox,
+		texture = WorldItems/Boombox_BaseColor,
+		scale = 0.0018,
+	}
+
+	item TCBoombox
     {
 		Type			=   Radio,
 		IsPortable		= FALSE,
@@ -128,10 +135,10 @@ item TCBoombox
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
+		WorldStaticModel = Tsarcraft.TCBoombox2_Ground,
     }
-			
 
-item TCVinylplayer
+	item TCVinylplayer
     {
 		Type			=   Radio,
 		WorldObjectSprite	= tsarcraft_music_01_36,

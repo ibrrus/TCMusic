@@ -1,0 +1,4 @@
+IGUI_RU = {
+	IGUI_media_dragCassette = "Вставьте кассету",
+	IGUI_media_dragVinyl = "Вставьте виниловый дист",
+}

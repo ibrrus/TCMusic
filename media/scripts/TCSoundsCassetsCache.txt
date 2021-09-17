@@ -1,0 +1,507 @@
+module Tsarcraft
+{
+	sound A!C!D!C-HighwayToHell(1979)
+	{
+		category = Player,
+		clip
+		{
+			file = media/sound/TCBoombox/A!C!D!C-HighwayToHell(1979).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound AirSupply-MakingLoveOutOfNothingAtAll(1983)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/AirSupply-MakingLoveOutOfNothingAtAll(1983).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Alabama-ChristmasInDixie(1985)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Alabama-ChristmasInDixie(1985).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound AliceCooper-Poison(1989)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/AliceCooper-Poison(1989).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BeeGees-StayinAlive(1977)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BeeGees-StayinAlive(1977).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Blondie-CallMe(1978)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Blondie-CallMe(1978).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Blondie-HeartOfGlass(1976)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Blondie-HeartOfGlass(1976).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BobbyDarin-DreamLover(1987)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BobbyDarin-DreamLover(1987).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BoneyM-Rasputin(1978)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BoneyM-Rasputin(1978).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BonJovi-LivinOnAPrayer(1986)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BonJovi-LivinOnAPrayer(1986).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BonJovi-YouGiveLoveABadName(1986)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BonJovi-YouGiveLoveABadName(1986).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BonnieTyler-HoldingOutForAHero(1984)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BonnieTyler-HoldingOutForAHero(1984).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BonnieTyler-TotalEclipseOfTheHeart(1983)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BonnieTyler-TotalEclipseOfTheHeart(1983).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound BryanAdams-IDoItForYou(1991)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/BryanAdams-IDoItForYou(1991).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound CharleyPride-KissAnAngelGoodMorning(1971)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/CharleyPride-KissAnAngelGoodMorning(1971).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound CyndiLauper-TimeAfterTime(1983)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/CyndiLauper-TimeAfterTime(1983).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound DeadOrAlive-YouSpinMeRound(1984)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/DeadOrAlive-YouSpinMeRound(1984).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound DepecheMode-PersonalJesus(1989)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/DepecheMode-PersonalJesus(1989).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound DollyParton-HardCandyChristmas(1982)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/DollyParton-HardCandyChristmas(1982).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound FlattAndScruggs-FoggyMountainBreakdown(1968)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/FlattAndScruggs-FoggyMountainBreakdown(1968).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Foreigner-IWantToKnowWhatLoveIs(1984)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Foreigner-IWantToKnowWhatLoveIs(1984).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound GeorgeBenson-NothingsGonnaChange(1985)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/GeorgeBenson-NothingsGonnaChange(1985).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound IsraelKamakawiwoʻole-OverTheRainbow(1990)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/IsraelKamakawiwoʻole-OverTheRainbow(1990).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JohnDenver-TakeMeHomeCountryRoads(1971)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/JohnDenver-TakeMeHomeCountryRoads(1971).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JonaLewie-StopTheCavalry(1978)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/JonaLewie-StopTheCavalry(1978).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound JoseFeliciano-FelizNavidad(1970)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/JoseFeliciano-FelizNavidad(1970).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Journey-DontStopBelievin(1981)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Journey-DontStopBelievin(1981).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound KennyLoggins-DangerZone(1986)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/KennyLoggins-DangerZone(1986).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Kiss-IWasMadeForLovinYou(1979)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Kiss-IWasMadeForLovinYou(1979).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound LindaRonstadtAndAaronNeville-DontKnowMuch(1989)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/LindaRonstadtAndAaronNeville-DontKnowMuch(1989).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Metallica-NothingElseMatters(1991)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Metallica-NothingElseMatters(1991).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Metallica-TheUnforgiven(1991)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Metallica-TheUnforgiven(1991).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound MichaelJackson-BillieJean(1982)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/MichaelJackson-BillieJean(1982).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Nirvana-SmellsLikeTeenSpirit(1991)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Nirvana-SmellsLikeTeenSpirit(1991).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound PaulaAbdul-StraightUp(1988)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/PaulaAbdul-StraightUp(1988).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound PaulEngemann-PushItToTheLimit(1983)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/PaulEngemann-PushItToTheLimit(1983).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Pepe-Shadilay(1986)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Pepe-Shadilay(1986).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Queen-%39(1975)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Queen-%39(1975).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Queen-WeAreTheChampions(1977)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Queen-WeAreTheChampions(1977).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Queen-WeWillRockYou(1977)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Queen-WeWillRockYou(1977).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound R!E!M-LosingMyReligion(1991)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/R!E!M-LosingMyReligion(1991).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound RandyTravis-DeeperThanTheHoller(1988)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/RandyTravis-DeeperThanTheHoller(1988).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound RandyTravis-OldTimeChristmas(1989)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/RandyTravis-OldTimeChristmas(1989).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound ScottMc!Kenzie-SanFrancisco(1967)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/ScottMc!Kenzie-SanFrancisco(1967).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Snap-RhythmIsADancer(1992)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Snap-RhythmIsADancer(1992).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Survivor-EyeOfTheTiger(1982)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Survivor-EyeOfTheTiger(1982).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound TheB!-52s-LoveShack(1989)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/TheB!-52s-LoveShack(1989).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound TheBeatles-ComeTogether(1969)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/TheBeatles-ComeTogether(1969).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound TheBeatles-EleanorRigby(1966)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/TheBeatles-EleanorRigby(1966).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound ThePogues-FairytaleOfNewYork(1987)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/ThePogues-FairytaleOfNewYork(1987).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound TheTemptations-PapaWasARollingStone(1972)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/TheTemptations-PapaWasARollingStone(1972).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound TheWeatherGirls-ItsRainingMen(1983)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/TheWeatherGirls-ItsRainingMen(1983).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Toto-Africa(1982)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Toto-Africa(1982).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Toto-HoldTheLine(1978)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Toto-HoldTheLine(1978).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound Wham-LastChristmas(1984)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/Wham-LastChristmas(1984).ogg,
+			distanceMax = 150,
+		}
+	}
+	sound WhitneyHouston-IWillAlwaysLoveYou(1992)
+	{
+		category = Item,
+		clip
+		{
+			file = media/sound/TCBoombox/WhitneyHouston-IWillAlwaysLoveYou(1992).ogg,
+			distanceMax = 150,
+		}
+	}
+}
