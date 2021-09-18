@@ -129,13 +129,28 @@ item TCBassguitar
 	item TCBoombox
     {
 		Type			=   Radio,
-		IsPortable		= FALSE,
 		WorldObjectSprite	= tsarcraft_music_01_34,
 		Weight			=	5.0,
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
 		WorldStaticModel = Tsarcraft.TCBoombox2_Ground,
+		ConditionMax	= 100,
+		UseDelta		= 0.009, 
+		UseWhileEquipped	= FALSE,
+		DisappearOnUse		= FALSE,
+		TwoWay			= FALSE,
+		TransmitRange		= 0,
+		MicRange		= 0,
+		BaseVolumeRange		= 15,
+		IsPortable		= TRUE,
+		IsTelevision		= FALSE,
+		MinChannel		= 88000,
+		MaxChannel		= 108000,
+		UsesBattery		= TRUE,
+		IsHighTier		= FALSE,
+		Tooltip = Tooltip_item_Boombox,
+		AcceptMediaType = 0,	
     }
 
 	item TCVinylplayer

@@ -76,7 +76,7 @@ function ISInventoryMenuElements.ContextBoombox()
 			_itemMusPlayer:getModData().TCMusic.volume = 5
 		end
 		local service_sound = musicPlayer .. "_service"
-		ISTimedActionQueue.add(ISTapePockets:new(player, _itemMusPlayer:getID(), music, service_sound, songID, music_time[service_sound] * 50, _itemMusPlayer:getModData().TCMusic.volume))
+		ISTimedActionQueue.add(ISTapePockets:new(player, _itemMusPlayer, music, service_sound, songID, music_time[service_sound] * 50, _itemMusPlayer:getModData().TCMusic.volume))
     end
 
     return self;

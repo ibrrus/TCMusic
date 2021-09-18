@@ -23,20 +23,25 @@ function ISTapePockets:perform()
 	radius = 8
 	addSound(self.character, self.character:getX(), self.character:getY(), self.character:getZ(), radius * self.volume, 1) -- Звук приманивает зомби
 	print(self.songID)
-	now_play[self.songID] = {self.character:playSound(self.music);self.volume;self._itemMusPlayerID}
+	-- self.character:getEmitter():setPos(self.character:getX() + 0.5f, self.character:getY() + 0.5f, self.character:getZ());
+	-- now_play[self.songID] = {self.character:getEmitter():playVocals(self.music);self.volume;self._itemMusPlayerID}
+	-- self.character:getEmitter():setVolume(now_play[self.songID][1], 0.2 * self.volume)
 	print(self.character:getEmitter())
-	print(now_play[self.songID])
-	self.character:getEmitter():setVolume(now_play[self.songID][1], 0.2 * self.volume)
+	-- print(self._itemMusPlayer:getDeviceData():setIsTurnedOn(true))
+	print(self._itemMusPlayer:getDeviceData():getIsTurnedOn())
+	print(self._itemMusPlayer:getDeviceData():getEmitter())
+	self._itemMusPlayer:getDeviceData():playSoundLocal(self.music, true)
 	ISBaseTimedAction.perform(self)
 end
 
-function ISTapePockets:new(character, _itemMusPlayerID, music, service_sound, songID, time, volume)
+function ISTapePockets:new(character, _itemMusPlayer, music, service_sound, songID, time, volume)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character
 	o.service_sound = service_sound
-	o._itemMusPlayerID = _itemMusPlayerID
+	o._itemMusPlayer = _itemMusPlayer
+	o._itemMusPlayerID = _itemMusPlayer:getID()
 	o.music = music
 	o.volume = volume
 	o.songID = songID
