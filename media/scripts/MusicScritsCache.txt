@@ -276,14 +276,6 @@ item ThurlRavenscroft-YoureAMeanOneMrGrinch(1966)
 		DisplayName		=	Vinyl Thurl Ravenscroft - Youre A Mean One Mr Grinch (1966),
 	}
 
-item A!C!D!C-HighwayToHell(1979)
-	{
-		Type			=	Normal,
-		Weight			=	0.1,
-		Icon			=	TCTape5,
-		ResizeWorldIcon	=	0.5,
-		DisplayName		=	Cassette ACDC - Highway To Hell (1979),
-	}
 
 item AirSupply-MakingLoveOutOfNothingAtAll(1983)
 	{

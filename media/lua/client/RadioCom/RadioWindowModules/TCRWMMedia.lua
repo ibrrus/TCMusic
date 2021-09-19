@@ -87,6 +87,7 @@ function TCRWMMedia:addMedia( _items )
 end
 
 function TCRWMMedia:verifyItem( _item )
+print("TCRWMMedia:verifyItem")
 	-- print(_item)
 	-- print(_item:getType())
     if TCMusicData[_item:getType()] then
@@ -107,13 +108,14 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
     end
     self.mediaIndex = -9999;
 
-    if _deviceData:getMediaType()==6 then
+    if _deviceData:getMediaType()==1 then
         self.itemDropBox:setBackDropTex( self.cdTex, 0.4, 1,1,1 );
         self.itemDropBox:setToolTip( true, getText("IGUI_media_dragVinyl") );
         self.lcd.ledColor = self.lcdBlue.back;
         self.lcd.ledTextColor = self.lcdBlue.text;
     end
-    if _deviceData:getMediaType()==7 then
+    if _deviceData:getMediaType()==0 then
+		print("_deviceData:getMediaType()==0")
         self.itemDropBox:setBackDropTex( self.tapeTex, 0.4, 1,1,1 );
         self.itemDropBox:setToolTip( true, getText("IGUI_media_dragCassette") );
         self.lcd.ledColor = self.lcdGreen.back;
@@ -155,7 +157,7 @@ function TCRWMMedia:getMediaText()
     if addedSegment then
         return text.." *** ";
     end
-    return self.deviceData:getMediaType()==7 and self.textNoTape or self.textNoCD;
+    return self.deviceData:getMediaType()==0 and self.textNoTape or self.textNoCD;
 end
 
 function TCRWMMedia:update()
@@ -184,10 +186,10 @@ function TCRWMMedia:update()
         end
 
         if self.deviceData:hasMedia() then
-            if self.deviceData:getMediaType()==6 then
+            if self.deviceData:getMediaType()==1 then
                 self.itemDropBox:setStoredItemFake( self.cdTex );
             end
-            if self.deviceData:getMediaType()==7 then
+            if self.deviceData:getMediaType()==0 then
                 self.itemDropBox:setStoredItemFake( self.tapeTex );
             end
 
@@ -226,13 +228,13 @@ function TCRWMMedia:onJoypadDown(button)
             local inv = self.player:getInventory();
             local type = self.deviceData:getMediaType();
             local medias = {};
-            if type==6 then
+            if type==1 then
                 local list = inv:FindAll("Base.Disc_Retail");
                 for i=0,list:size()-1 do
                     table.insert(medias, list:get(i));
                 end
             end
-            if type==7 then
+            if type==0 then
                 local list = inv:FindAll("Base.VHS_Retail");
                 for i=0,list:size()-1 do
                     table.insert(medias, list:get(i));
@@ -264,13 +266,13 @@ function TCRWMMedia:getBPrompt()
         local inv = self.player:getInventory();
         local type = self.deviceData:getMediaType();
         local medias = {};
-        if type==6 then
+        if type==1 then
             local list = inv:FindAll("Base.Disc_Retail");
             for i=0,list:size()-1 do
                 table.insert(medias, list:get(i));
             end
         end
-        if type==7 then
+        if type==0 then
             local list = inv:FindAll("Base.VHS_Retail");
             for i=0,list:size()-1 do
                 table.insert(medias, list:get(i));

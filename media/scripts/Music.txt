@@ -152,7 +152,18 @@ item TCBassguitar
 		Tooltip = Tooltip_item_Boombox,
 		AcceptMediaType = 0,	
     }
+	
+	item A!C!D!C-HighwayToHell(1979)
+	{
+		Type			=	Normal,
+		Weight			=	0.1,
+		Icon			=	TCTape5,
+		ResizeWorldIcon	=	0.5,
+		DisplayName		=	Cassette ACDC - Highway To Hell (1979),
+		MediaCategory       = CDs,
+	}
 
+	
 	item TCVinylplayer
     {
 		Type			=   Radio,

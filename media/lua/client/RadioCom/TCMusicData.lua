@@ -4,4 +4,4 @@ end
 
 table.insert(TCMusicData, "A!C!D!C-HighwayToHell(1979)")
 
-TCMusicData["A!C!D!C-HighwayToHell(1979)"] = 7
+TCMusicData["A!C!D!C-HighwayToHell(1979)"] = 0

@@ -132,21 +132,29 @@ end
 
 function ISTCBoomboxAction:performTogglePlayMedia()
     if self:isValidTogglePlayMedia() then
+		print(self.deviceData:getEmitter())
+		print(self.deviceData:getEmitter():isEmpty())
         if self.deviceData:isPlayingMedia() then
             self.deviceData:StopPlayMedia();
         else
             self.deviceData:StartPlayMedia();
+			self.deviceData:getEmitter():stopAll()
+			print(self.secondaryItem)
+			-- self.deviceData:getEmitter():playSound(self.secondaryItem:getType())
         end
+		
     end
 end
 
 -- AddMedia
 function ISTCBoomboxAction:isValidAddMedia()
 	print("ISTCBoomboxAction:isValidAddMedia()")
+	print((not self.deviceData:hasMedia()) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()])
     return (not self.deviceData:hasMedia()) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()];
 end
 
 function ISTCBoomboxAction:performAddMedia()
+print("ISTCBoomboxAction:performAddMedia()")
     if self:isValidAddMedia() and self.secondaryItem then
         self.deviceData:addMediaItem(self.secondaryItem);
     end
@@ -159,6 +167,7 @@ function ISTCBoomboxAction:isValidRemoveMedia()
 end
 
 function ISTCBoomboxAction:performRemoveMedia()
+print("ISTCBoomboxAction:performRemoveMedia()")
     if self:isValidRemoveMedia() and self.character:getInventory() then
         self.deviceData:removeMediaItem(self.character:getInventory());
     end
