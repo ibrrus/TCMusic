@@ -145,8 +145,8 @@ item TCBassguitar
 		BaseVolumeRange		= 15,
 		IsPortable		= TRUE,
 		IsTelevision		= FALSE,
-		MinChannel		= 88000,
-		MaxChannel		= 108000,
+		MinChannel		= 100,
+		MaxChannel		= 200,
 		UsesBattery		= TRUE,
 		IsHighTier		= FALSE,
 		Tooltip = Tooltip_item_Boombox,
@@ -160,7 +160,6 @@ item TCBassguitar
 		Icon			=	TCTape5,
 		ResizeWorldIcon	=	0.5,
 		DisplayName		=	Cassette ACDC - Highway To Hell (1979),
-		MediaCategory       = CDs,
 	}
 
 	

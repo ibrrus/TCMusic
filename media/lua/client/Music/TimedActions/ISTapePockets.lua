@@ -2,7 +2,6 @@
 --**             PLAY MUSIC IN YOUR POCKETS                **
 --***********************************************************
 
-	-- START
 ISTapePockets = ISBaseTimedAction:derive("ISTapePockets")
 
 function ISTapePockets:isValid()
@@ -10,9 +9,8 @@ function ISTapePockets:isValid()
 end
 
 function ISTapePockets:start()
-	self.sound = self.character:playSound(self.service_sound)
-	radius = 15
-	addSound(self.character, self.character:getX(), self.character:getY(), self.character:getZ(), radius, 1) -- Звук приманивает зомби
+	self._itemMusPlayer:getDeviceData():getEmitter():playSound(self.service_sound)
+	addSound(self.character, self.character:getX(), self.character:getY(), self.character:getZ(), 15, 1)
 end
 
 function ISTapePockets:stop()
@@ -20,28 +18,19 @@ function ISTapePockets:stop()
 end
 
 function ISTapePockets:perform()
-	radius = 8
-	addSound(self.character, self.character:getX(), self.character:getY(), self.character:getZ(), radius * self.volume, 1) -- Звук приманивает зомби
-	print(self.songID)
-	-- self.character:getEmitter():setPos(self.character:getX() + 0.5f, self.character:getY() + 0.5f, self.character:getZ());
-	-- now_play[self.songID] = {self.character:getEmitter():playVocals(self.music);self.volume;self._itemMusPlayerID}
-	-- self.character:getEmitter():setVolume(now_play[self.songID][1], 0.2 * self.volume)
-	print(self.character:getEmitter())
-	-- print(self._itemMusPlayer:getDeviceData():setIsTurnedOn(true))
-	print(self._itemMusPlayer:getDeviceData():getIsTurnedOn())
-	print(self._itemMusPlayer:getDeviceData():getEmitter())
-	self._itemMusPlayer:getDeviceData():playSoundLocal(self.music, true)
+	self._itemMusPlayer:getModData().tcmusic.playNow = self.music
+	self._itemMusPlayer:getModData().tcmusic.playNowId = self._itemMusPlayer:getDeviceData():getEmitter():playSound(self.music)
+	self._itemMusPlayer:getDeviceData():getEmitter():setVolume(self._itemMusPlayer:getModData().tcmusic.playNowId, self._itemMusPlayer:getDeviceData():getDeviceVolume())
 	ISBaseTimedAction.perform(self)
 end
 
-function ISTapePockets:new(character, _itemMusPlayer, music, service_sound, songID, time, volume)
+function ISTapePockets:new(character, _itemMusPlayer, music, service_sound, time)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character
 	o.service_sound = service_sound
 	o._itemMusPlayer = _itemMusPlayer
-	o._itemMusPlayerID = _itemMusPlayer:getID()
 	o.music = music
 	o.volume = volume
 	o.songID = songID
@@ -66,18 +55,20 @@ function ISTapePocketsStop:stop()
 end
 
 function ISTapePocketsStop:perform()
-	stopSound(now_play[self.songID][1])
 	self.character:playSound(self.service_sound)
+	self._itemMusPlayer:getDeviceData():getEmitter():stopAll()
+	self._itemMusPlayer:getModData().tcmusic.playNow = nil
+	self._itemMusPlayer:getModData().tcmusic.playNowId = nil
 	ISBaseTimedAction.perform(self)
 end
 
-function ISTapePocketsStop:new(character, songID, service_sound, time)
+function ISTapePocketsStop:new(character, _itemMusPlayer, service_sound, time)
 	local o = {}
 	setmetatable(o, self)
 	self.__index = self
 	o.character = character
 	o.service_sound = service_sound
-	o.songID = songID
+	o._itemMusPlayer = _itemMusPlayer
 	o.stopOnWalk = false
 	o.stopOnRun = false
 	o.maxTime = time

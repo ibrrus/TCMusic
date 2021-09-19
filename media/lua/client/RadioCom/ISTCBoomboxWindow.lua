@@ -4,6 +4,7 @@
 --***********************************************************
 
 require "ISUI/ISCollapsableWindow"
+require "Music/TCMusicDefenitions"
 
 ISTCBoomboxWindow = ISCollapsableWindow:derive("ISTCBoomboxWindow");
 ISTCBoomboxWindow.instances = {};
@@ -81,15 +82,15 @@ function ISTCBoomboxWindow:createChildren()
     local th = self:titleBarHeight();
 
     --self:addModule(RWMSignal:new (0, 0, self.width, 0 ), "Signal", false);
-    self:addModule(RWMGeneral:new (0, 0, self.width, 0), getText("IGUI_RadioGeneral"), true);
+    -- self:addModule(RWMGeneral:new (0, 0, self.width, 0), getText("IGUI_RadioGeneral"), true);
     self:addModule(RWMPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
     self:addModule(RWMGridPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
-    self:addModule(RWMSignal:new (0, 0, self.width, 0), getText("IGUI_RadioSignal"), true);
-    self:addModule(RWMVolume:new (0, 0, self.width, 0), getText("IGUI_RadioVolume"), true);
-    self:addModule(RWMMicrophone:new (0, 0, self.width, 0), getText("IGUI_RadioMicrophone"), true);
-    self:addModule(TCRWMMedia:new (0, 0, self.width, 0 ), getText("IGUI_RadioMedia2"), true);
-    self:addModule(RWMChannel:new (0, 0, self.width, 0 ), getText("IGUI_RadioChannel"), true);
-    self:addModule(RWMChannelTV:new (0, 0, self.width, 0 ), getText("IGUI_RadioChannel"), true);
+    -- self:addModule(RWMSignal:new (0, 0, self.width, 0), getText("IGUI_RadioSignal"), true);
+    self:addModule(TCRWMVolume:new (0, 0, self.width, 0), getText("IGUI_RadioVolume"), true);
+    -- self:addModule(RWMMicrophone:new (0, 0, self.width, 0), getText("IGUI_RadioMicrophone"), true);
+    -- self:addModule(TCRWMMedia:new (0, 0, self.width, 0 ), getText("IGUI_RadioMedia2"), true);
+    -- self:addModule(RWMChannel:new (0, 0, self.width, 0 ), getText("IGUI_RadioChannel"), true);
+    -- self:addModule(RWMChannelTV:new (0, 0, self.width, 0 ), getText("IGUI_RadioChannel"), true);
 
 end
 
@@ -405,44 +406,20 @@ function ISTCBoomboxWindow:new (x, y, width, height, player)
     return o
 end
 
-function ISTCBoomboxWindow.onEquip( _player, _item)
-    if _player == getPlayer() and instanceof(_item, "Radio") then
-        ISTCBoomboxWindow.activate( _player, _item );
-    end
+if not TCMusic then
+	TCMusic = {}
 end
 
--- Events.OnEquipPrimary.Add(ISTCBoomboxWindow.onEquip);
--- Events.OnEquipSecondary.Add(ISTCBoomboxWindow.onEquip);
+TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 
---[[
-local cnt = 0;
-local tab = "    ";
-function ISTCBoomboxWindow:updatetest()
-    ISCollapsableWindow.update(self);
-
-    cnt = cnt+1;
-    if cnt > 60 then
-        cnt = 0;
-        if ISMouseDrag.dragging and #ISMouseDrag.dragging > 0 then
-            print("MOUSE #######################################");
-            for i,v in pairs(ISMouseDrag) do
-                print(i,v);
-            end
-            print("MOUSE #######################################");
-            for i3,v3 in ipairs(ISMouseDrag.dragging) do
-                print(tab,i3,v3);
-                if type( v3 ) == "table" then
-                    for i4,v4 in pairs(v3) do
-                        print(tab,tab,i4,v4);
-                        if type( v4 ) == "table" then
-                            for i5,v5 in pairs(v4) do
-                                print(tab,tab,tab,i5,v5);
-                            end
-                        end
-                    end
-                end
-            end
-        end
-    end
+function ISRadioWindow.activate( _player, _item)
+	if _player == getPlayer() and instanceof(_item, "Radio") then
+		if ItemMusicPlayer[_item:getWorldSprite()] then
+			ISTCBoomboxWindow.activate( _player, _item );
+		else
+			TCMusic.oldISRadioWindow_activate( _player, _item );
+		end
+	end
 end
---]]
+
+
