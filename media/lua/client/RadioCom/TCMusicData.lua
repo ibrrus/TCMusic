@@ -1,7 +1,0 @@
-if not TCMusicData then
-	TCMusicData = {}
-end
-
-table.insert(TCMusicData, "A!C!D!C-HighwayToHell(1979)")
-
-TCMusicData["A!C!D!C-HighwayToHell(1979)"] = 0

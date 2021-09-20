@@ -123,9 +123,9 @@ item TCBassguitar
 	{
 		mesh = WorldItems/Boombox,
 		texture = WorldItems/Boombox_BaseColor,
-		scale = 0.0018,
+		scale = 0.0015,
 	}
-
+	
 	item TCBoombox
     {
 		Type			=   Radio,
@@ -150,18 +150,12 @@ item TCBassguitar
 		UsesBattery		= TRUE,
 		IsHighTier		= FALSE,
 		Tooltip = Tooltip_item_Boombox,
-		AcceptMediaType = 0,	
+		AcceptMediaType = 0,
+		ReplaceInSecondHand = TC_Boombox_LHand holdingbagleft,
+        ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
+		StaticModel = TCBoombox2_Ground,
+		UseWorldItem 	= 	TRUE,
     }
-	
-	item A!C!D!C-HighwayToHell(1979)
-	{
-		Type			=	Normal,
-		Weight			=	0.1,
-		Icon			=	TCTape5,
-		ResizeWorldIcon	=	0.5,
-		DisplayName		=	Cassette ACDC - Highway To Hell (1979),
-	}
-
 	
 	item TCVinylplayer
     {

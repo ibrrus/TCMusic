@@ -3,6 +3,7 @@
 --**				  Author: turbotutone				   **
 --***********************************************************
 require "RadioCom/RadioWindowModules/RWMPanel"
+require "Music/TCMusicDefenitions"
 
 TCRWMMedia = RWMPanel:derive("TCRWMMedia");
 
@@ -54,14 +55,14 @@ end
 
 function TCRWMMedia:togglePlayMedia()
     if self:doWalkTo() then
-		print("ISTimedActionQueue.add1")
+		-- print("TCRWMMedia.togglePlayMedia")
         ISTimedActionQueue.add(ISTCBoomboxAction:new("TogglePlayMedia",self.player, self.device ));
     end
 end
 
 function TCRWMMedia:removeMedia()
     if self:doWalkTo() then
-		print("ISTimedActionQueue.add2")
+		-- print("TCRWMMedia.removeMedia")
         ISTimedActionQueue.add(ISTCBoomboxAction:new("RemoveMedia",self.player, self.device ));
     end
 end
@@ -80,17 +81,17 @@ function TCRWMMedia:addMedia( _items )
 
     if item then
         if self:doWalkTo() then
-			print("ISTimedActionQueue.add3")
+			-- print("TCRWMMedia.addMedia")
             ISTimedActionQueue.add(ISTCBoomboxAction:new("AddMedia",self.player, self.device, item ));
         end
     end
 end
 
 function TCRWMMedia:verifyItem( _item )
-print("TCRWMMedia:verifyItem")
+-- print("TCRWMMedia:verifyItem")
 	-- print(_item)
 	-- print(_item:getType())
-    if TCMusicData[_item:getType()] then
+    if GlobalMusic[_item:getType()] and ItemMusicPlayer[self.deviceData:getParent():getWorldSprite()] == GlobalMusic[_item:getType()] then
         return true;
     end
 end
@@ -100,10 +101,10 @@ function TCRWMMedia:clear()
 end
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	print("TCRWMMedia:readFromObject")
-	print(_deviceData:getMediaType())
+	-- print("TCRWMMedia:readFromObject")
+	-- print(_deviceData:getMediaType())
     if _deviceData:getMediaType()<0 then
-		print("_deviceData:getMediaType()<0")
+		-- print("_deviceData false")
         return false;
     end
     self.mediaIndex = -9999;
@@ -115,7 +116,7 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
         self.lcd.ledTextColor = self.lcdBlue.text;
     end
     if _deviceData:getMediaType()==0 then
-		print("_deviceData:getMediaType()==0")
+		-- print("MediaType 0")
         self.itemDropBox:setBackDropTex( self.tapeTex, 0.4, 1,1,1 );
         self.itemDropBox:setToolTip( true, getText("IGUI_media_dragCassette") );
         self.lcd.ledColor = self.lcdGreen.back;
@@ -137,22 +138,12 @@ end
 function TCRWMMedia:getMediaText()
     local text = "";
     local addedSegment = false;
-    if self.deviceData:hasMedia() then
-        local media = self.deviceData:getMediaData();
-        if media then
-            if media:getTitleEN() then
-                addedSegment = true;
-                text = media:getTitleEN();
-            end
-            if media:getSubtitleEN() then
-                addedSegment = true;
-                text = text .. (addedSegment and " - " or "") .. media:getSubtitleEN();
-            end
-            if media:getAuthorEN() then
-                addedSegment = true;
-                text = text .. (addedSegment and " - " or "") .. media:getAuthorEN();
-            end
-        end
+    if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+        local itemTape = InventoryItemFactory.CreateItem("Tsarcraft." .. self.device:getModData().tcmusic.mediaItem)
+		if itemTape then
+			addedSegment = true;
+			text = itemTape:getDisplayName()
+		end
     end
     if addedSegment then
         return text.." *** ";
@@ -163,29 +154,25 @@ end
 function TCRWMMedia:update()
     ISPanel.update(self);
 
-    if self.player and self.device and self.deviceData then
+    if self.player and self.device and self.deviceData and self.deviceData:getParent():getModData().tcmusic then
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
 
-        if (not isOn) and self.deviceData:isPlayingMedia() then
-            self.deviceData:StopPlayMedia();
+        if (not isOn) and self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+			self.deviceData:getEmitter():stopAll()
+			self.device:getModData().tcmusic.playNow = nil
+			self.device:getModData().tcmusic.playNowId = nil
+			ISBaseTimedAction.perform(self)
         end
 
-        if self.deviceData:isPlayingMedia() then
+        if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
             self.toggleOnOffButton:setTitle(self.textStop);
         else
             self.toggleOnOffButton:setTitle(self.textPlay);
         end
 
-        if self.mediaIndex~=self.deviceData:getMediaIndex() then
-            --print("TCRWMMedia setting text = "..tostring(self:getMediaText()))
-            self.mediaIndex = self.deviceData:getMediaIndex();
-            self.mediaText = self:getMediaText();
-            --self.lcd:setText(self:getMediaText());
-        end
-
-        if self.deviceData:hasMedia() then
+        if self.deviceData:getParent():getModData().tcmusic.mediaItem then
             if self.deviceData:getMediaType()==1 then
                 self.itemDropBox:setStoredItemFake( self.cdTex );
             end
@@ -193,8 +180,8 @@ function TCRWMMedia:update()
                 self.itemDropBox:setStoredItemFake( self.tapeTex );
             end
 
-            if self.deviceData:isPlayingMedia() then
-                self.lcd:setText(self.mediaText);
+            if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+                self.lcd:setText(self:getMediaText());
                 self.lcd:setDoScroll(true);
             else
                 self.lcd:setText(self.idleText);
@@ -202,7 +189,6 @@ function TCRWMMedia:update()
             end
         else
             self.itemDropBox:setStoredItemFake( nil );
-
             self.lcd:setText(self.mediaText);
             self.lcd:setDoScroll(false);
         end
@@ -222,7 +208,7 @@ function TCRWMMedia:onJoypadDown(button)
     if button == Joypad.AButton then
         self:toggleOnOff()
     elseif button == Joypad.BButton then
-        if self.deviceData:hasMedia() then
+        if self.deviceData:getParent():getModData().tcmusic.mediaItem then
             self:removeMedia();
         else
             local inv = self.player:getInventory();
@@ -253,14 +239,14 @@ function TCRWMMedia:onJoypadDown(button)
 end
 
 function TCRWMMedia:getAPrompt()
-    if self.deviceData:isPlayingMedia() then
+    if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
         return self.textStop;
     else
         return self.textPlay;
     end
 end
 function TCRWMMedia:getBPrompt()
-    if self.deviceData:hasMedia() then
+    if self.deviceData:getParent():getModData().tcmusic.mediaItem then
         return getText("IGUI_media_removeMedia");
     else
         local inv = self.player:getInventory();
@@ -313,8 +299,8 @@ function TCRWMMedia:new (x, y, width, height)
     o.anchorTop = true;
     o.anchorBottom = false;
     o.fontheight = getTextManager():MeasureStringY(UIFont.Small, "AbdfghijklpqtyZ")+2;
-    o.cdTex = getTexture("media/textures/Item_TCVinylrecord5.png");
-    o.tapeTex = getTexture("media/textures/Item_TCTape6.png");
+    o.cdTex = getTexture("media/textures/TCRWMMedia/TCVinylrecord.png");
+    o.tapeTex = getTexture("media/textures/TCRWMMedia/TCTape.png");
     o.mediaIndex = -9999;
     o.mediaText = "";
     o.idleText = getText("IGUI_media_idle");

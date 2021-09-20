@@ -4,6 +4,7 @@
 --***********************************************************
 
 require "TimedActions/ISBaseTimedAction"
+require "Music/TCMusicDefenitions"
 
 ISTCBoomboxAction = ISBaseTimedAction:derive("ISTCBoomboxAction")
 
@@ -132,49 +133,84 @@ end
 
 -- TogglePlayMedia
 function ISTCBoomboxAction:isValidTogglePlayMedia()
-    return self.deviceData:getIsTurnedOn() and self.deviceData:hasMedia();
+	if self.deviceData:getIsTurnedOn() and self.deviceData:getParent():getModData().tcmusic.mediaItem then
+		return true
+	else
+		return false
+	end
 end
 
 function ISTCBoomboxAction:performTogglePlayMedia()
+	print("ISTCBoomboxAction:performTogglePlayMedia()")
+
     if self:isValidTogglePlayMedia() then
-		print(self.deviceData:getEmitter())
-		print(self.deviceData:getEmitter():isEmpty())
-        if self.deviceData:isPlayingMedia() then
-            self.deviceData:StopPlayMedia();
-        else
-            self.deviceData:StartPlayMedia();
+		-- print(self.deviceData:getEmitter())
+		-- print(self.deviceData:getEmitter():isEmpty())	
+		local musicPlayer = ItemMusicPlayer[self.device:getWorldSprite()]
+		if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then -- self.deviceData:isPlayingMedia()
 			self.deviceData:getEmitter():stopAll()
-			print(self.secondaryItem)
-			-- self.deviceData:getEmitter():playSound(self.secondaryItem:getType())
-        end
-		
+			self.device:getModData().tcmusic.playNow = nil
+			self.device:getModData().tcmusic.playNowId = nil
+			ISBaseTimedAction.perform(self)
+		else
+			self.device:getModData().tcmusic.playNow = self.device:getModData().tcmusic.mediaItem
+			self.device:getModData().tcmusic.playNowId = self.deviceData:getEmitter():playSound(self.device:getModData().tcmusic.mediaItem)
+			self.deviceData:getEmitter():setVolume(self.device:getModData().tcmusic.playNowId, self.deviceData:getDeviceVolume())
+		end	
     end
 end
 
 -- AddMedia
 function ISTCBoomboxAction:isValidAddMedia()
 	-- print("ISTCBoomboxAction:isValidAddMedia()")
-	print((not self.deviceData:hasMedia()) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()])
-    return (not self.deviceData:hasMedia()) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()];
+	-- print((not self.deviceData:getParent():getModData().tcmusic.mediaItem) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()])
+	local musicPlayer = ItemMusicPlayer[self.device:getWorldSprite()]
+	local music = self.secondaryItem:getType()
+	return (not self.device:getModData().tcmusic.mediaItem) and GlobalMusic[music] and musicPlayer == GlobalMusic[music];
 end
 
 function ISTCBoomboxAction:performAddMedia()
 -- print("ISTCBoomboxAction:performAddMedia()")
     if self:isValidAddMedia() and self.secondaryItem then
-        self.deviceData:addMediaItem(self.secondaryItem);
+		local inventoryItem = self.secondaryItem
+		local container = self.secondaryItem:getContainer()
+		if container then
+			if (container:getType() == "floor" and inventoryItem:getWorldItem() and inventoryItem:getWorldItem():getSquare()) then
+				inventoryItem:getWorldItem():getSquare():transmitRemoveItemFromSquare(inventoryItem:getWorldItem());
+				inventoryItem:getWorldItem():getSquare():getWorldObjects():remove(inventoryItem:getWorldItem());
+				inventoryItem:getWorldItem():getSquare():getChunk():recalcHashCodeObjects();
+				inventoryItem:getWorldItem():getSquare():getObjects():remove(inventoryItem:getWorldItem());
+				inventoryItem:setWorldItem(nil);
+			end
+			self.device:getModData().tcmusic.mediaItem = inventoryItem:getType();
+			container:DoRemoveItem(inventoryItem);
+		end
     end
 end
 
 -- RemoveMedia
 function ISTCBoomboxAction:isValidRemoveMedia()
-	-- print("ISTCBoomboxAction:isValidRemoveMedia()")
-    return self.deviceData:hasMedia();
+	print("ISTCBoomboxAction:isValidRemoveMedia()")
+	if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+		return true
+	else
+		return false
+	end
 end
 
 function ISTCBoomboxAction:performRemoveMedia()
--- print("ISTCBoomboxAction:performRemoveMedia()")
+print("ISTCBoomboxAction:performRemoveMedia()")
     if self:isValidRemoveMedia() and self.character:getInventory() then
-        self.deviceData:removeMediaItem(self.character:getInventory());
+		local itemTape = InventoryItemFactory.CreateItem("Tsarcraft." .. self.deviceData:getParent():getModData().tcmusic.mediaItem)
+		if itemTape then
+			self.character:getInventory():AddItem(itemTape)
+			if self.deviceData:getEmitter() then
+				self.deviceData:getEmitter():stopAll()
+			end
+			self.deviceData:getParent():getModData().tcmusic.playNow = nil
+			self.deviceData:getParent():getModData().tcmusic.playNowId = nil
+			self.deviceData:getParent():getModData().tcmusic.mediaItem = nil
+		end
     end
 end
 
