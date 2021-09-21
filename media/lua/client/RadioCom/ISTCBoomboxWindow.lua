@@ -4,6 +4,7 @@
 --***********************************************************
 
 require "ISUI/ISCollapsableWindow"
+require "RadioCom/ISRadioWindow"
 require "TCMusicDefenitions"
 
 ISTCBoomboxWindow = ISCollapsableWindow:derive("ISTCBoomboxWindow");
@@ -94,7 +95,7 @@ function ISTCBoomboxWindow:createChildren()
 
 end
 
-local dist = 10;
+local dist = 4;
 function ISTCBoomboxWindow:update()
     ISCollapsableWindow.update(self);
 
@@ -204,12 +205,12 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
 		self.device:getModData().tcmusic.playNow = nil
 		self.device:getModData().tcmusic.playNowId = nil
 		self.device:getModData().tcmusic.mediaItem = nil
+		self.device:getModData().tcmusic.worldObj = nil
 	end
     if self.device then
         self.deviceType = (instanceof(self.device, "Radio") and "InventoryItem") or
             (instanceof(self.device, "IsoWaveSignal") and "IsoObject") or
             (instanceof(self.device, "VehiclePart") and "VehiclePart");
-		print("self.deviceType 212: ", self.deviceType)
         if self.deviceType then
             self.deviceData = _deviceObject:getDeviceData();
             self.title = self.deviceData:getDeviceName();
@@ -436,3 +437,25 @@ function ISRadioWindow.activate( _player, _item)
 		end
 	end
 end
+
+function TCMusic.OnObjectAboutToBeRemoved(object)
+	local _item = object:getItem()
+	if _item and instanceof(_item, "Radio") and _item:getType() == "TCBoombox" then
+		print("TCMusic.OnObjectAboutToBeRemoved")
+		if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
+			_item:getModData().tcmusic = _item:getModData().tcmusic.worldObj:getModData().tcmusic
+			print(_item:getModData().tcmusic.worldObj)
+			_item:getModData().tcmusic.worldObj:removeFromWorld()
+			_item:getModData().tcmusic.worldObj:removeFromSquare()
+			-- if _item:getDeviceData():getEmitter() then
+				-- _item:getDeviceData():getEmitter():stopAll()
+			-- end
+			-- object:getDeviceData():setIsTurnedOn(false);
+			_item:getModData().tcmusic.playNow = nil
+			_item:getModData().tcmusic.playNowId = nil
+			_item:getModData().tcmusic.worldObj = nil
+		end
+	end
+end
+
+Events.OnObjectAboutToBeRemoved.Add(TCMusic.OnObjectAboutToBeRemoved)

@@ -129,7 +129,7 @@ item TCBassguitar
 	item TCBoombox
     {
 		Type			=   Radio,
-		WorldObjectSprite	= tsarcraft_music_01_34,
+
 		Weight			=	5.0,
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,

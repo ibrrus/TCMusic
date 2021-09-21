@@ -17,8 +17,10 @@ if (music_time == nil) then music_time = {} end
 
 	ItemMusicPlayer["tsarcraft_music_01_34"] = "TCBoombox"
 	ItemMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
+	ItemMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
 	
 	WorldMusicPlayer["tsarcraft_music_01_34"] = "TCBoombox"
 	WorldMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
+	WorldMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
 	WorldMusicPlayer["tsarcraft_music_01_36"] = "TCVinylplayer"
 	WorldMusicPlayer["tsarcraft_music_01_37"] = "TCVinylplayer"

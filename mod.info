@@ -2,5 +2,6 @@ name=True Music_v.2.0
 poster=poster.png
 id=truemusictc
 description=Славься Царь!
+require=tsarslibtest
 pack=tsarcraft_music
 tiledef=tsarcraft_music 777
