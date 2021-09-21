@@ -1,7 +1,7 @@
 --***********************************************************
 --**                    TSAR VYACHESLAV                    **
 --***********************************************************
-require "Music/TCMusicDefenitions"
+require "TCMusicDefenitions"
 require 'Music/TCPlayMusic'
 
 ISWorldMenuElements = ISWorldMenuElements or {};
@@ -54,33 +54,7 @@ function ISWorldMenuElements.ContextMusic()
 				local name_sprite = item:getSprite():getName()
 				local musicPlayer = WorldMusicPlayer[name_sprite]
 				if musicPlayer then
-					itemContainer = item:getContainer()
-					local newPlayOption
-					local subMenu
-					local songID = string.format("%05d", item:getX()) .. string.format("%05d", item:getY()) .. string.format("%02d", item:getZ())
-									
-					if (now_play[songID]~=nil) and isSoundPlaying(now_play[songID][1]) then
-						_data.context:addOption(getText("ContextMenu_Stop_music"), _data, self.tape_stop, item, musicPlayer, player)
-						break
-					else
-						for i=0, itemContainer:getItemsFromCategory("Item"):size()-1 do
-							local itemInContainer = itemContainer:getItemsFromCategory("Item"):get(i)
-							local musicCarrier = GlobalMusic[itemInContainer:getType()]
-							if musicCarrier and musicCarrier == musicPlayer then	
-								if not newPlayOption then 
-									newPlayOption = _data.context:addOption(getText("ContextMenu_Play_music"), nil, nil)
-									subMenu = ISContextMenu:getNew(_data.context)
-									_data.context:addSubMenu(newPlayOption,subMenu)
-								end
-								a, b = string.find(itemInContainer:getDisplayName(), " ")
-								subMenu:addOption(string.sub(itemInContainer:getDisplayName(), a + 1), _data, self.tape_play, item, itemInContainer:getType(), musicPlayer, player)
-							end
-						end
-					end
-					if not newPlayOption then 
-						_data.context:addOption(getText("ContextMenu_Sound_carrier_not_install"), nil, nil)
-					end
-
+					_data.context:addOption(getText("IGUI_DeviceOptions"), _data, self.openPanel, item );
 				elseif song_t[name_sprite] then
 					_data.context:addOption(getText("ContextMenu_Song"), _data, self.song, item, player)
 					break
@@ -91,39 +65,11 @@ function ISWorldMenuElements.ContextMusic()
 			end
         end
     end
-
-	function self.tape_play ( worldobjects, instrument, music, musicPlayer, player )
-		if not luautils.walkAdj(player, instrument:getSquare(), true) then
-			return
-		end
-		local service_sound = musicPlayer .. "_service"
-		ISTimedActionQueue.add(ISTape:new(player, instrument, service_sound, music, music_time[service_sound] * 50))
-	end
 	
-	function self.tape_stop ( worldobjects, instrument, musicPlayer,  player )
-		if not luautils.walkAdj(player, instrument:getSquare(), true) then
-			return
-		end
-		local service_sound = musicPlayer .. "_stop"
-		ISTimedActionQueue.add(ISTapeMusicStop:new(player, instrument, service_sound, 5))
-	end
-	
-	function self.song( worldobjects, instrument, player )
-		if not luautils.walkAdj(player, instrument:getSquare(), true) then
-			return
-		end
-		local song = song_t[instrument:getSprite():getName()]
-		ISTimedActionQueue.add(ISPlayMusic:new(player, instrument, song, music_time[song] * 50)) -- 50 = 1s
+	function self.openPanel( _data, _itemMusPlayer )
+        ISTCBoomboxWindow.activate( _data.player, _itemMusPlayer);
     end
 
-    function self.playMusic( worldobjects, instrument, player)
-		if not luautils.walkAdj(player, instrument:getSquare(), true) then
-			return
-		end
-		local music = music_t[instrument:getSprite():getName()]
-		ISTimedActionQueue.add(ISPlayMusic:new(player, instrument, music, music_time[music] * 50))
-    end
-	
     return self;
 end
 

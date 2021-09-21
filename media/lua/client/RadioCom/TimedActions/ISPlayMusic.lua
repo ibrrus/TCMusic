@@ -1,5 +1,5 @@
 require "TimedActions/ISBaseTimedAction"
-require "Music/TCMusicDefenitions"
+require "TCMusicDefenitions"
 
 ISPlayMusic = ISBaseTimedAction:derive("ISPlayMusic")
 

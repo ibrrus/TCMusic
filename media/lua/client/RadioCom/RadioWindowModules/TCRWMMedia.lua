@@ -3,7 +3,7 @@
 --**				  Author: turbotutone				   **
 --***********************************************************
 require "RadioCom/RadioWindowModules/RWMPanel"
-require "Music/TCMusicDefenitions"
+require "TCMusicDefenitions"
 
 TCRWMMedia = RWMPanel:derive("TCRWMMedia");
 
@@ -88,12 +88,23 @@ function TCRWMMedia:addMedia( _items )
 end
 
 function TCRWMMedia:verifyItem( _item )
--- print("TCRWMMedia:verifyItem")
+print("TCRWMMedia:verifyItem")
 	-- print(_item)
 	-- print(_item:getType())
-    if GlobalMusic[_item:getType()] and ItemMusicPlayer[self.deviceData:getParent():getWorldSprite()] == GlobalMusic[_item:getType()] then
-        return true;
-    end
+	print(self.deviceType)
+    if GlobalMusic[_item:getType()] then
+		if self.deviceType == "InventoryItem" then
+			if ItemMusicPlayer[self.device:getWorldSprite()] == GlobalMusic[_item:getType()] then
+				return true;
+			end
+		elseif self.deviceType == "IsoObject" then
+			if WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
+				return true;
+			end
+		else
+			-- Vehicle
+		end
+	end
 end
 
 function TCRWMMedia:clear()
@@ -138,7 +149,7 @@ end
 function TCRWMMedia:getMediaText()
     local text = "";
     local addedSegment = false;
-    if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+    if self.device:getModData().tcmusic.mediaItem then
         local itemTape = InventoryItemFactory.CreateItem("Tsarcraft." .. self.device:getModData().tcmusic.mediaItem)
 		if itemTape then
 			addedSegment = true;
@@ -154,7 +165,7 @@ end
 function TCRWMMedia:update()
     ISPanel.update(self);
 
-    if self.player and self.device and self.deviceData and self.deviceData:getParent():getModData().tcmusic then
+    if self.player and self.device and self.deviceData and self.device:getModData().tcmusic then
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
@@ -172,7 +183,7 @@ function TCRWMMedia:update()
             self.toggleOnOffButton:setTitle(self.textPlay);
         end
 
-        if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+        if self.device:getModData().tcmusic.mediaItem then
             if self.deviceData:getMediaType()==1 then
                 self.itemDropBox:setStoredItemFake( self.cdTex );
             end
@@ -208,7 +219,7 @@ function TCRWMMedia:onJoypadDown(button)
     if button == Joypad.AButton then
         self:toggleOnOff()
     elseif button == Joypad.BButton then
-        if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+        if self.device:getModData().tcmusic.mediaItem then
             self:removeMedia();
         else
             local inv = self.player:getInventory();
@@ -246,7 +257,7 @@ function TCRWMMedia:getAPrompt()
     end
 end
 function TCRWMMedia:getBPrompt()
-    if self.deviceData:getParent():getModData().tcmusic.mediaItem then
+    if self.device:getModData().tcmusic.mediaItem then
         return getText("IGUI_media_removeMedia");
     else
         local inv = self.player:getInventory();

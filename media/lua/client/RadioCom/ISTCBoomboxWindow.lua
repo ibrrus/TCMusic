@@ -4,7 +4,7 @@
 --***********************************************************
 
 require "ISUI/ISCollapsableWindow"
-require "Music/TCMusicDefenitions"
+require "TCMusicDefenitions"
 
 ISTCBoomboxWindow = ISCollapsableWindow:derive("ISTCBoomboxWindow");
 ISTCBoomboxWindow.instances = {};
@@ -199,14 +199,21 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
     self:clear();
     self.player = _player;
     self.device = _deviceObject;
-
+	if not self.device:getModData().tcmusic then
+		self.device:getModData().tcmusic = {}
+		self.device:getModData().tcmusic.playNow = nil
+		self.device:getModData().tcmusic.playNowId = nil
+		self.device:getModData().tcmusic.mediaItem = nil
+	end
     if self.device then
         self.deviceType = (instanceof(self.device, "Radio") and "InventoryItem") or
             (instanceof(self.device, "IsoWaveSignal") and "IsoObject") or
             (instanceof(self.device, "VehiclePart") and "VehiclePart");
+		print("self.deviceType 212: ", self.deviceType)
         if self.deviceType then
             self.deviceData = _deviceObject:getDeviceData();
             self.title = self.deviceData:getDeviceName();
+			self.device:getModData().tcmusic.deviceType = self.deviceType
         end
     end
 
@@ -413,11 +420,19 @@ end
 TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 
 function ISRadioWindow.activate( _player, _item)
-	if _player == getPlayer() and instanceof(_item, "Radio") then
-		if ItemMusicPlayer[_item:getWorldSprite()] then
-			ISTCBoomboxWindow.activate( _player, _item );
-		else
-			TCMusic.oldISRadioWindow_activate( _player, _item );
+	if _player == getPlayer() then
+		if instanceof(_item, "Radio") then
+			if ItemMusicPlayer[_item:getWorldSprite()] then
+				ISTCBoomboxWindow.activate( _player, _item );
+			else
+				TCMusic.oldISRadioWindow_activate( _player, _item );
+			end
+		elseif instanceof(_item, "IsoWaveSignal") then
+			if WorldMusicPlayer[_item:getSprite():getName()] then
+				ISTCBoomboxWindow.activate( _player, _item );
+			else
+				TCMusic.oldISRadioWindow_activate( _player, _item );
+			end
 		end
 	end
 end

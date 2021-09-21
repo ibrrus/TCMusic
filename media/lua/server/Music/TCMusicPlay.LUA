@@ -1,6 +1,6 @@
 -- ****** TSARCRAFT MUSIC CONTROL **********
 
-require "Music/TCMusicDefenitions"
+require "TCMusicDefenitions"
 
 local tickControl = 80 -- Сокращает количество срабатываний скрипта. Больше число - меньше срабатываний
 local tickStart = 0
