@@ -414,10 +414,6 @@ function ISTCBoomboxWindow:new (x, y, width, height, player)
     return o
 end
 
-if not TCMusic then
-	TCMusic = {}
-end
-
 TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 
 function ISRadioWindow.activate( _player, _item)
@@ -439,21 +435,33 @@ function ISRadioWindow.activate( _player, _item)
 end
 
 function TCMusic.OnObjectAboutToBeRemoved(object)
-	local _item = object:getItem()
-	if _item and instanceof(_item, "Radio") and _item:getType() == "TCBoombox" then
-		print("TCMusic.OnObjectAboutToBeRemoved")
-		if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
-			_item:getModData().tcmusic = _item:getModData().tcmusic.worldObj:getModData().tcmusic
-			print(_item:getModData().tcmusic.worldObj)
-			_item:getModData().tcmusic.worldObj:removeFromWorld()
-			_item:getModData().tcmusic.worldObj:removeFromSquare()
-			-- if _item:getDeviceData():getEmitter() then
-				-- _item:getDeviceData():getEmitter():stopAll()
-			-- end
-			-- object:getDeviceData():setIsTurnedOn(false);
-			_item:getModData().tcmusic.playNow = nil
-			_item:getModData().tcmusic.playNowId = nil
-			_item:getModData().tcmusic.worldObj = nil
+	-- print(object)
+	if instanceof(object, "IsoWorldInventoryObject") then
+		local _item = object:getItem()
+		-- print(_item:getWorldItem():getSquare())
+		-- print(object:getSquare())
+		if _item and instanceof(_item, "Radio") and _item:getType() == "TCBoombox" and _item:getModData().tcmusic then
+			if not _item:getModData().tcmusic.worldObj then
+				TCMusic.searchBoombox (_item, 1, 1)
+			end
+			-- print("TCMusic.OnObjectAboutToBeRemoved")
+			-- print(object:getContainer())
+			if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
+				local radio = _item:getModData().tcmusic.worldObj
+				_item:getModData().tcmusic = radio:getModData().tcmusic
+				-- print(_item:getModData().tcmusic.worldObj)
+				_item:getDeviceData():setPower(radio:getDeviceData():getPower())
+				_item:getDeviceData():setDeviceVolume(radio:getDeviceData():getDeviceVolume())
+				radio:removeFromWorld()
+				radio:removeFromSquare()
+				-- if _item:getDeviceData():getEmitter() then
+					-- _item:getDeviceData():getEmitter():stopAll()
+				-- end
+				-- object:getDeviceData():setIsTurnedOn(false);
+				_item:getModData().tcmusic.playNow = nil
+				_item:getModData().tcmusic.playNowId = nil
+				_item:getModData().tcmusic.worldObj = nil
+			end
 		end
 	end
 end

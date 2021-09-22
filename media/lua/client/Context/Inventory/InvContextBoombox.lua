@@ -3,6 +3,8 @@
 --**				  Author: turbotutone				   **
 --***********************************************************
 
+require "TCMusicDefenitions"
+
 ISInventoryMenuElements = ISInventoryMenuElements or {};
 
 function ISInventoryMenuElements.ContextBoombox()
@@ -35,47 +37,51 @@ function ISInventoryMenuElements.ContextBoombox()
                 -- self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
             -- end
         end
-    end
-
-	function self.searchBoombox (_item, dx, dy)
-		local square = _item:getWorldItem():getSquare()
-		if square == nil then return end
-		for y=square:getY() - dy, square:getY() + dy do
-			for x=square:getX() - dx, square:getX() + dx do
-				local square2 = getCell():getGridSquare(x, y, 0)
-				if square2 ~= nil then
-					for i=1,square2:getObjects():size() do
-						local object = square:getObjects():get(i-1)
-						if instanceof( object, "IsoWaveSignal") then
-							local sprite = object:getSprite()
-							if sprite ~= nil then
-								local name_sprite = object:getSprite():getName()
-								if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getWorldSprite()] then
-									-- print("Boombox found!")
-									_item:getModData().tcmusic.worldObj = object
-									object:getModData().tcmusic.worldObj = object
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-	end			
+    end		
 
     function self.openPanel( _p, _item )
         if not _item:getModData().tcmusic.worldObj then
 		-- print ("searchBoombox")
-			self.searchBoombox (_item, 1, 1)
+			TCMusic.searchBoombox (_item, 1, 1)
 		end
 		if not _item:getModData().tcmusic.worldObj then
 			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite("tsarcraft_music_01_34"))
 			_item:getWorldItem():getSquare():AddTileObject(radio)
 			_item:getModData().tcmusic.worldObj = radio
 			radio:getModData().tcmusic = _item:getModData().tcmusic
+			radio:getDeviceData():setIsTurnedOn(false)
+			radio:getDeviceData():setPower(_item:getDeviceData():getPower())
+			radio:getDeviceData():setDeviceVolume(_item:getDeviceData():getDeviceVolume())
 		end
 		ISTCBoomboxWindow.activate( _p.player, _item:getModData().tcmusic.worldObj );
     end
 	
     return self;
 end
+
+
+function TCMusic.searchBoombox (_item, dx, dy)
+	local square = _item:getWorldItem():getSquare()
+	if square == nil then return end
+	for y=square:getY() - dy, square:getY() + dy do
+		for x=square:getX() - dx, square:getX() + dx do
+			local square2 = getCell():getGridSquare(x, y, 0)
+			if square2 ~= nil then
+				for i=1,square2:getObjects():size() do
+					local object = square:getObjects():get(i-1)
+					if instanceof( object, "IsoWaveSignal") then
+						local sprite = object:getSprite()
+						if sprite ~= nil then
+							local name_sprite = object:getSprite():getName()
+							if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getWorldSprite()] then
+								-- print("Boombox found!")
+								_item:getModData().tcmusic.worldObj = object
+								object:getModData().tcmusic.worldObj = object
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end	

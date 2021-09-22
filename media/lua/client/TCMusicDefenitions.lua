@@ -3,6 +3,7 @@ if (ItemMusicPlayer == nil) then ItemMusicPlayer = {} end
 if (WorldMusicPlayer == nil) then WorldMusicPlayer = {} end
 if (now_play == nil) then now_play = {} end
 if (music_time == nil) then music_time = {} end
+if not TCMusic then TCMusic = {} end
 
 
 	music_time["tsar_bass"] = 4.48
