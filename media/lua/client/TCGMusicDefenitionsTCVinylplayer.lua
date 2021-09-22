@@ -1,6 +1,4 @@
-if (GlobalMusic == nil) then GlobalMusic = {} end
-if (MusicPlayer == nil) then MusicPlayer = {} end
-if (now_play == nil) then now_play = {} end
+require "TCMusicDefenitions"
 
 	GlobalMusic["AndyWilliams-ItsTheMostWonderfulTimeOfTheYear(1963)"] = "TCVinylplayer"
 	GlobalMusic["BennyGoodman-ThatsAPlenty(1931)"] = "TCVinylplayer"

@@ -114,10 +114,7 @@ function TCRWMMedia:clear()
 end
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	print("TCRWMMedia:readFromObject")
-	print(_deviceData:getMediaType())
-	print(_deviceData:getEmitter())
-	print(_deviceType)
+	-- print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
 		-- print("_deviceData false")
 		if _deviceType == "VehiclePart" then
@@ -126,7 +123,6 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
 			return false;
 		end
     end
-	print(_deviceData:getMediaType())
     self.mediaIndex = -9999;
 
     if _deviceData:getMediaType()==1 then

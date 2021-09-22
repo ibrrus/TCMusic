@@ -1,3 +1,5 @@
+-- require "TCMusicDefenitions"
+
 if (GlobalMusic == nil) then GlobalMusic = {} end
 if (ItemMusicPlayer == nil) then ItemMusicPlayer = {} end
 if (WorldMusicPlayer == nil) then WorldMusicPlayer = {} end
