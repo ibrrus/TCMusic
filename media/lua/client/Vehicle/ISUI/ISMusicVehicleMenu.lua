@@ -17,10 +17,10 @@ function ISMusicVehicleMenu.showRadialMenu(playerObj)
 		local menu = getPlayerRadialMenu(playerObj:getPlayerNum())
 		local seat = vehicle:getSeat(playerObj)
 		if seat <= 1 then -- only front seats can access the radio
-			print("ISMusicVehicleMenu")
+			-- print("ISMusicVehicleMenu")
 			for partIndex=1,vehicle:getPartCount() do
 				local part = vehicle:getPartByIndex(partIndex-1)
-				if part:getDeviceData() and part:getInventoryItem() then
+				if part:getDeviceData() and part:getInventoryItem() and VehicleMusicPlayer[part:getInventoryItem():getFullType()]then
 					menu:addSlice(getText("IGUI_MusicOptionsCar"), getTexture("media/ui/vehicle_tape.png"), ISMusicVehicleMenu.onSignalDevice, playerObj, part)
 				end
 			end

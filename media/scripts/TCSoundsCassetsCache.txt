@@ -6,7 +6,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCBoombox/A!C!D!C-HighwayToHell(1979).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound AirSupply-MakingLoveOutOfNothingAtAll(1983)

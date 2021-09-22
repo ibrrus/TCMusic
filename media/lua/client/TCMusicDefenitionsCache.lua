@@ -1,8 +1,4 @@
-if (GlobalMusic == nil) then GlobalMusic = {} end
-if (ItemMusicPlayer == nil) then ItemMusicPlayer = {} end
-if (WorldMusicPlayer == nil) then WorldMusicPlayer = {} end
-if (now_play == nil) then now_play = {} end
-if (music_time == nil) then music_time = {} end
+require "TCMusicDefenitions"
 
 	GlobalMusic["A!C!D!C-HighwayToHell(1979)"] = "TCBoombox"
 	GlobalMusic["AirSupply-MakingLoveOutOfNothingAtAll(1983)"] = "TCBoombox"

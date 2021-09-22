@@ -73,7 +73,7 @@ function TCMusic.searchBoombox (_item, dx, dy)
 						local sprite = object:getSprite()
 						if sprite ~= nil then
 							local name_sprite = object:getSprite():getName()
-							if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getWorldSprite()] then
+							if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getFullType()] then
 								-- print("Boombox found!")
 								_item:getModData().tcmusic.worldObj = object
 								object:getModData().tcmusic.worldObj = object

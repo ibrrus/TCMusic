@@ -416,20 +416,23 @@ end
 
 TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 
-function ISRadioWindow.activate( _player, _item)
+function ISRadioWindow.activate( _player, _item, bol)
+	-- print(_item)
 	if _player == getPlayer() then
 		if instanceof(_item, "Radio") then
-			if ItemMusicPlayer[_item:getWorldSprite()] then
+			if ItemMusicPlayer[_item:getFullType()] then
 				ISTCBoomboxWindow.activate( _player, _item );
 			else
-				TCMusic.oldISRadioWindow_activate( _player, _item );
+				TCMusic.oldISRadioWindow_activate( _player, _item, bol );
 			end
 		elseif instanceof(_item, "IsoWaveSignal") then
 			if WorldMusicPlayer[_item:getSprite():getName()] then
 				ISTCBoomboxWindow.activate( _player, _item );
 			else
-				TCMusic.oldISRadioWindow_activate( _player, _item );
+				TCMusic.oldISRadioWindow_activate( _player, _item, bol );
 			end
+		else
+			TCMusic.oldISRadioWindow_activate( _player, _item, bol );
 		end
 	end
 end

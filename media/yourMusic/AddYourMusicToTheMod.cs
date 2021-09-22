@@ -140,9 +140,7 @@ public class MusicGenerator
                                    "/********************Generated Music Carriers********************/\n" +
                                    "\n";
 		
-		string TCMusicDefenitionsStr = "if (GlobalMusic == nil) then GlobalMusic = {} end\n" +
-                                       "if (MusicPlayer == nil) then MusicPlayer = {} end\n" +
-                                       "if (now_play == nil) then now_play = {} end\n\n";
+		string TCMusicDefenitionsStr = "require \"TCMusicDefenitions\"\n\n"
 									   
 		string TCLoading = "";
 							// "require \"Items/Distributions\"\n" + 
@@ -223,7 +221,7 @@ public class MusicGenerator
 									"\t\tclip\n" +
 									"\t\t{\n" +
 									"\t\t\tfile = media/yourMusic/" + nameOfFolder +"/"+ nameOfFile +",\n" +
-									"\t\t\tdistanceMax = 150,\n" +
+									"\t\t\tdistanceMax = 75,\n" +
 									"\t\t}\n" +
 									"\t}\n";
 					int numOfIcon = rnd.Next(1, maxIcon);

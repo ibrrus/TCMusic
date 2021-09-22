@@ -1,6 +1,7 @@
 if (GlobalMusic == nil) then GlobalMusic = {} end
 if (ItemMusicPlayer == nil) then ItemMusicPlayer = {} end
 if (WorldMusicPlayer == nil) then WorldMusicPlayer = {} end
+if (VehicleMusicPlayer == nil) then VehicleMusicPlayer = {} end
 if (now_play == nil) then now_play = {} end
 if (music_time == nil) then music_time = {} end
 if not TCMusic then TCMusic = {} end
@@ -16,12 +17,17 @@ if not TCMusic then TCMusic = {} end
 	music_time["TCBoombox_service"] = 3
 	music_time["TCVinylplayer_service"] = 5.4
 
-	ItemMusicPlayer["tsarcraft_music_01_34"] = "TCBoombox"
-	ItemMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
-	ItemMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
+	ItemMusicPlayer["Tsarcraft.TCBoombox"] = "TCBoombox"
+	-- ItemMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
+	-- ItemMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
 	
 	WorldMusicPlayer["tsarcraft_music_01_34"] = "TCBoombox"
 	WorldMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
 	WorldMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
 	WorldMusicPlayer["tsarcraft_music_01_36"] = "TCVinylplayer"
 	WorldMusicPlayer["tsarcraft_music_01_37"] = "TCVinylplayer"
+
+	VehicleMusicPlayer["Radio.HamRadio1"] = "TCBoombox"
+	VehicleMusicPlayer["Radio.HamRadio2"] = "TCBoombox"
+	VehicleMusicPlayer["Radio.RadioBlack"] = "TCBoombox"
+	VehicleMusicPlayer["Radio.RadioRed"] = "TCBoombox"

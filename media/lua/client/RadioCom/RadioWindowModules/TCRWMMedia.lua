@@ -88,21 +88,23 @@ function TCRWMMedia:addMedia( _items )
 end
 
 function TCRWMMedia:verifyItem( _item )
-print("TCRWMMedia:verifyItem")
+-- print("TCRWMMedia:verifyItem")
 	-- print(_item)
 	-- print(_item:getType())
-	print(self.deviceType)
+	-- print(self.deviceType)
     if GlobalMusic[_item:getType()] then
 		if self.deviceType == "InventoryItem" then
-			if ItemMusicPlayer[self.device:getWorldSprite()] == GlobalMusic[_item:getType()] then
+			if ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
 				return true;
 			end
 		elseif self.deviceType == "IsoObject" then
 			if WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
 				return true;
 			end
-		else
-			-- Vehicle
+		elseif self.deviceType == "VehiclePart" then
+			if self.device:getInventoryItem() and VehicleMusicPlayer[self.device:getInventoryItem():getFullType()] == GlobalMusic[_item:getType()] then
+				return true;
+			end
 		end
 	end
 end
@@ -112,12 +114,19 @@ function TCRWMMedia:clear()
 end
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	-- print("TCRWMMedia:readFromObject")
-	-- print(_deviceData:getMediaType())
-    if _deviceData:getMediaType()<0 then
+	print("TCRWMMedia:readFromObject")
+	print(_deviceData:getMediaType())
+	print(_deviceData:getEmitter())
+	print(_deviceType)
+    if _deviceData:getMediaType() < 0 then
 		-- print("_deviceData false")
-        return false;
+		if _deviceType == "VehiclePart" then
+			_deviceData:setMediaType(0)
+		else
+			return false;
+		end
     end
+	print(_deviceData:getMediaType())
     self.mediaIndex = -9999;
 
     if _deviceData:getMediaType()==1 then
@@ -166,6 +175,7 @@ function TCRWMMedia:update()
     ISPanel.update(self);
 
     if self.player and self.device and self.deviceData and self.device:getModData().tcmusic then
+		-- print("TCRWMMedia:update()")
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
@@ -176,12 +186,21 @@ function TCRWMMedia:update()
 			self.device:getModData().tcmusic.playNowId = nil
 			ISBaseTimedAction.perform(self)
         end
-
-        if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
-            self.toggleOnOffButton:setTitle(self.textStop);
-        else
-            self.toggleOnOffButton:setTitle(self.textPlay);
-        end
+		
+		
+		if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+			if self.device:getModData().tcmusic.playNow and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+				self.toggleOnOffButton:setTitle(self.textStop);
+			else
+				self.toggleOnOffButton:setTitle(self.textPlay);
+			end
+		else
+			if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+				self.toggleOnOffButton:setTitle(self.textStop);
+			else
+				self.toggleOnOffButton:setTitle(self.textPlay);
+			end
+		end
 
         if self.device:getModData().tcmusic.mediaItem then
             if self.deviceData:getMediaType()==1 then
@@ -191,7 +210,7 @@ function TCRWMMedia:update()
                 self.itemDropBox:setStoredItemFake( self.tapeTex );
             end
 
-            if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+            if self.device:getModData().tcmusic.playNow and ((self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow)) or (self.device:getModData().tcmusic.deviceType == "VehiclePart" and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow))) then
                 self.lcd:setText(self:getMediaText());
                 self.lcd:setDoScroll(true);
             else
