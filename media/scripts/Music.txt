@@ -119,7 +119,7 @@ item TCBassguitar
 		WorldObjectSprite	= tsarcraft_music_01_28,
     }
 
-	model TCBoombox2_Ground
+	model TCBoombox_Ground
 	{
 		mesh = WorldItems/Boombox,
 		texture = WorldItems/Boombox_BaseColor,
@@ -129,12 +129,11 @@ item TCBassguitar
 	item TCBoombox
     {
 		Type			=   Radio,
-
 		Weight			=	5.0,
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
-		WorldStaticModel = Tsarcraft.TCBoombox2_Ground,
+		WorldStaticModel = Tsarcraft.TCBoombox_Ground,
 		ConditionMax	= 100,
 		UseDelta		= 0.009, 
 		UseWhileEquipped	= FALSE,
@@ -153,18 +152,34 @@ item TCBassguitar
 		AcceptMediaType = 0,
 		ReplaceInSecondHand = TC_Boombox_LHand holdingbagleft,
         ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
-		StaticModel = TCBoombox2_Ground,
 		UseWorldItem 	= 	TRUE,
     }
+	
+	model TCVinyl_Ground
+	{
+		mesh = WorldItems/Vinyl,
+		texture = WorldItems/Vinyl_BaseColor,
+		scale = 0.015,
+	}
 	
 	item TCVinylplayer
     {
 		Type			=   Radio,
-		WorldObjectSprite	= tsarcraft_music_01_36,
-		Weight			=	5.0,
+		Weight			=	10.0,
 		Icon			=	TCVinylplayer,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Vinyl player,
+		WorldStaticModel = Tsarcraft.TCVinyl_Ground,
+		IsPortable		= FALSE,
+		ConditionMax	= 100,
+		UseDelta		= 0.009, 
+		MinChannel		= 100,
+		MaxChannel		= 200,
+		UsesBattery		= FALSE,
+		Tooltip = Tooltip_item_Vinyl,
+		AcceptMediaType = 1,
+		UseWorldItem 	= 	TRUE,
+		
     }
 
 }
