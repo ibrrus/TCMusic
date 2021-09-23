@@ -45,7 +45,8 @@ function ISInventoryMenuElements.ContextBoombox()
 			TCMusic.searchBoombox (_item, 1, 1)
 		end
 		if not _item:getModData().tcmusic.worldObj then
-			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite("tsarcraft_music_01_62"))
+			-- print("Boombox NOT F!")
+			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite("tsarcraft_music_01_62")) -- 34 62
 			_item:getWorldItem():getSquare():AddTileObject(radio)
 			_item:getModData().tcmusic.worldObj = radio
 			radio:getModData().tcmusic = _item:getModData().tcmusic
@@ -75,8 +76,11 @@ function TCMusic.searchBoombox (_item, dx, dy)
 							local name_sprite = object:getSprite():getName()
 							if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getFullType()] then
 								-- print("Boombox found!")
-								_item:getModData().tcmusic.worldObj = object
-								object:getModData().tcmusic.worldObj = object
+								if not object:getModData().tcmusic.worldObj then
+									_item:getModData().tcmusic.worldObj = object
+									object:getModData().tcmusic.worldObj = object
+									return
+								end
 							end
 						end
 					end
