@@ -60,33 +60,3 @@ function ISInventoryMenuElements.ContextBoombox()
 	
     return self;
 end
-
-
-function TCMusic.searchBoombox (_item, dx, dy)
-	local square = _item:getWorldItem():getSquare()
-	if square == nil then return end
-	for y=square:getY() - dy, square:getY() + dy do
-		for x=square:getX() - dx, square:getX() + dx do
-			local square2 = getCell():getGridSquare(x, y, 0)
-			if square2 ~= nil then
-				for i=1,square2:getObjects():size() do
-					local object = square2:getObjects():get(i-1)
-					if instanceof( object, "IsoWaveSignal") then
-						local sprite = object:getSprite()
-						if sprite ~= nil then
-							local name_sprite = object:getSprite():getName()
-							if WorldMusicPlayer[name_sprite] == WorldMusicPlayer[_item:getFullType()] then
-								-- print("Boombox found!")
-								if not object:getModData().tcmusic.worldObj then
-									_item:getModData().tcmusic.worldObj = object
-									object:getModData().tcmusic.worldObj = object
-									return
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-	end
-end	
