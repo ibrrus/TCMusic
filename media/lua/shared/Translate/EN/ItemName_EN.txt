@@ -1,0 +1,4 @@
+ItemName_EN = {
+    ItemName_Tsarcraft.TCBoombox = "Boombox 'Kazakhstan-102-stereo'",
+    ItemName_Tsarcraft.TCVinylplayer = "Vinyl player 'Elektronika S1-01'",
+}

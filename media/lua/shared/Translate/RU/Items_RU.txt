@@ -2,7 +2,6 @@ Items_RU = {
 	/* Created by PZTranslationAssistant */
 	/* Datetime: Sat Oct 17 22:00:28 MSK 2020 */
 
-	DisplayName_Boombox = "Бумбокс",
 	DisplayName_Cassette_ACDC___Highway_To_Hell_(1979) = "Кассета  ACDC - Highway To Hell (1979)",
 	DisplayName_Cassette_Air_Supply___Making_Love_Out_Of_Nothing_At_All_(1983) = "Кассета  Air Supply - Making Love Out Of Nothing At All (1983)",
 	DisplayName_Cassette_Alabama___Christmas_In_Dixie_(1985) = "Кассета  Alabama - Christmas In Dixie (1985)",
@@ -89,5 +88,5 @@ Items_RU = {
 	DisplayName_Vinyl_Righteous_Brothers___Unchained_Melody_(1965) = "Винил Righteous Brothers - Unchained Melody (1965)",
 	DisplayName_Vinyl_Robert_Johnson___Walking_Blues_(1936) = "Винил Robert Johnson - Walking Blues (1936)",
 	DisplayName_Vinyl_Thurl_Ravenscroft___Youre_A_Mean_One_Mr_Grinch_(1966) = "Винил Thurl Ravenscroft - Youre A Mean One Mr Grinch (1966)",
-	DisplayName_Vinyl_player = "Виниловый проигрыватель",
+
 }

@@ -105,22 +105,25 @@ function TCRWMMedia:removeMedia()
 end
 
 function TCRWMMedia:addMedia( _items )
-    local item;
-    --local pbuff = 0;
-
-    for _,i in ipairs(_items) do
-        --if i:getDelta() > pbuff then
-            item = i;
-        break;
-        --    pbuff = i:getDelta()
-        --end
+    if self.player:getJoypadBind() == -1 then
+        self:addMediaAux(_items[1])
+        return
+     end
+    local playerNum = self.player:getPlayerNum()
+    local context = ISContextMenu.get(playerNum, self:getAbsoluteX(), self:getAbsoluteY())
+    for _,item in ipairs(_items) do
+        context:addOption(item:getDisplayName(), self, self.addMediaAux, item)
     end
+    context.mouseOver = 1
+    if JoypadState.players[playerNum+1] then
+        context.origin = JoypadState.players[playerNum+1].focus
+        setJoypadFocus(playerNum, context)
+    end
+end
 
-    if item then
-        if self:doWalkTo() then
-			-- print("TCRWMMedia.addMedia")
-            ISTimedActionQueue.add(ISTCBoomboxAction:new("AddMedia",self.player, self.device, item ));
-        end
+function TCRWMMedia:addMediaAux(item)
+    if self:doWalkTo() then
+        ISTimedActionQueue.add(ISTCBoomboxAction:new("AddMedia",self.player, self.device, item ));
     end
 end
 
@@ -151,7 +154,7 @@ function TCRWMMedia:clear()
 end
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	print("TCRWMMedia:readFromObject")
+	-- print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
 		-- print("_deviceData false")
 		if _deviceType == "VehiclePart" then
@@ -161,7 +164,7 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
 		end
     end
     self.mediaIndex = -9999;
-	print(_deviceData:getMediaType())
+	-- print(_deviceData:getMediaType())
     if _deviceData:getMediaType()==1 then
         self.itemDropBox:setBackDropTex( self.cdTex, 0.4, 1,1,1 );
         self.itemDropBox:setToolTip( true, getText("IGUI_media_dragVinyl") );
@@ -205,15 +208,12 @@ function TCRWMMedia:getMediaText()
 end
 
 function TCRWMMedia:update()
-print("TCRWMMedia:update()")
+-- print("TCRWMMedia:update()")
     ISPanel.update(self);
-	print(self.player)
-	print(self.device)
-	print(self.deviceData)
 	-- print(self.device:getModData().tcmusic)
 	
     if self.player and self.device and self.deviceData and self.device:getModData().tcmusic then
-		print("---------------------------------")
+		-- print("---------------------------------")
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
@@ -277,37 +277,44 @@ function TCRWMMedia:render()
 end
 
 function TCRWMMedia:onJoypadDown(button)
+	print("TCRWMMedia:onJoypadDown")
     if button == Joypad.AButton then
-        self:toggleOnOff()
+        self:togglePlayMedia()
     elseif button == Joypad.BButton then
+		print("button == Joypad.BButton")
         if self.device:getModData().tcmusic.mediaItem then
+			print("self.device:getModData().tcmusic.mediaItem")
             self:removeMedia();
         else
+			print("TCRWMMedia:else")
             local inv = self.player:getInventory();
-            local type = self.deviceData:getMediaType();
+            -- local type = self.deviceData:getMediaType();
             local medias = {};
-            if type==1 then
-                local list = inv:FindAll("Base.Disc_Retail");
-                for i=0,list:size()-1 do
-                    table.insert(medias, list:get(i));
-                end
-            end
-            if type==0 then
-                local list = inv:FindAll("Base.VHS_Retail");
-                for i=0,list:size()-1 do
-                    table.insert(medias, list:get(i));
-                end
-                local list = inv:FindAll("Base.VHS_Home");
-                for i=0,list:size()-1 do
-                    table.insert(medias, list:get(i));
-                end
-            end
-
+			
+			if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+				musicPlayer = ItemMusicPlayer[self.device:getFullType()]
+			elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
+				musicPlayer = WorldMusicPlayer[self.device:getSprite():getName()]
+			elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+				musicPlayer = VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+			end
+			-- print(musicPlayer)
+			for i=0, inv:getItemsFromCategory("Item"):size()-1 do
+				local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
+				local musicCarrier = GlobalMusic[itemInContainer:getType()]
+				-- print(musicCarrier)
+				if musicCarrier and musicCarrier == musicPlayer then	
+					table.insert(medias, itemInContainer);
+				end
+			end
             if #medias>0 then
+				-- print("addMedia")
                 self:addMedia( medias );
             end
         end
-    end
+    else
+		-- print("button ", button)
+	end
 end
 
 function TCRWMMedia:getAPrompt()
@@ -322,25 +329,26 @@ function TCRWMMedia:getBPrompt()
         return getText("IGUI_media_removeMedia");
     else
         local inv = self.player:getInventory();
-        local type = self.deviceData:getMediaType();
+        -- local type = self.deviceData:getMediaType();
         local medias = {};
-        if type==1 then
-            local list = inv:FindAll("Base.Disc_Retail");
-            for i=0,list:size()-1 do
-                table.insert(medias, list:get(i));
-            end
-        end
-        if type==0 then
-            local list = inv:FindAll("Base.VHS_Retail");
-            for i=0,list:size()-1 do
-                table.insert(medias, list:get(i));
-            end
-            local list = inv:FindAll("Base.VHS_Home");
-            for i=0,list:size()-1 do
-                table.insert(medias, list:get(i));
-            end
-        end
-
+        if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+			musicPlayer = ItemMusicPlayer[self.device:getFullType()]
+		elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
+			musicPlayer = WorldMusicPlayer[self.device:getSprite():getName()]
+		elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+			musicPlayer = VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+		end
+		-- print(musicPlayer)
+		for i=0, inv:getItemsFromCategory("Item"):size()-1 do
+			local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
+			-- print(itemInContainer)
+			local musicCarrier = GlobalMusic[itemInContainer:getType()]
+			-- print(musicCarrier)
+			-- print("--------------------------")
+			if musicCarrier and musicCarrier == musicPlayer then	
+				table.insert(medias, itemInContainer);
+			end
+		end
         if #medias>0 then
             return getText("IGUI_media_addMedia");
         end

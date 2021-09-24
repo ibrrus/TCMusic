@@ -203,12 +203,14 @@ function ISTCBoomboxAction:performTogglePlayMedia()
 				-- self.device:getVehicle():getEmitter():set3D(self.device:getModData().tcmusic.playNowId, false)
 			end	
 		else
+			-- print("NOT VehiclePart")
 			if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then -- self.deviceData:isPlayingMedia()
 				self.deviceData:getEmitter():stopAll()
 				self.device:getModData().tcmusic.playNow = nil
 				self.device:getModData().tcmusic.playNowId = nil
 				ISBaseTimedAction.perform(self)
 			elseif self.deviceData:getEmitter() then
+				-- print("self.deviceData:getEmitter()")
 				self.device:getModData().tcmusic.playNow = self.device:getModData().tcmusic.mediaItem
 				self.device:getModData().tcmusic.playNowId = self.deviceData:getEmitter():playSound(self.device:getModData().tcmusic.mediaItem)
 				self.deviceData:getEmitter():setVolume(self.device:getModData().tcmusic.playNowId, self.deviceData:getDeviceVolume())

@@ -61,13 +61,6 @@ function ISTCBoomboxWindow:initialise()
     ISCollapsableWindow.initialise(self);
 end
 
-function ISTCBoomboxWindow:close()
-	ISCollapsableWindow.close(self)
-	if JoypadState.players[self.playerNum+1] then
-		setJoypadFocus(self.playerNum, nil)
-	end
-end
-
 function ISTCBoomboxWindow:addModule( _modulePanel, _moduleName, _enable )
     local module = {};
     module.enabled = _enable;
@@ -100,7 +93,6 @@ function ISTCBoomboxWindow:update()
     ISCollapsableWindow.update(self);
 
     if self:getIsVisible() then
-
         if self.deviceData and self.deviceType == "VehiclePart" then
             local part = self.deviceData:getParent()
             if part and part:getItemType() and not part:getItemType():isEmpty() and not part:getInventoryItem() then
@@ -128,6 +120,7 @@ function ISTCBoomboxWindow:update()
     end
 
     -- otherwise remove
+	print("ISTCBoomboxWindow:update() close")
     self:close();
     --self:clear();
     --self:removeFromUIManager();
@@ -171,9 +164,15 @@ function ISTCBoomboxWindow:onGainJoypadFocus(joypadData)
 end
 
 function ISTCBoomboxWindow:close()
+print("ISTCBoomboxWindow:close()")
     ISCollapsableWindow.close(self);
     if JoypadState.players[self.playerNum+1] then
-        if getFocusForPlayer(self.playerNum)==self or (self.subFocus and getFocusForPlayer(self.playerNum)==self.subFocus) then
+		print("JoypadState")
+		print(self)
+		print(self.subFocus)
+		print(getFocusForPlayer(self.playerNum))
+        if getFocusForPlayer(self.playerNum)==self or (self.subFocus) then
+			print("setJoypadFocus")
             setJoypadFocus(self.playerNum, nil);
         end
     end
@@ -332,6 +331,7 @@ function ISTCBoomboxWindow:unfocusSelf()
 end
 
 function ISTCBoomboxWindow:focusSelf()
+	print("focusSelf nil")
     self.subFocus = nil;
     setJoypadFocus(self.playerNum, self);
 end
@@ -377,6 +377,7 @@ function ISTCBoomboxWindow:setSubFocus( _newFocus )
     if not _newFocus or not _newFocus.element then
         self:focusSelf();
     else
+		print("subFocus save")
         self.subFocus = _newFocus;
         _newFocus.element:setFocus(self.playerNum, self);
     end
@@ -448,7 +449,7 @@ function TCMusic.OnObjectAboutToBeRemoved(object)
 	if instanceof(object, "IsoWorldInventoryObject") then
 		
 		if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
-			print("connectTo clear")
+			-- print("connectTo clear")
 			object:getModData().tcmusic.connectTo:getModData().tcmusic.connectTo = nil
 			object:getModData().tcmusic.connectTo:getDeviceData():getEmitter():stopAll()
 			object:getModData().tcmusic.connectTo = nil
