@@ -231,8 +231,10 @@ function ISTCBoomboxAction:isValidAddMedia()
 	elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
 		musicPlayer = VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
 	end
-	local music = self.secondaryItem:getType()
-	return (not self.device:getModData().tcmusic.mediaItem) and GlobalMusic[music] and musicPlayer == GlobalMusic[music];
+	if self.secondaryItem then
+		local music = self.secondaryItem:getType()
+		return (not self.device:getModData().tcmusic.mediaItem) and GlobalMusic[music] and musicPlayer == GlobalMusic[music];
+	end
 end
 
 function ISTCBoomboxAction:performAddMedia()

@@ -10,8 +10,8 @@ public class MusicGenerator
 {
     public static void Main(string[] args)
     {
-		deleteTCGfiles(@"..\lua\client\Music");
-		deleteTCGfiles(@"..\lua\server");
+		deleteTCGfiles(@"..\lua\client");
+		deleteTCGfiles(@"..\lua\server\Items");
 		deleteTCGfiles(@"..\scripts");
 		Console.WriteLine("\nPress any key..");
 		Console.ReadKey();
