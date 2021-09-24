@@ -7,7 +7,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/AndyWilliams-ItsTheMostWonderfulTimeOfTheYear(1963).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BennyGoodman-ThatsAPlenty(1931)
@@ -16,7 +16,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BennyGoodman-ThatsAPlenty(1931).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BillHaley-RockAroundTheClock(1955)
@@ -25,7 +25,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BillHaley-RockAroundTheClock(1955).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BingCrosby-IWillBeHomeForChristmas(1943)
@@ -34,7 +34,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BingCrosby-IWillBeHomeForChristmas(1943).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BingCrosby-WhiteChristmas(1942)
@@ -43,7 +43,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BingCrosby-WhiteChristmas(1942).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BingCrosby-WinterWonderland(1945)
@@ -52,7 +52,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BingCrosby-WinterWonderland(1945).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BobbyDarin-BrandNewHouse(1958)
@@ -61,7 +61,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BobbyDarin-BrandNewHouse(1958).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BobbyDarin-HallelujahILoveHerSo(1956)
@@ -70,7 +70,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BobbyDarin-HallelujahILoveHerSo(1956).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BobbyHelms-JingleBellRock(1957)
@@ -79,7 +79,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BobbyHelms-JingleBellRock(1957).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BootsRandolph-YaketySax(1963)
@@ -88,7 +88,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BootsRandolph-YaketySax(1963).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound BrendaLee-RockinAroundTheChristmasTree(1958)
@@ -97,7 +97,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/BrendaLee-RockinAroundTheChristmasTree(1958).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound DeanMartin-WalkingInAWinterWonderland(1959)
@@ -106,7 +106,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/DeanMartin-WalkingInAWinterWonderland(1959).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound EarthaKitt-SantaBaby(1953)
@@ -115,7 +115,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/EarthaKitt-SantaBaby(1953).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound ElvisPresley-BlueChristmas(1957)
@@ -124,7 +124,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/ElvisPresley-BlueChristmas(1957).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound ElvisPresley-JailhouseRock(1958)
@@ -133,7 +133,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/ElvisPresley-JailhouseRock(1958).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound EnricoCaruso-UnaFurtivaLagrima(1904)
@@ -142,7 +142,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/EnricoCaruso-UnaFurtivaLagrima(1904).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound GeneAutry-FrostyTheSnowMan(1951)
@@ -151,7 +151,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/GeneAutry-FrostyTheSnowMan(1951).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound GuyMitchell-HeartacheByTheNumbers50s(1959)
@@ -160,7 +160,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/GuyMitchell-HeartacheByTheNumbers50s(1959).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound HankWilliams-LovesickBlues(1949)
@@ -169,7 +169,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/HankWilliams-LovesickBlues(1949).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound JohnFahey-SteelGuitarRag(1965)
@@ -178,7 +178,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/JohnFahey-SteelGuitarRag(1965).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound JohnnyHorton-NorthToAlaska(1965)
@@ -187,7 +187,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/JohnnyHorton-NorthToAlaska(1965).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound JudyGarland-HaveYourselfAMerryLittleChristmas(1944)
@@ -196,7 +196,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/JudyGarland-HaveYourselfAMerryLittleChristmas(1944).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound KirstenFlagstad-DieWalkure(1938)
@@ -205,7 +205,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/KirstenFlagstad-DieWalkure(1938).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound LightninHopkins-JackstropperBlues(1950)
@@ -214,7 +214,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/LightninHopkins-JackstropperBlues(1950).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound MelCarter-HoldMeThrillMeKissMe(1965)
@@ -223,7 +223,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/MelCarter-HoldMeThrillMeKissMe(1965).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound NatKingCole-TheChristmasSong(1961)
@@ -232,7 +232,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/NatKingCole-TheChristmasSong(1961).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound RickyNelson-TravellinMan(1961)
@@ -241,7 +241,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/RickyNelson-TravellinMan(1961).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound RighteousBrothers-UnchainedMelody(1965)
@@ -250,7 +250,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/RighteousBrothers-UnchainedMelody(1965).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound RobertJohnson-WalkingBlues(1936)
@@ -259,7 +259,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/RobertJohnson-WalkingBlues(1936).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	sound ThurlRavenscroft-YoureAMeanOneMrGrinch(1966)
@@ -268,7 +268,7 @@ module Tsarcraft
 		clip
 		{
 			file = media/sound/TCVinylplayer/ThurlRavenscroft-YoureAMeanOneMrGrinch(1966).ogg,
-			distanceMax = 150,
+			distanceMax = 75,
 		}
 	}
 	

@@ -134,12 +134,44 @@ function ISTCBoomboxAction:performAddHeadphones()
     end
 end
 
+-- function ISTCBoomboxAction.connectSpeaker (character, _item, dx, dy)
+	-- local square = _item:getSquare()
+	-- if square == nil then return end
+	-- for y=square:getY() - dy, square:getY() + dy do
+		-- for x=square:getX() - dx, square:getX() + dx do
+			-- local square2 = getCell():getGridSquare(x, y, 0)
+			-- if square2 ~= nil then
+				-- for i=1,square2:getObjects():size() do
+					-- local object = square:getObjects():get(i-1)
+					-- if instanceof( object, "IsoWorldInventoryObject") then
+						-- if object:getItem():getType() == "Speaker" then
+							-- if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
+								
+							-- else
+								-- object:getModData().tcmusic = {}
+								-- object:getModData().tcmusic.connectTo = _item
+								-- _item:getModData().tcmusic.connectTo = object
+								-- return true
+							-- end
+						-- end	
+					-- end
+				-- end
+			-- end
+		-- end
+	-- end
+	-- print(character)
+	-- character:Say(getText("IGUI_PlayerText_need_speaker"))
+	-- return false
+-- end
+
 -- TogglePlayMedia
 function ISTCBoomboxAction:isValidTogglePlayMedia()
 	if self.deviceData:getIsTurnedOn() and self.device:getModData().tcmusic.mediaItem then
-		return true
-	else
-		return false
+		if not self.device:getModData().tcmusic.needSpeaker or self.device:getModData().tcmusic.connectTo then
+			return true
+		else
+			return false
+		end
 	end
 end
 

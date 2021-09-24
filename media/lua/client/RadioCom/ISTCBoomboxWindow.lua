@@ -206,6 +206,7 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
 		self.device:getModData().tcmusic.playNowId = nil
 		self.device:getModData().tcmusic.mediaItem = nil
 		self.device:getModData().tcmusic.worldObj = nil
+		self.device:getModData().tcmusic.needSpeaker = nil
 	end
     if self.device then
         self.deviceType = (instanceof(self.device, "Radio") and "InventoryItem") or
@@ -215,6 +216,9 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
             self.deviceData = _deviceObject:getDeviceData();
             self.title = self.deviceData:getDeviceName();
 			self.device:getModData().tcmusic.deviceType = self.deviceType
+			if self.deviceData:getMediaType() == 1 then
+				self.device:getModData().tcmusic.needSpeaker = true
+			end
         end
     end
 
@@ -422,6 +426,8 @@ function ISRadioWindow.activate( _player, _item, bol)
 		if instanceof(_item, "Radio") then
 			if ItemMusicPlayer[_item:getFullType()] then
 				ISTCBoomboxWindow.activate( _player, _item );
+			elseif WorldMusicPlayer[_item:getFullType()] then
+				
 			else
 				TCMusic.oldISRadioWindow_activate( _player, _item, bol );
 			end
@@ -440,30 +446,40 @@ end
 function TCMusic.OnObjectAboutToBeRemoved(object)
 	-- print(object)
 	if instanceof(object, "IsoWorldInventoryObject") then
-		local _item = object:getItem()
-		-- print(_item:getWorldItem():getSquare())
-		-- print(object:getSquare())
-		if _item and instanceof(_item, "Radio") and _item:getType() == "TCBoombox" and _item:getModData().tcmusic then
-			if not _item:getModData().tcmusic.worldObj then
-				TCMusic.searchBoombox (_item, 1, 1)
-			end
-			-- print("TCMusic.OnObjectAboutToBeRemoved")
-			-- print(object:getContainer())
-			if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
-				local radio = _item:getModData().tcmusic.worldObj
-				_item:getModData().tcmusic = radio:getModData().tcmusic
-				-- print(_item:getModData().tcmusic.worldObj)
-				_item:getDeviceData():setPower(radio:getDeviceData():getPower())
-				_item:getDeviceData():setDeviceVolume(radio:getDeviceData():getDeviceVolume())
-				radio:removeFromWorld()
-				radio:removeFromSquare()
-				-- if _item:getDeviceData():getEmitter() then
-					-- _item:getDeviceData():getEmitter():stopAll()
-				-- end
-				-- object:getDeviceData():setIsTurnedOn(false);
-				_item:getModData().tcmusic.playNow = nil
-				_item:getModData().tcmusic.playNowId = nil
-				_item:getModData().tcmusic.worldObj = nil
+		
+		if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
+			print("connectTo clear")
+			object:getModData().tcmusic.connectTo:getModData().tcmusic.connectTo = nil
+			object:getModData().tcmusic.connectTo:getDeviceData():getEmitter():stopAll()
+			object:getModData().tcmusic.connectTo = nil
+		else
+			local _item = object:getItem()
+			if _item and instanceof(_item, "Radio") and WorldMusicPlayer[_item:getFullType()] and _item:getModData().tcmusic then
+				if not _item:getModData().tcmusic.worldObj then
+					TCMusic.searchBoombox (_item, 1, 1)
+				end
+				-- print("TCMusic.OnObjectAboutToBeRemoved")
+				-- print(object:getContainer())
+				if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
+					local radio = _item:getModData().tcmusic.worldObj
+					_item:getModData().tcmusic = radio:getModData().tcmusic
+					-- print(_item:getModData().tcmusic.worldObj)
+					_item:getDeviceData():setPower(radio:getDeviceData():getPower())
+					_item:getDeviceData():setDeviceVolume(radio:getDeviceData():getDeviceVolume())
+					radio:removeFromWorld()
+					radio:removeFromSquare()
+					-- if _item:getDeviceData():getEmitter() then
+						-- _item:getDeviceData():getEmitter():stopAll()
+					-- end
+					-- object:getDeviceData():setIsTurnedOn(false);
+					_item:getModData().tcmusic.playNow = nil
+					_item:getModData().tcmusic.playNowId = nil
+					_item:getModData().tcmusic.worldObj = nil
+					if _item:getModData().tcmusic.connectTo then
+						_item:getModData().tcmusic.connectTo:getModData().tcmusic.connectTo = nil
+						_item:getModData().tcmusic.connectTo = nil
+					end
+				end
 			end
 		end
 	end

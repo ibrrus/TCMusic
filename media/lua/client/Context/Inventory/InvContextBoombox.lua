@@ -20,13 +20,14 @@ function ISInventoryMenuElements.ContextBoombox()
         end
         if instanceof(_item, "Radio") then
             if _item:getContainer() ~= self.invMenu.inventory then
-                if _item:getType() == "TCBoombox" and _item:getContainer():getType() == "floor" and _item:getWorldItem() and _item:getWorldItem():getSquare() then
+                if WorldMusicPlayer[_item:getFullType()] and _item:getContainer():getType() == "floor" and _item:getWorldItem() and _item:getWorldItem():getSquare() then
 					if not _item:getModData().tcmusic then
 						_item:getModData().tcmusic = {}
 						_item:getModData().tcmusic.playNow = nil
 						_item:getModData().tcmusic.playNowId = nil
 						_item:getModData().tcmusic.mediaItem = nil
 						_item:getModData().tcmusic.worldObj = nil
+						_item:getModData().tcmusic.needSpeaker = nil
 					end
 					-- ISRadioWindow.activate( _p.player, radio );
 					self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
@@ -45,8 +46,8 @@ function ISInventoryMenuElements.ContextBoombox()
 			TCMusic.searchBoombox (_item, 1, 1)
 		end
 		if not _item:getModData().tcmusic.worldObj then
-			-- print("Boombox NOT F!")
-			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite("tsarcraft_music_01_62")) -- 34 62
+			print("Boombox NOT F!")
+			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite(WorldMusicPlayer[_item:getFullType()])) -- 34 62
 			_item:getWorldItem():getSquare():AddTileObject(radio)
 			_item:getModData().tcmusic.worldObj = radio
 			radio:getModData().tcmusic = _item:getModData().tcmusic
@@ -69,12 +70,12 @@ function TCMusic.searchBoombox (_item, dx, dy)
 			local square2 = getCell():getGridSquare(x, y, 0)
 			if square2 ~= nil then
 				for i=1,square2:getObjects():size() do
-					local object = square:getObjects():get(i-1)
+					local object = square2:getObjects():get(i-1)
 					if instanceof( object, "IsoWaveSignal") then
 						local sprite = object:getSprite()
 						if sprite ~= nil then
 							local name_sprite = object:getSprite():getName()
-							if WorldMusicPlayer[name_sprite] == ItemMusicPlayer[_item:getFullType()] then
+							if WorldMusicPlayer[name_sprite] == WorldMusicPlayer[_item:getFullType()] then
 								-- print("Boombox found!")
 								if not object:getModData().tcmusic.worldObj then
 									_item:getModData().tcmusic.worldObj = object

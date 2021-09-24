@@ -53,10 +53,47 @@ function TCRWMMedia:createChildren()
     self:setHeight(y);
 end
 
+function TCRWMMedia:connectSpeaker (_item, dx, dy)
+	local square = _item:getSquare()
+	if square == nil then return end
+	for y=square:getY() - dy, square:getY() + dy do
+		for x=square:getX() - dx, square:getX() + dx do
+			local square2 = getCell():getGridSquare(x, y, 0)
+			if square2 ~= nil then
+				for i=1,square2:getObjects():size() do
+					local object = square2:getObjects():get(i-1)
+					if instanceof( object, "IsoWorldInventoryObject") then
+						if object:getItem():getType() == "Speaker" then
+							if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
+								
+							else
+								object:getModData().tcmusic = {}
+								object:getModData().tcmusic.connectTo = _item
+								_item:getModData().tcmusic.connectTo = object
+								return true
+							end
+						end	
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
+
 function TCRWMMedia:togglePlayMedia()
     if self:doWalkTo() then
 		-- print("TCRWMMedia.togglePlayMedia")
-        ISTimedActionQueue.add(ISTCBoomboxAction:new("TogglePlayMedia",self.player, self.device ));
+		if not self.device:getModData().tcmusic.needSpeaker or self.device:getModData().tcmusic.connectTo then
+			ISTimedActionQueue.add(ISTCBoomboxAction:new("TogglePlayMedia",self.player, self.device ));
+		else
+			if TCRWMMedia.connectSpeaker(self.player, self.device, 1, 1) then
+				
+			else
+				self.player:Say(getText("IGUI_PlayerText_TC_need_speaker"))
+			end
+		end
     end
 end
 
@@ -114,7 +151,7 @@ function TCRWMMedia:clear()
 end
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	-- print("TCRWMMedia:readFromObject")
+	print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
 		-- print("_deviceData false")
 		if _deviceType == "VehiclePart" then
@@ -124,7 +161,7 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
 		end
     end
     self.mediaIndex = -9999;
-
+	print(_deviceData:getMediaType())
     if _deviceData:getMediaType()==1 then
         self.itemDropBox:setBackDropTex( self.cdTex, 0.4, 1,1,1 );
         self.itemDropBox:setToolTip( true, getText("IGUI_media_dragVinyl") );
@@ -168,10 +205,15 @@ function TCRWMMedia:getMediaText()
 end
 
 function TCRWMMedia:update()
+print("TCRWMMedia:update()")
     ISPanel.update(self);
-
+	print(self.player)
+	print(self.device)
+	print(self.deviceData)
+	-- print(self.device:getModData().tcmusic)
+	
     if self.player and self.device and self.deviceData and self.device:getModData().tcmusic then
-		-- print("TCRWMMedia:update()")
+		print("---------------------------------")
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
@@ -194,7 +236,11 @@ function TCRWMMedia:update()
 			if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
 				self.toggleOnOffButton:setTitle(self.textStop);
 			else
-				self.toggleOnOffButton:setTitle(self.textPlay);
+				if self.device:getModData().tcmusic.needSpeaker and not self.device:getModData().tcmusic.connectTo then
+					self.toggleOnOffButton:setTitle(self.textSpeaker);
+				else
+					self.toggleOnOffButton:setTitle(self.textPlay);
+				end
 			end
 		end
 
@@ -339,6 +385,7 @@ function TCRWMMedia:new (x, y, width, height)
         back = { r=0.686, g=0.764, b=0.172, a=1.0 },
     };
     o.textPlay = getText("IGUI_media_play");
+    o.textSpeaker = getText("IGUI_TC_connect_speaker");
     o.textStop = getText("IGUI_media_stop");
     o.textNoCD = getText("IGUI_media_nocd");
     o.textNoTape = getText("IGUI_media_notape");

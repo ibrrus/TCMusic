@@ -106,14 +106,14 @@ item TCDrumkitS_AB
 		DisplayName = Moveable,
 	}		
 
-item TCDrumkitS_BB
+	item TCDrumkitS_BB
 	{
 		Type			= Moveable,
 		WorldObjectSprite	= tsarcraft_music_01_25,
 		DisplayName = Moveable,
 	}	
 	
-item TCBassguitar
+	item TCBassguitar
     {
 		Type			= Moveable,
 		WorldObjectSprite	= tsarcraft_music_01_28,
@@ -121,15 +121,15 @@ item TCBassguitar
 
 	model TCBoombox_Ground
 	{
-		mesh = WorldItems/Boombox,
-		texture = WorldItems/Boombox_BaseColor,
+		mesh = WorldItems/TCBoombox,
+		texture = WorldItems/TCBoombox_BaseColor,
 		scale = 0.0015,
 	}
 	
 	item TCBoombox
     {
 		Type			=   Radio,
-		Weight			=	5.0,
+		Weight			=	2.4,
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
@@ -157,15 +157,15 @@ item TCBassguitar
 	
 	model TCVinyl_Ground
 	{
-		mesh = WorldItems/Vinyl,
-		texture = WorldItems/Vinyl_BaseColor,
+		mesh = WorldItems/TCVinyl,
+		texture = WorldItems/TCVinyl_BaseColor,
 		scale = 0.015,
 	}
 	
 	item TCVinylplayer
     {
 		Type			=   Radio,
-		Weight			=	10.0,
+		Weight			=	4.7,
 		Icon			=	TCVinylplayer,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Vinyl player,
@@ -179,7 +179,6 @@ item TCBassguitar
 		Tooltip = Tooltip_item_Vinyl,
 		AcceptMediaType = 1,
 		UseWorldItem 	= 	TRUE,
-		
     }
-
+	
 }

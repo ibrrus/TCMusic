@@ -1,0 +1,6 @@
+IGUI_EN = {
+	IGUI_media_dragCassette = "Insert cassette",
+	IGUI_media_dragVinyl = "Insert vinyl",
+	IGUI_TC_connect_speaker = "Connect speaker",
+	IGUI_PlayerText_TC_need_speaker = "The speaker should be next to the turntable.",
+}

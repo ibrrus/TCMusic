@@ -19,17 +19,21 @@ if not TCMusic then TCMusic = {} end
 	music_time["TCBoombox_service"] = 3
 	music_time["TCVinylplayer_service"] = 5.4
 
-	ItemMusicPlayer["Tsarcraft.TCBoombox"] = "TCBoombox"
+	ItemMusicPlayer["Tsarcraft.TCBoombox"] = "tsarcraft_music_01_62"
+	-- ItemMusicPlayer["Tsarcraft.TCVinylplayer"] = "TCVinylplayer"
 	-- ItemMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
 	-- ItemMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
 	
-	WorldMusicPlayer["tsarcraft_music_01_34"] = "TCBoombox"
-	WorldMusicPlayer["tsarcraft_music_01_35"] = "TCBoombox"
-	WorldMusicPlayer["tsarcraft_music_01_62"] = "TCBoombox"
-	WorldMusicPlayer["tsarcraft_music_01_36"] = "TCVinylplayer"
-	WorldMusicPlayer["tsarcraft_music_01_37"] = "TCVinylplayer"
+	WorldMusicPlayer["tsarcraft_music_01_34"] = "tsarcraft_music_01_62"
+	WorldMusicPlayer["tsarcraft_music_01_35"] = "tsarcraft_music_01_62"
+	WorldMusicPlayer["tsarcraft_music_01_62"] = "tsarcraft_music_01_62"
+	WorldMusicPlayer["tsarcraft_music_01_36"] = "tsarcraft_music_01_63"
+	WorldMusicPlayer["tsarcraft_music_01_37"] = "tsarcraft_music_01_63"
+	WorldMusicPlayer["tsarcraft_music_01_63"] = "tsarcraft_music_01_63"
+	WorldMusicPlayer["Tsarcraft.TCBoombox"] = "tsarcraft_music_01_62"
+	WorldMusicPlayer["Tsarcraft.TCVinylplayer"] = "tsarcraft_music_01_63"
 
-	VehicleMusicPlayer["Radio.HamRadio1"] = "TCBoombox"
-	VehicleMusicPlayer["Radio.HamRadio2"] = "TCBoombox"
-	VehicleMusicPlayer["Radio.RadioBlack"] = "TCBoombox"
-	VehicleMusicPlayer["Radio.RadioRed"] = "TCBoombox"
+	VehicleMusicPlayer["Radio.HamRadio1"] = "tsarcraft_music_01_62"
+	VehicleMusicPlayer["Radio.HamRadio2"] = "tsarcraft_music_01_62"
+	VehicleMusicPlayer["Radio.RadioBlack"] = "tsarcraft_music_01_62"
+	VehicleMusicPlayer["Radio.RadioRed"] = "tsarcraft_music_01_62"
