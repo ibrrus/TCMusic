@@ -1,0 +1,70 @@
+module Tsarcraft
+{
+	imports
+	{
+		Base
+	}
+/********************Generated Music Carriers********************/
+
+	
+	model TCCover5
+	{
+		mesh = WorldItems/TCCover,
+		texture = WorldItems/TCCover3,
+		scale = 0.0012,
+	}
+	
+	model TCCover4
+	{
+		mesh = WorldItems/TCCover,
+		texture = WorldItems/TCCover3,
+		scale = 0.0012,
+	}
+	
+	model TCCover3
+	{
+		mesh = WorldItems/TCCover,
+		texture = WorldItems/TCCover3,
+		scale = 0.0012,
+	}
+	
+	model TCCover2
+	{
+		mesh = WorldItems/TCCover,
+		texture = WorldItems/TCCover2,
+		scale = 0.0012,
+	}
+	
+	model TCCover1
+	{
+		mesh = WorldItems/TCCover,
+		texture = WorldItems/TCCover1,
+		scale = 0.0012,
+	}
+
+	item VinylGrazhdanskayaOborona-Dead
+	{
+		Type			=	Normal,
+		Weight			=	0.2,
+		Icon			=	TCVinylrecord4,
+		DisplayName		=	Vinyl Grazhdanskaya Oborona - Dead,
+		WorldStaticModel = Tsarcraft.TCCover2,
+	}
+	
+	item VinylGrazhdanskayaOborona-Dead1
+	{
+		Type			=	Normal,
+		Weight			=	0.2,
+		Icon			=	TCVinylrecord4,
+		DisplayName		=	Vinyl Crying Nut - Speed Up Losers,
+		WorldStaticModel = Tsarcraft.TCCover1,
+	}
+	item VinylGrazhdanskayaOborona-Dead3
+	{
+		Type			=	Normal,
+		Weight			=	0.2,
+		Icon			=	TCVinylrecord4,
+		DisplayName		=	Vinyl Nirvana - Smells Like Teen Spirit,
+		WorldStaticModel = Tsarcraft.TCCover3,
+	}
+}

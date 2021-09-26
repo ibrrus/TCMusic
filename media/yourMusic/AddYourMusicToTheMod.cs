@@ -213,177 +213,206 @@ public class MusicGenerator
 						//Console.WriteLine(nameOfFile + " converting to OGG.");
 						nameOfFile = nameOfFileWOExt + ".ogg";
 					}
-
 					
 					item = nameOfFileWOExt.Replace(" ", "").Replace(".", "_");
 					
-					TCSoundsStr += "\tsound " + item + "\n" +
+					TCSoundsStr += "\tsound " + unit + item + "\n" +
 									"\t{\n" +
-									"\t\tcategory = Item,\n" +
+									"\t\tcategory = Music,\n" +
+									"\t\tmaster = Music,\n" +
 									"\t\tclip\n" +
 									"\t\t{\n" +
 									"\t\t\tfile = media/yourMusic/" + nameOfFolder +"/"+ nameOfFile +",\n" +
 									"\t\t\tdistanceMax = 75,\n" +
 									"\t\t}\n" +
 									"\t}\n";
+									
+					FileInfo coverInf = new FileInfo(path + "\\" + nameOfFileWOExt + ".jpg");
+					bool haveOwnCover = false
+					if (fileInf.Exists)
+					{
+						System.Diagnostics.Process process = new System.Diagnostics.Process();
+						System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+						startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+						startInfo.WorkingDirectory = Directory.GetCurrentDirectory();
+						string cmdRun = "/C pictureConverter\\convert.exe \"" + path + "\\" + nameOfFileWOExt + ".jpg" + "\" -resize 300x300! \"..\textures\WorldItems\\" + nameOfFileWOExt + ".png\"";
+						//Console.WriteLine(cmdRun);
+						startInfo.FileName = "cmd.exe";
+						startInfo.Arguments = cmdRun;
+						process.StartInfo = startInfo;
+						process.Start();
+						TCMusicScriptsStr += "\tmodel " + unit + item + "_model\n" +
+										"\t{\n" +
+										"\t\tmesh\t\t\t=\tWorldItems/TCCover,\n" +
+										"\t\ttexture\t\t\t=\tWorldItems/" + nameOfFileWOExt + ",\n" +
+										"\t\tscale\t=\t0.0012,\n" +
+										"\t}\n\n";
+						haveOwnCover = true
+					}
+					
 					int numOfIcon = rnd.Next(1, maxIcon);
-					TCMusicScriptsStr += "item " + item + "\n" +
+					TCMusicScriptsStr += "item " + unit + item + "\n" +
 										"\t{\n" +
 										"\t\tType\t\t\t=\tNormal,\n" +
 										"\t\tWeight\t\t\t=\t0.2,\n" +
 										"\t\tIcon\t\t\t=\t" + icon + numOfIcon + ",\n" +
 										"\t\tResizeWorldIcon\t=\t0.5,\n" +
-										"\t\tDisplayName\t\t=\t" + unit + " " + nameOfFileWOExt + ",\n" +
-										"\t}\n\n";
-					TCMusicDefenitionsStr += "\tGlobalMusic[\"" + item + "\"] = \"" + tile + "\"\n";
+										"\t\tDisplayName\t\t=\t" + unit + " " + nameOfFileWOExt + ",\n";
+					if (haveOwnCover) {
+						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + unit + item + "_model,\n"
+					} else {
+						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft.TCCover" + numOfIcon + ",\n"
+					}
+					TCMusicScriptsStr += "\t}\n\n";
+					TCMusicDefenitionsStr += "\tGlobalMusic[\"" + unit + item + "\"] = \"" + tile + "\"\n";
 					
 					if (type == "TCBoombox") 
 					{
-						TCLoading += "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+						TCLoading += "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, \"Tsarcraft."  + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, 1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, 1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, 1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, 3);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, 3);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, 0.1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, 0.1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, 0.01);\n";
 					}
 					else if (type == "TCVinylplayer") 
 					{
 						TCLoading += 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomDresser\"].junk.items, 0.3);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"BedroomSideTable\"].junk.items, 0.3);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"CrateCompactDiscs\"].items, 1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DeskGeneric\"].junk.items, 0.3);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"DresserGeneric\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, 1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, 1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelfNoTapes\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"Locker\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"LockerClassy\"].items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreCDs\"].items, 3);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"MusicStoreSpeaker\"].items, 3);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDesk\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"OfficeDeskHome\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeRedneck\"].junk.items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWoman\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeWomanClassy\"].junk.items, 0.01);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"PoliceDesk\"].items, 0.01);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"SchoolLockers\"].items, 0.1);\n" +
 								 
-								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, \"Tsarcraft." + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ShelfGeneric\"].items, 0.01);\n";
 					}					 
 								 
