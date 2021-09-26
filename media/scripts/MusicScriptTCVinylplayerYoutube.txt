@@ -6,41 +6,6 @@ module Tsarcraft
 	}
 /********************Generated Music Carriers********************/
 
-	
-	model TCCover5
-	{
-		mesh = WorldItems/TCCover,
-		texture = WorldItems/TCCover3,
-		scale = 0.0012,
-	}
-	
-	model TCCover4
-	{
-		mesh = WorldItems/TCCover,
-		texture = WorldItems/TCCover3,
-		scale = 0.0012,
-	}
-	
-	model TCCover3
-	{
-		mesh = WorldItems/TCCover,
-		texture = WorldItems/TCCover3,
-		scale = 0.0012,
-	}
-	
-	model TCCover2
-	{
-		mesh = WorldItems/TCCover,
-		texture = WorldItems/TCCover2,
-		scale = 0.0012,
-	}
-	
-	model TCCover1
-	{
-		mesh = WorldItems/TCCover,
-		texture = WorldItems/TCCover1,
-		scale = 0.0012,
-	}
 
 	item VinylGrazhdanskayaOborona-Dead0
 	{

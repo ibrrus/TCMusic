@@ -5,126 +5,6 @@ module Tsarcraft
         Base
 
     }
-
-item TCMicrophone
-    {
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_32,
-		DisplayName = Moveable,
-    }
-   
-item TCPianoS_AD
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_0,
-		DisplayName = Moveable,
-	}
-item TCPianoS_BD
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_1,
-		DisplayName = Moveable,
-	}
-	
-item TCPianoS_CD
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_2,
-		DisplayName = Moveable,
-	}
-item TCPianoS_DD
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_3,
-		DisplayName = Moveable,
-	}
-
-item TCPianograndS_AI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_8,
-		DisplayName = Moveable,
-	}
-item TCPianograndS_BI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_9,
-		DisplayName = Moveable,
-	}
-	
-item TCPianograndS_CI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_10,
-		DisplayName = Moveable,
-	}
-item TCPianograndS_DI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_11,
-		DisplayName = Moveable,
-	}		
-	
-item TCPianograndS_EI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_12,
-		DisplayName = Moveable,
-	}
-item TCPianograndS_FI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_13,
-		DisplayName = Moveable,
-	}		
-	
-item TCPianograndS_GI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_14,
-		DisplayName = Moveable,
-	}	
-
-item TCPianograndS_HI
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_15,
-		DisplayName = Moveable,
-	}	
-
-item TCPianograndS_II
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_30,
-		DisplayName = Moveable,
-	}		
-	
-item TCDrumkitS_AB
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_24,
-		DisplayName = Moveable,
-	}		
-
-	item TCDrumkitS_BB
-	{
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_25,
-		DisplayName = Moveable,
-	}	
-	
-	item TCBassguitar
-    {
-		Type			= Moveable,
-		WorldObjectSprite	= tsarcraft_music_01_28,
-    }
-
-	model TCBoombox_Ground
-	{
-		mesh = WorldItems/TCBoombox,
-		texture = WorldItems/TCBoombox_BaseColor,
-		scale = 0.0015,
-	}
 	
 	item TCBoombox
     {
@@ -155,13 +35,6 @@ item TCDrumkitS_AB
 		UseWorldItem 	= 	TRUE,
     }
 	
-	model TCVinyl_Ground
-	{
-		mesh = WorldItems/TCVinyl,
-		texture = WorldItems/TCVinyl_BaseColor,
-		scale = 0.015,
-	}
-	
 	item TCVinylplayer
     {
 		Type			=   Radio,
@@ -180,5 +53,5 @@ item TCDrumkitS_AB
 		AcceptMediaType = 1,
 		UseWorldItem 	= 	TRUE,
     }
-	
+
 }

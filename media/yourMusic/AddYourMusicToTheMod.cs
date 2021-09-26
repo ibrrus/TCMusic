@@ -150,21 +150,21 @@ public class MusicGenerator
 		string icon = "";
 		string tile = "";
 		int maxIcon = 0;
-		bool cover = false;
+		bool canBeOwnCover = false;
 		if (type == "TCBoombox") 
 		{
 			unit = "Cassette";
 			icon = "TCTape";
-			maxIcon = 7;
+			maxIcon = 12;
 			tile = "tsarcraft_music_01_62";
 		}
 		else if (type == "TCVinylplayer") 
 		{
 			unit = "Vinyl";
 			icon = "TCVinylrecord";
-			maxIcon = 5;
+			maxIcon = 12;
 			tile = "tsarcraft_music_01_63";
-			cover = true;
+			canBeOwnCover = true;
 		}
 		
 		
@@ -230,7 +230,7 @@ public class MusicGenerator
 									"\t}\n";
 									
 					bool haveOwnCover = false;
-					if (cover) {		
+					if (canBeOwnCover) {		
 						FileInfo coverInf = new FileInfo(path + "\\" + nameOfFileWOExt + ".jpg");
 						if (coverInf.Exists)
 						{
@@ -261,12 +261,10 @@ public class MusicGenerator
 										"\t\tWeight\t\t\t=\t0.2,\n" +
 										"\t\tIcon\t\t\t=\t" + icon + numOfIcon + ",\n" +
 										"\t\tDisplayName\t\t=\t" + unit + " " + nameOfFileWOExt + ",\n";
-					if (cover) {
-						if (haveOwnCover) {
-							TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + unit + item + "Model,\n";
-						} else {
-							TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft.TCCover" + numOfIcon + ",\n";
-						}
+					if (canBeOwnCover && haveOwnCover) {
+						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + unit + item + "Model,\n";
+					} else {
+						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + icon + numOfIcon + ",\n";
 					}
 					TCMusicScriptsStr += "\t}\n\n";
 					TCMusicDefenitionsStr += "\tGlobalMusic[\"" + unit + item + "\"] = \"" + tile + "\"\n";
