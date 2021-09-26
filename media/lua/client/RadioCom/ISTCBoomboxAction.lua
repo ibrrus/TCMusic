@@ -41,6 +41,13 @@ end
 
 function ISTCBoomboxAction:performToggleOnOff()
     if self:isValidToggleOnOff() then
+		if self.device:getModData().tcmusic and (self.device:getModData().tcmusic.deviceType == "VehiclePart") then
+			if self.deviceData:getIsTurnedOn() then
+				self.device:getVehicle():getEmitter():stopAll()
+				self.device:getModData().tcmusic.playNow = nil
+				self.device:getModData().tcmusic.playNowId = nil
+			end
+		end
         self.deviceData:setIsTurnedOn( not self.deviceData:getIsTurnedOn() );
     end
 end

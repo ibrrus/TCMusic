@@ -277,16 +277,12 @@ function TCRWMMedia:render()
 end
 
 function TCRWMMedia:onJoypadDown(button)
-	print("TCRWMMedia:onJoypadDown")
     if button == Joypad.AButton then
         self:togglePlayMedia()
     elseif button == Joypad.BButton then
-		print("button == Joypad.BButton")
         if self.device:getModData().tcmusic.mediaItem then
-			print("self.device:getModData().tcmusic.mediaItem")
             self:removeMedia();
         else
-			print("TCRWMMedia:else")
             local inv = self.player:getInventory();
             -- local type = self.deviceData:getMediaType();
             local medias = {};

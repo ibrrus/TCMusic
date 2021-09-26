@@ -78,7 +78,7 @@ function ISTCBoomboxWindow:createChildren()
     --self:addModule(RWMSignal:new (0, 0, self.width, 0 ), "Signal", false);
     -- self:addModule(RWMGeneral:new (0, 0, self.width, 0), getText("IGUI_RadioGeneral"), true);
     self:addModule(RWMPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
-    self:addModule(RWMGridPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
+    self:addModule(TCRWMGridPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
     -- self:addModule(RWMSignal:new (0, 0, self.width, 0), getText("IGUI_RadioSignal"), true);
     self:addModule(TCRWMVolume:new (0, 0, self.width, 0), getText("IGUI_RadioVolume"), true);
     -- self:addModule(RWMMicrophone:new (0, 0, self.width, 0), getText("IGUI_RadioMicrophone"), true);
@@ -120,7 +120,7 @@ function ISTCBoomboxWindow:update()
     end
 
     -- otherwise remove
-	print("ISTCBoomboxWindow:update() close")
+	-- print("ISTCBoomboxWindow:update() close")
     self:close();
     --self:clear();
     --self:removeFromUIManager();
@@ -164,15 +164,10 @@ function ISTCBoomboxWindow:onGainJoypadFocus(joypadData)
 end
 
 function ISTCBoomboxWindow:close()
-print("ISTCBoomboxWindow:close()")
+-- print("ISTCBoomboxWindow:close()")
     ISCollapsableWindow.close(self);
     if JoypadState.players[self.playerNum+1] then
-		print("JoypadState")
-		print(self)
-		print(self.subFocus)
-		print(getFocusForPlayer(self.playerNum))
         if getFocusForPlayer(self.playerNum)==self or (self.subFocus) then
-			print("setJoypadFocus")
             setJoypadFocus(self.playerNum, nil);
         end
     end
@@ -331,7 +326,6 @@ function ISTCBoomboxWindow:unfocusSelf()
 end
 
 function ISTCBoomboxWindow:focusSelf()
-	print("focusSelf nil")
     self.subFocus = nil;
     setJoypadFocus(self.playerNum, self);
 end
@@ -377,7 +371,6 @@ function ISTCBoomboxWindow:setSubFocus( _newFocus )
     if not _newFocus or not _newFocus.element then
         self:focusSelf();
     else
-		print("subFocus save")
         self.subFocus = _newFocus;
         _newFocus.element:setFocus(self.playerNum, self);
     end
