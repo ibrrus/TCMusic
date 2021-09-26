@@ -150,6 +150,7 @@ public class MusicGenerator
 		string icon = "";
 		string tile = "";
 		int maxIcon = 0;
+		bool cover = false;
 		if (type == "TCBoombox") 
 		{
 			unit = "Cassette";
@@ -163,6 +164,7 @@ public class MusicGenerator
 			icon = "TCVinylrecord";
 			maxIcon = 5;
 			tile = "tsarcraft_music_01_63";
+			cover = true;
 		}
 		
 		
@@ -214,7 +216,7 @@ public class MusicGenerator
 						nameOfFile = nameOfFileWOExt + ".ogg";
 					}
 					
-					item = nameOfFileWOExt.Replace(" ", "").Replace(".", "_");
+					item = nameOfFileWOExt.Replace(" ", "").Replace(".", "").Replace("_", "").Replace("-", "");
 					
 					TCSoundsStr += "\tsound " + unit + item + "\n" +
 									"\t{\n" +
@@ -227,41 +229,44 @@ public class MusicGenerator
 									"\t\t}\n" +
 									"\t}\n";
 									
-					FileInfo coverInf = new FileInfo(path + "\\" + nameOfFileWOExt + ".jpg");
-					bool haveOwnCover = false
-					if (fileInf.Exists)
-					{
-						System.Diagnostics.Process process = new System.Diagnostics.Process();
-						System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-						startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-						startInfo.WorkingDirectory = Directory.GetCurrentDirectory();
-						string cmdRun = "/C pictureConverter\\convert.exe \"" + path + "\\" + nameOfFileWOExt + ".jpg" + "\" -resize 300x300! \"..\textures\WorldItems\\" + nameOfFileWOExt + ".png\"";
-						//Console.WriteLine(cmdRun);
-						startInfo.FileName = "cmd.exe";
-						startInfo.Arguments = cmdRun;
-						process.StartInfo = startInfo;
-						process.Start();
-						TCMusicScriptsStr += "\tmodel " + unit + item + "_model\n" +
-										"\t{\n" +
-										"\t\tmesh\t\t\t=\tWorldItems/TCCover,\n" +
-										"\t\ttexture\t\t\t=\tWorldItems/" + nameOfFileWOExt + ",\n" +
-										"\t\tscale\t=\t0.0012,\n" +
-										"\t}\n\n";
-						haveOwnCover = true
+					bool haveOwnCover = false;
+					if (cover) {		
+						FileInfo coverInf = new FileInfo(path + "\\" + nameOfFileWOExt + ".jpg");
+						if (coverInf.Exists)
+						{
+							System.Diagnostics.Process process = new System.Diagnostics.Process();
+							System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+							startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+							startInfo.WorkingDirectory = Directory.GetCurrentDirectory();
+							string cmdRun = "/C pictureConverter\\convert.exe \"" + path + "\\" + nameOfFileWOExt + ".jpg" + "\" -resize 300x300! \"..\\textures\\WorldItems\\" + item + ".png\"";
+							//Console.WriteLine(cmdRun);
+							startInfo.FileName = "cmd.exe";
+							startInfo.Arguments = cmdRun;
+							process.StartInfo = startInfo;
+							process.Start();
+							TCMusicScriptsStr += "\tmodel " + unit + item + "Model\n" +
+											"\t{\n" +
+											"\t\tmesh\t\t\t=\tWorldItems/TCCover,\n" +
+											"\t\ttexture\t\t\t=\tWorldItems/" + item + ",\n" +
+											"\t\tscale\t=\t0.0012,\n" +
+											"\t}\n\n";
+							haveOwnCover = true;
+						}
 					}
 					
 					int numOfIcon = rnd.Next(1, maxIcon);
-					TCMusicScriptsStr += "item " + unit + item + "\n" +
+					TCMusicScriptsStr += "\titem " + unit + item + "\n" +
 										"\t{\n" +
 										"\t\tType\t\t\t=\tNormal,\n" +
 										"\t\tWeight\t\t\t=\t0.2,\n" +
 										"\t\tIcon\t\t\t=\t" + icon + numOfIcon + ",\n" +
-										"\t\tResizeWorldIcon\t=\t0.5,\n" +
 										"\t\tDisplayName\t\t=\t" + unit + " " + nameOfFileWOExt + ",\n";
-					if (haveOwnCover) {
-						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + unit + item + "_model,\n"
-					} else {
-						TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft.TCCover" + numOfIcon + ",\n"
+					if (cover) {
+						if (haveOwnCover) {
+							TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft." + unit + item + "Model,\n";
+						} else {
+							TCMusicScriptsStr += "\t\tWorldStaticModel = Tsarcraft.TCCover" + numOfIcon + ",\n";
+						}
 					}
 					TCMusicScriptsStr += "\t}\n\n";
 					TCMusicDefenitionsStr += "\tGlobalMusic[\"" + unit + item + "\"] = \"" + tile + "\"\n";

@@ -42,7 +42,7 @@ module Tsarcraft
 		scale = 0.0012,
 	}
 
-	item VinylGrazhdanskayaOborona-Dead
+	item VinylGrazhdanskayaOborona-Dead0
 	{
 		Type			=	Normal,
 		Weight			=	0.2,
