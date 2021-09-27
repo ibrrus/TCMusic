@@ -364,8 +364,11 @@ public class MusicGenerator
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].items, 1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, 1);\n" +
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMisc\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMisc\"].items, 1);\n" +
+								 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"ElectronicStoreMusic\"].junk.items, 1);\n" +
 								 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"LivingRoomShelf\"].items, 0.01);\n" +
@@ -394,8 +397,8 @@ public class MusicGenerator
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeChild\"].junk.items, 0.1);\n" +
 								 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
-								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, 0.1);\n" +
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
+								 "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeMan\"].junk.items, 0.1);\n" +
 								 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, \"Tsarcraft." + unit + item + "\");\n" + 
 								 // "\ttable.insert(ProceduralDistributions[\"list\"][\"WardrobeManClassy\"].junk.items, 0.01);\n" +
