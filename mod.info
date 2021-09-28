@@ -1,7 +1,7 @@
-name=True Music_v.2.0
+name=True Music_TEST_v.2.04
 poster=poster.png
 id=truemusictc
-description=Славься Царь!
+description=
 require=tsarslibtest
 pack=tsarcraft_music
-tiledef=tsarcraft_music 777
+tiledef=tsarcraft_music 591

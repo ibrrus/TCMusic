@@ -220,8 +220,7 @@ public class MusicGenerator
 					
 					TCSoundsStr += "\tsound " + unit + item + "\n" +
 									"\t{\n" +
-									"\t\tcategory = Music,\n" +
-									"\t\tmaster = Music,\n" +
+									"\t\tcategory = Item,\n" +
 									"\t\tclip\n" +
 									"\t\t{\n" +
 									"\t\t\tfile = media/yourMusic/" + nameOfFolder +"/"+ nameOfFile +",\n" +

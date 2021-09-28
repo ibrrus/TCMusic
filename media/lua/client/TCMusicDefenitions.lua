@@ -45,7 +45,7 @@ function TCMusic.searchBoombox (_item, dx, dy)
 	if square == nil then return end
 	for y=square:getY() - dy, square:getY() + dy do
 		for x=square:getX() - dx, square:getX() + dx do
-			local square2 = getCell():getGridSquare(x, y, 0)
+			local square2 = getCell():getGridSquare(x, y, square:getZ())
 			if square2 ~= nil then
 				for i=1,square2:getObjects():size() do
 					local object = square2:getObjects():get(i-1)

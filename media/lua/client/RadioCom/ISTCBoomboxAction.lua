@@ -141,36 +141,6 @@ function ISTCBoomboxAction:performAddHeadphones()
     end
 end
 
--- function ISTCBoomboxAction.connectSpeaker (character, _item, dx, dy)
-	-- local square = _item:getSquare()
-	-- if square == nil then return end
-	-- for y=square:getY() - dy, square:getY() + dy do
-		-- for x=square:getX() - dx, square:getX() + dx do
-			-- local square2 = getCell():getGridSquare(x, y, 0)
-			-- if square2 ~= nil then
-				-- for i=1,square2:getObjects():size() do
-					-- local object = square:getObjects():get(i-1)
-					-- if instanceof( object, "IsoWorldInventoryObject") then
-						-- if object:getItem():getType() == "Speaker" then
-							-- if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
-								
-							-- else
-								-- object:getModData().tcmusic = {}
-								-- object:getModData().tcmusic.connectTo = _item
-								-- _item:getModData().tcmusic.connectTo = object
-								-- return true
-							-- end
-						-- end	
-					-- end
-				-- end
-			-- end
-		-- end
-	-- end
-	-- print(character)
-	-- character:Say(getText("IGUI_PlayerText_need_speaker"))
-	-- return false
--- end
-
 -- TogglePlayMedia
 function ISTCBoomboxAction:isValidTogglePlayMedia()
 	if self.deviceData:getIsTurnedOn() and self.device:getModData().tcmusic.mediaItem then
@@ -186,16 +156,6 @@ function ISTCBoomboxAction:performTogglePlayMedia()
 	-- print("ISTCBoomboxAction:performTogglePlayMedia()")
 
     if self:isValidTogglePlayMedia() then
-		-- print("self:isValidTogglePlayMedia()")
-		-- print(self.deviceData:getEmitter())
-		-- local musicPlayer = nil
-		-- if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-			-- musicPlayer = ItemMusicPlayer[self.device:getFullType()]
-		-- elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
-			-- musicPlayer = WorldMusicPlayer[self.device:getSprite():getName()]
-		-- else
-			-- -- Vehicle
-		-- end
 		if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
 			-- print("VehiclePart")
 			if self.device:getModData().tcmusic.playNow and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
