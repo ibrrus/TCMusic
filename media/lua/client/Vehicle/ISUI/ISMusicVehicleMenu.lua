@@ -20,7 +20,7 @@ function ISMusicVehicleMenu.showRadialMenu(playerObj)
 			-- print("ISMusicVehicleMenu")
 			for partIndex=1,vehicle:getPartCount() do
 				local part = vehicle:getPartByIndex(partIndex-1)
-				if part:getDeviceData() and part:getInventoryItem() and VehicleMusicPlayer[part:getInventoryItem():getFullType()]then
+				if part:getDeviceData() and part:getInventoryItem() and TCMusic.VehicleMusicPlayer[part:getInventoryItem():getFullType()]then
 					menu:addSlice(getText("IGUI_MusicOptionsCar"), getTexture("media/ui/vehicle_tape.png"), ISMusicVehicleMenu.onSignalDevice, playerObj, part)
 				end
 			end

@@ -64,14 +64,14 @@ function TCRWMVolume:addHeadphone( _items )
 
     if item then
         if self:doWalkTo() then
-            ISTimedActionQueue.add(ISRadioAction:new("AddHeadphones",self.player, self.device, item ));
+            ISTimedActionQueue.add(ISTCBoomboxAction:new("AddHeadphones",self.player, self.device, item ));
         end
     end
 end
 
 function TCRWMVolume:removeHeadphone()
     if self:doWalkTo() then
-        ISTimedActionQueue.add(ISRadioAction:new("RemoveHeadphones",self.player, self.device ));
+        ISTimedActionQueue.add(ISTCBoomboxAction:new("RemoveHeadphones",self.player, self.device ));
     end
 end
 

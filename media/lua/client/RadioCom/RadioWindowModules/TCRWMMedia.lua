@@ -134,15 +134,15 @@ function TCRWMMedia:verifyItem( _item )
 	-- print(self.deviceType)
     if GlobalMusic[_item:getType()] then
 		if self.deviceType == "InventoryItem" then
-			if ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
+			if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
 				return true;
 			end
 		elseif self.deviceType == "IsoObject" then
-			if WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
+			if TCMusic.WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
 				return true;
 			end
 		elseif self.deviceType == "VehiclePart" then
-			if self.device:getInventoryItem() and VehicleMusicPlayer[self.device:getInventoryItem():getFullType()] == GlobalMusic[_item:getType()] then
+			if self.device:getInventoryItem() and TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()] == GlobalMusic[_item:getType()] then
 				return true;
 			end
 		end
@@ -288,11 +288,11 @@ function TCRWMMedia:onJoypadDown(button)
             local medias = {};
 			
 			if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-				musicPlayer = ItemMusicPlayer[self.device:getFullType()]
+				musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
 			elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
-				musicPlayer = WorldMusicPlayer[self.device:getSprite():getName()]
+				musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
 			elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-				musicPlayer = VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+				musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
 			end
 			-- print(musicPlayer)
 			for i=0, inv:getItemsFromCategory("Item"):size()-1 do
@@ -328,11 +328,11 @@ function TCRWMMedia:getBPrompt()
         -- local type = self.deviceData:getMediaType();
         local medias = {};
         if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-			musicPlayer = ItemMusicPlayer[self.device:getFullType()]
+			musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
 		elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
-			musicPlayer = WorldMusicPlayer[self.device:getSprite():getName()]
+			musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
 		elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-			musicPlayer = VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+			musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
 		end
 		-- print(musicPlayer)
 		for i=0, inv:getItemsFromCategory("Item"):size()-1 do

@@ -20,7 +20,7 @@ function ISInventoryMenuElements.ContextBoombox()
         end
         if instanceof(_item, "Radio") then
             if _item:getContainer() ~= self.invMenu.inventory then
-                if WorldMusicPlayer[_item:getFullType()] and _item:getContainer():getType() == "floor" and _item:getWorldItem() and _item:getWorldItem():getSquare() then
+                if TCMusic.WorldMusicPlayer[_item:getFullType()] and _item:getContainer():getType() == "floor" and _item:getWorldItem() and _item:getWorldItem():getSquare() then
 					if not _item:getModData().tcmusic then
 						_item:getModData().tcmusic = {}
 						_item:getModData().tcmusic.playNow = nil
@@ -47,7 +47,7 @@ function ISInventoryMenuElements.ContextBoombox()
 		end
 		if not _item:getModData().tcmusic.worldObj then
 			-- print("Boombox NOT F!")
-			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite(WorldMusicPlayer[_item:getFullType()])) -- 34 62
+			local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite(TCMusic.WorldMusicPlayer[_item:getFullType()])) -- 34 62
 			_item:getWorldItem():getSquare():AddTileObject(radio)
 			_item:getModData().tcmusic.worldObj = radio
 			radio:getModData().tcmusic = _item:getModData().tcmusic
