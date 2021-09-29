@@ -28,6 +28,11 @@ function OnRenderTickCheckMusic ()
 						local isoObj = musicObj:getParent()
 						addSound (nil, isoObj:getX(), isoObj:getY(), isoObj:getZ(), RADIUS * musicVolume, 1)
 					elseif instanceof(musicObj, "BaseVehicle") then
+						if musicObj:isAnyListenerInside() then
+							musicObj:getEmitter():set3D(playId, false);
+						else
+							musicObj:getEmitter():set3D(playId, true);
+						end
 						addSound (nil, musicObj:getX(), musicObj:getY(), musicObj:getZ(), RADIUS * musicVolume, 1)
 					end
 				else 

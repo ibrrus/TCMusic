@@ -170,6 +170,7 @@ function ISTCBoomboxAction:performTogglePlayMedia()
 			elseif self.device:getVehicle():getEmitter() then
 				getSoundManager():StopMusic()
 				self.device:getModData().tcmusic.playNow = self.device:getModData().tcmusic.mediaItem
+				self.deviceData:setChannelRaw(100)
 				self.device:getModData().tcmusic.playNowId = self.device:getVehicle():getEmitter():playSoundImpl(self.device:getModData().tcmusic.mediaItem, IsoObject.new())
 				self.device:getVehicle():getEmitter():setVolume(self.device:getModData().tcmusic.playNowId, self.deviceData:getDeviceVolume() / 1.5)
 				TCMusic.now_play[self.device:getModData().tcmusic.playNowId] = {self.device:getVehicle(), self.deviceData:getDeviceVolume(), self.deviceData:getHeadphoneType() >= 0}
