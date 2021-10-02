@@ -248,8 +248,14 @@ function ISTCBoomboxAction:performRemoveMedia()
 		local itemTape = InventoryItemFactory.CreateItem("Tsarcraft." .. self.device:getModData().tcmusic.mediaItem)
 		if itemTape then
 			self.character:getInventory():AddItem(itemTape)
-			if self.deviceData:getEmitter() then
-				self.deviceData:getEmitter():stopAll()
+			if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+				if self.device:getVehicle() then
+					self.device:getVehicle():getEmitter():stopAll()
+				end
+			else
+				if self.deviceData:getEmitter() then
+					self.deviceData:getEmitter():stopAll()
+				end
 			end
 			self.device:getModData().tcmusic.playNow = nil
 			self.device:getModData().tcmusic.playNowId = nil
