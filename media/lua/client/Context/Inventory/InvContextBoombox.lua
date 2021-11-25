@@ -32,8 +32,11 @@ function ISInventoryMenuElements.ContextBoombox()
 					-- ISRadioWindow.activate( _p.player, radio );
 					self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
 				end
-            end
-
+            else
+				if TCMusic.ItemMusicPlayer[_item:getFullType()] then
+					self.invMenu.context:removeOptionTsar(self.invMenu.context:getOptionFromName(getText("IGUI_PlaceObject")))
+				end
+			end
             -- if self.invMenu.player:getPrimaryHandItem() == _item or self.invMenu.player:getSecondaryHandItem() == _item then
                 -- self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
             -- end
