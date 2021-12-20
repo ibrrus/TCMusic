@@ -1,13 +1,22 @@
+v.2.08
 
+Исправлена ошибка из-за которой нельзя было отключить громкость одним нажанием.
+Отключена лишняя опция в контекстном меню винилового проигрывателя.
+
+Fixed a bug that made it impossible to turn off the volume with one touch.
+Disabled unnecessary option in the context menu for vinyl player.
+-------------------
 v.2.07
 
 Устранена несовместимость с Hydrocraft из-за которой бумбокс и виниловый проигрыватель, размещенные на земле, не работали.
-Отключена лишняя опция в контектсном меню бумбокса.
-Музыка добавленная игроком перенесена в категорию "Окружение", чтобы дать возможность отключать ванильную музыку.
+Отключена лишняя опция в контекстном меню бумбокса.
+Музыка, добавленная игроком, перенесена в категорию "Окружение", чтобы дать возможность отключать ванильную музыку.
+Добавлены уточнения в readme.txt
 
-Fixed an incompatibility with Hydrocraft that caused a boombox placed on the ground to not work.
-Disabled unnecessary option in the context menu for boombox.
 Fixed an incompatibility with Hydrocraft that caused a boombox and vinyl player placed on the ground to not work.
+Disabled unnecessary option in the context menu for boombox.
+The music added by player has been moved to the "Ambient" category to allow to turn off vanilla music.
+Added clarifications to readme.txt
 -------------------
 v.2.06
 

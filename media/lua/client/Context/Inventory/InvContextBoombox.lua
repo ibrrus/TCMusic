@@ -33,7 +33,7 @@ function ISInventoryMenuElements.ContextBoombox()
 					self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
 				end
             else
-				if TCMusic.ItemMusicPlayer[_item:getFullType()] then
+				if TCMusic.WorldMusicPlayer[_item:getFullType()] then
 					self.invMenu.context:removeOptionTsar(self.invMenu.context:getOptionFromName(getText("IGUI_PlaceObject")))
 				end
 			end

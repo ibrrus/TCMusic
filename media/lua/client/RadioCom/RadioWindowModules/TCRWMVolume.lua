@@ -102,14 +102,14 @@ function TCRWMVolume:onSpeakerButton( _ismute )
     if self.isMute == true then
         if self.deviceData then
             if self:doWalkTo() then
-                ISTimedActionQueue.add(ISRadioAction:new("SetVolume",self.player, self.device, 0 ));
+                ISTimedActionQueue.add(ISTCBoomboxAction:new("SetVolume",self.player, self.device, 0 ));
             end
         end
         self.volumeBar:setEnableControls(false);
     else
         if self.deviceData then
             if self:doWalkTo() then
-                ISTimedActionQueue.add(ISRadioAction:new("SetVolume",self.player, self.device, self.volume~=0 and self.volume or 0.1 ));
+                ISTimedActionQueue.add(ISTCBoomboxAction:new("SetVolume",self.player, self.device, self.volume~=0 and self.volume or 0.1 ));
             end
         end
         self.volumeBar:setEnableControls(true);
