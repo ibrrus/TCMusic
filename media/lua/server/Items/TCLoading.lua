@@ -56,8 +56,8 @@
 	table.insert(ProceduralDistributions["list"]["GarageTools"].items, "Tsarcraft.TCBoombox");
 	table.insert(ProceduralDistributions["list"]["GarageTools"].items, 1);
 	
-	table.insert(ProceduralDistributions["list"]["GarageMechanic"].items, "Tsarcraft.TCBoombox");
-	table.insert(ProceduralDistributions["list"]["GarageMechanic"].items, 1);
+	table.insert(ProceduralDistributions["list"]["GarageMechanics"].items, "Tsarcraft.TCBoombox");
+	table.insert(ProceduralDistributions["list"]["GarageMechanics"].items, 1);
 	
 	table.insert(ProceduralDistributions["list"]["GarageCarpentry"].items, "Tsarcraft.TCBoombox");
 	table.insert(ProceduralDistributions["list"]["GarageCarpentry"].items, 1);
@@ -170,8 +170,8 @@
 	table.insert(ProceduralDistributions["list"]["GarageTools"].items, "Tsarcraft.TCVinylplayer");
 	table.insert(ProceduralDistributions["list"]["GarageTools"].items, 1);
 	
-	table.insert(ProceduralDistributions["list"]["GarageMechanic"].items, "Tsarcraft.TCVinylplayer");
-	table.insert(ProceduralDistributions["list"]["GarageMechanic"].items, 2);
+	table.insert(ProceduralDistributions["list"]["GarageMechanics"].items, "Tsarcraft.TCVinylplayer");
+	table.insert(ProceduralDistributions["list"]["GarageMechanics"].items, 2);
 	
 	table.insert(ProceduralDistributions["list"]["GarageCarpentry"].items, "Tsarcraft.TCVinylplayer");
 	table.insert(ProceduralDistributions["list"]["GarageCarpentry"].items, 2);

@@ -1,3 +1,14 @@
+v.2.09dev1
+2021-12-20
+
+Исправлены ошибки в спавне музыкальных проигрывателей.
+Изменена логига генерации файлов со спавном кассет и пластином.
+
+Fixed errors in music players spawning.
+Changed logic of files generation with cassettes and vinyls spawning.
+
+-------------------
+
 v.2.08
 
 Исправлена ошибка из-за которой нельзя было отключить громкость одним нажанием.
@@ -5,7 +16,9 @@ v.2.08
 
 Fixed a bug that made it impossible to turn off the volume with one touch.
 Disabled unnecessary option in the context menu for vinyl player.
+
 -------------------
+
 v.2.07
 
 Устранена несовместимость с Hydrocraft из-за которой бумбокс и виниловый проигрыватель, размещенные на земле, не работали.
@@ -17,7 +30,9 @@ Fixed an incompatibility with Hydrocraft that caused a boombox and vinyl player 
 Disabled unnecessary option in the context menu for boombox.
 The music added by player has been moved to the "Ambient" category to allow to turn off vanilla music.
 Added clarifications to readme.txt
+
 -------------------
+
 v.2.06
 
 Исправлена ошибка связанная с воспроизведением музыки в машине после изъятия кассеты.
@@ -25,6 +40,7 @@ v.2.06
 Fixed a bug related to playing music in the car after removing the cassette.
 
 -------------------
+
 v.2.05
 
 При включении музыки в машине, радио отключается.
@@ -34,6 +50,7 @@ When you turn on the music in the car, the radio turns off.
 Removed the jitter of music while driving in a car.
 
 -------------------
+
 v.2.04
 
 Улучшено приманивание зомби. Очень сильно улучшено! Будьте осторожны!
@@ -41,6 +58,7 @@ v.2.04
 Improved luring zombies. Very much improved! Be careful!
 
 -------------------
+
 v.2.03
 
 Исправлена ошибка, связанная с невозможностью подключения колонок на верхних этажах зданий.
@@ -48,6 +66,7 @@ v.2.03
 Fixed a bug related to the impossibility of connecting the speakers on the upper floors of buildings.
 
 -------------------
+
 v.2.02
 
 Добавлен архив в формате rar.
@@ -55,6 +74,7 @@ v.2.02
 Added archive in rar format.
 
 -------------------
+
 v.2.01
 
 Исправлены ошибки в переводах.
@@ -62,4 +82,5 @@ v.2.01
 Fixed errors in translations.
 
 -------------------
+
 v.2.0
