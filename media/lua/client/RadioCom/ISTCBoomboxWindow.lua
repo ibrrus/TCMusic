@@ -12,6 +12,7 @@ ISTCBoomboxWindow.instances = {};
 ISTCBoomboxWindow.instancesIso = {};
 
 function ISTCBoomboxWindow.activate( _player, _deviceObject )
+print("ISTCBoomboxWindow.activate")
     local playerNum = _player:getPlayerNum();
 
     local radioWindow, instances;
@@ -90,8 +91,8 @@ end
 
 local dist = 4;
 function ISTCBoomboxWindow:update()
+-- print("ISTCBoomboxWindow:update")
     ISCollapsableWindow.update(self);
-
     if self:getIsVisible() then
         if self.deviceData and self.deviceType == "VehiclePart" then
             local part = self.deviceData:getParent()
@@ -101,21 +102,25 @@ function ISTCBoomboxWindow:update()
             end
         end
 
-        if self.deviceType and self.device and self.player and self.deviceData then
+        if self.deviceType and self.device and self.character and self.deviceData then
             if self.deviceType=="InventoryItem" then -- incase of inventory item check if player has it in a hand
-                if self.player:getPrimaryHandItem() == self.device or self.player:getSecondaryHandItem() == self.device then
+                if -- self.character:getPrimaryHandItem() == self.device or 
+				self.character:getSecondaryHandItem() == self.device then
                     return;
                 end
             elseif self.deviceType == "IsoObject" or self.deviceType == "VehiclePart" then -- incase of isoobject check distance.
-                if self.device:getSquare() and self.player:getX() > self.device:getX()-dist and self.player:getX() < self.device:getX()+dist and self.player:getY() > self.device:getY()-dist and self.player:getY() < self.device:getY()+dist then
+                if self.device:getSquare() and self.character:getX() > self.device:getX()-dist and self.character:getX() < self.device:getX()+dist and self.character:getY() > self.device:getY()-dist and self.character:getY() < self.device:getY()+dist then
                     return;
                 end
             end
         end
-
     end
 
-    if self.deviceData and self.deviceType=="InventoryItem" then        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
+    if self.deviceData and self.deviceType=="InventoryItem" and
+		( -- self.character:getPrimaryHandItem() ~= self.device and 
+		self.character:getSecondaryHandItem() ~= self.device) then        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
+		-- print("TURN OFF")
+		self.device:getModData().tcmusic.isPlaying = false;
         self.deviceData:setIsTurnedOn(false);
     end
 
@@ -146,7 +151,7 @@ function ISTCBoomboxWindow:prerender()
 end
 
 function ISTCBoomboxWindow:stayOnSplitScreen()
-    ISUIElement.stayOnSplitScreen(self, self.playerNum)
+    ISUIElement.stayOnSplitScreen(self, self.characterNum)
 end
 
 
@@ -166,9 +171,9 @@ end
 function ISTCBoomboxWindow:close()
 -- print("ISTCBoomboxWindow:close()")
     ISCollapsableWindow.close(self);
-    if JoypadState.players[self.playerNum+1] then
-        if getFocusForPlayer(self.playerNum)==self or (self.subFocus) then
-            setJoypadFocus(self.playerNum, nil);
+    if JoypadState.players[self.characterNum+1] then
+        if getFocusForPlayer(self.characterNum)==self or (self.subFocus) then
+            setJoypadFocus(self.characterNum, nil);
         end
     end
     self:removeFromUIManager();
@@ -177,8 +182,9 @@ function ISTCBoomboxWindow:close()
 end
 
 function ISTCBoomboxWindow:clear()
+-- print("ISTCBoomboxWindow:clear()")
     self.drawJoypadFocus = false;
-    self.player = nil;
+    self.character = nil;
     self.device = nil;
     self.deviceData = nil;
     self.deviceType = nil;
@@ -191,17 +197,10 @@ end
 
 -- read from item/object and set modules
 function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
+	print("ISTCBoomboxWindow:readFromObject")
     self:clear();
-    self.player = _player;
+    self.character = _player;
     self.device = _deviceObject;
-	if not self.device:getModData().tcmusic then
-		self.device:getModData().tcmusic = {}
-		self.device:getModData().tcmusic.playNow = nil
-		self.device:getModData().tcmusic.playNowId = nil
-		self.device:getModData().tcmusic.mediaItem = nil
-		self.device:getModData().tcmusic.worldObj = nil
-		self.device:getModData().tcmusic.needSpeaker = nil
-	end
     if self.device then
         self.deviceType = (instanceof(self.device, "Radio") and "InventoryItem") or
             (instanceof(self.device, "IsoWaveSignal") and "IsoObject") or
@@ -209,20 +208,41 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
         if self.deviceType then
             self.deviceData = _deviceObject:getDeviceData();
             self.title = self.deviceData:getDeviceName();
-			self.device:getModData().tcmusic.deviceType = self.deviceType
-			if self.deviceData:getMediaType() == 1 then
-				self.device:getModData().tcmusic.needSpeaker = true
+			-- print(self.device:getModData().tcmusic.deviceType)
+			if self.deviceType == "IsoObject" then
+				if not self.device:getModData().tcmusic then
+					self.device:getModData().tcmusic = {}
+				end
+				self.device:getModData().tcmusic.deviceType = self.deviceType
+				if not isClient() and self.deviceData:getMediaType() == 1 then
+					-- self.device:getModData().tcmusic.needSpeaker = true
+				end
+				self.device:transmitModData()
+			elseif self.deviceType == "InventoryItem" then
+				if not self.device:getModData().tcmusic then
+					self.device:getModData().tcmusic = {}
+				end
+				self.device:getModData().tcmusic.deviceType = self.deviceType
+			else
+				-- print("sendClientCommand: readFromObject")
+				local mediaItemName = false
+				local isPlaying = false
+				if self.device:getModData().tcmusic then
+					mediaItemName = self.device:getModData().tcmusic.mediaItem
+					isPlaying = self.device:getModData().tcmusic.isPlaying
+				end
+				sendClientCommand(self.character, 'truemusic', 'setMediaItem', { vehicle = self.device:getVehicle():getId(), mediaItem = mediaItemName, isPlaying = isPlaying })
 			end
         end
     end
 
-    if (not self.player) or (not self.device) or (not self.deviceData) or (not self.deviceType) then
+    if (not self.character) or (not self.device) or (not self.deviceData) or (not self.deviceType) then
         self:clear();
         return;
     end
 
     for i=1,#self.modules do
-        self.modules[i].enabled = self.modules[i].element:readFromObject(self.player, self.device, self.deviceData, self.deviceType);
+        self.modules[i].enabled = self.modules[i].element:readFromObject(self.character, self.device, self.deviceData, self.deviceType);
         self.modules[i].element:setVisible(self.modules[i].enabled);
         if self.modules[i].enabled then
             if self.modules[i].element.titleText==getText("IGUI_RadioPower") then -- or self.modules[i].element.titleText=="GridPower" then
@@ -237,7 +257,7 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
 
     --[[
     for i=1,#self.modules do
-        if self.player and self.device and self.deviceData then
+        if self.character and self.device and self.deviceData then
             if self.modules[i].name == "Power" then
                 self.modules[i].enabled = self.deviceData:getIsBatteryPowered();
             elseif self.modules[i].name == "GridPower" then
@@ -249,7 +269,7 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
             end
 
             if self.modules[i].enabled then
-                self.modules[i].element:readFromObject(self.player, self.device, self.deviceData, self.deviceType);
+                self.modules[i].element:readFromObject(self.character, self.device, self.deviceData, self.deviceType);
                 self.modules[i].element:setVisible(true);
             end
         end
@@ -322,16 +342,16 @@ function ISTCBoomboxWindow:getRBPrompt()
 end
 
 function ISTCBoomboxWindow:unfocusSelf()
-    setJoypadFocus(self.playerNum, nil);
+    setJoypadFocus(self.characterNum, nil);
 end
 
 function ISTCBoomboxWindow:focusSelf()
     self.subFocus = nil;
-    setJoypadFocus(self.playerNum, self);
+    setJoypadFocus(self.characterNum, self);
 end
 
 function ISTCBoomboxWindow:isValidPrompt()
-    return (self.player and self.device and self.deviceData)
+    return (self.character and self.device and self.deviceData)
 end
 
 function ISTCBoomboxWindow:focusNext(_up)
@@ -372,7 +392,7 @@ function ISTCBoomboxWindow:setSubFocus( _newFocus )
         self:focusSelf();
     else
         self.subFocus = _newFocus;
-        _newFocus.element:setFocus(self.playerNum, self);
+        _newFocus.element:setFocus(self.characterNum, self);
     end
 end
 
@@ -384,8 +404,8 @@ function ISTCBoomboxWindow:new (x, y, width, height, player)
     self.__index = self
     o.x = x;
     o.y = y;
-    o.player = player;
-    o.playerNum = player:getPlayerNum();
+    o.character = player;
+    o.characterNum = player:getPlayerNum();
     o.borderColor = {r=0.4, g=0.4, b=0.4, a=1};
     o.backgroundColor = {r=0, g=0, b=0, a=0.8};
     o.width = width;

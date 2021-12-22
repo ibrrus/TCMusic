@@ -308,7 +308,7 @@ public class MusicGenerator
 					
 					TCSoundsStr += "\tsound " + unit + item + "\n" +
 									"\t{\n" +
-									"\t\tcategory = World,\n" +
+									"\t\tcategory = True Music,\n" +
 									"\t\tmaster = Ambient,\n" +
 									"\t\tclip\n" +
 									"\t\t{\n" +

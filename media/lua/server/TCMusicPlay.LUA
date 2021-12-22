@@ -1,46 +1,64 @@
 
-require "TCMusicDefenitions"
+if isClient() then return end
 
-local tickControl = 100 -- Сокращает количество срабатываний скрипта. Больше число - меньше срабатываний
+local tickControl = 50 -- Сокращает количество срабатываний скрипта. Больше число - меньше срабатываний
 local tickStart = 0
+local RADIUS = 25
+local TIMEWAIT = 600 -- Удаление музыки из БД через 6 минут
 
-
-local RADIUS = 30
-
-local function tableIsEmpty(T)
-	for i,j in pairs(T) do 
-		return false
-	end
-	return true
-end
-
-function OnRenderTickCheckMusic ()
+function OnTickServerCheckMusic ()
 	tickStart = tickStart + 1
-	if tickStart % tickControl == 0 then
+	if (tickStart % tickControl == 0) then
+		-- print("OnTickServerCheckMusic")
 		tickStart = 0
-		if not tableIsEmpty(TCMusic.now_play) then
-			for playId, musicData in pairs(TCMusic.now_play) do
-				local haveHeadphone = musicData[3]
-				if isSoundPlaying(playId) and not haveHeadphone then
-					local musicObj = musicData[1]
-					local musicVolume = musicData[2]
-					if instanceof(musicObj, "DeviceData") then
-						local isoObj = musicObj:getParent()
-						addSound (nil, isoObj:getX(), isoObj:getY(), isoObj:getZ(), RADIUS * musicVolume, 1)
-					elseif instanceof(musicObj, "BaseVehicle") then
-						if musicObj:isAnyListenerInside() then
-							musicObj:getEmitter():set3D(playId, false);
-						else
-							musicObj:getEmitter():set3D(playId, true);
-						end
-						addSound (nil, musicObj:getX(), musicObj:getY(), musicObj:getZ(), RADIUS * musicVolume, 1)
-					end
-				else 
-					TCMusic.now_play[playId] = nil
+		if not ModData.getOrCreate("trueMusicData") then
+			local t = ModData.getOrCreate("trueMusicData")
+			t["now_play"] = {}
+			t["wo"] = {}
+		end
+
+		for musicId, musicData in pairs(ModData.get("trueMusicData")["now_play"]) do -- TCMusic.now_play
+			local volume = musicData["volume"]
+			local timestamp = musicData["timestamp"]
+			local headphone = musicData["headphone"]
+			
+			if timestamp == "update" then
+				timestamp = getGametimeTimestamp()
+			end
+			local strCoord = string.match(musicId, '%d*[-]%d*[-]%d*')
+			if strCoord then
+				local i = string.find(strCoord, "-")
+				local x = tonumber(string.sub(strCoord, 1, i-1))
+				strCoord = string.sub(strCoord, i+1)
+				i = string.find(strCoord, "-")
+				local y = tonumber(string.sub(strCoord, 1, i-1))
+				local z = tonumber(string.sub(strCoord, i+1))
+				addSound (nil, x, y, z, RADIUS * volume, 1)
+			else
+				-- Музыка из карманов
+				local player = nil
+				if isServer() then
+					player = getPlayerByOnlineID(musicId)
+				else
+					player = getPlayer()
 				end
+				if player then
+					if not headphone then
+						local x = player:getX()
+						local y = player:getY()
+						local z = player:getZ()
+						addSound (nil, x, y, z, RADIUS * volume, 1)
+					end
+				else
+					ModData.get("trueMusicData")["now_play"][musicId] = nil
+				end
+			end
+			if isServer() and math.abs(getGametimeTimestamp() - timestamp) > TIMEWAIT then
+				ModData.get("trueMusicData")["now_play"][musicId] = nil
 			end
 		end
 	end
 end
 
-Events.OnRenderTick.Add(OnRenderTickCheckMusic)
+Events.OnTick.Add(OnTickServerCheckMusic)
+print("TCMUSIC SERVER LOADING")

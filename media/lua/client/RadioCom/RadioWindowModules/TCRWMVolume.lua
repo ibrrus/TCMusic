@@ -125,7 +125,11 @@ function TCRWMVolume:readFromObject( _player, _deviceObject, _deviceData, _devic
     self.volume = self.deviceData:getDeviceVolume();
     self.volumeBar:setVolume(math.floor(self.volume*self.volumeBar:getVolumeSteps()));
     if self.deviceData:getIsPortable() and self.deviceData:getIsTelevision()==false then
-        self:toggleHeaphoneSupport(true);
+        if self.device:getModData().tcmusic.deviceType == "IsoObject" then
+			self:toggleHeaphoneSupport(false);
+		else
+			self:toggleHeaphoneSupport(true);
+		end
     else
         self:toggleHeaphoneSupport(false);
     end

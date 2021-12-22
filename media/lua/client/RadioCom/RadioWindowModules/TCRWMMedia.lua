@@ -70,6 +70,7 @@ function TCRWMMedia:connectSpeaker (_item, dx, dy)
 								object:getModData().tcmusic = {}
 								object:getModData().tcmusic.connectTo = _item
 								_item:getModData().tcmusic.connectTo = object
+								object:transmitModData()
 								return true
 							end
 						end	
@@ -218,22 +219,22 @@ function TCRWMMedia:update()
 
         self.lcd:toggleOn(isOn);
 
-        if (not isOn) and self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+        if (not isOn) and self.device:getModData().tcmusic.mediaItem and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.mediaItem) then
 			self.deviceData:getEmitter():stopAll()
-			self.device:getModData().tcmusic.playNow = nil
-			self.device:getModData().tcmusic.playNowId = nil
 			ISBaseTimedAction.perform(self)
         end
 		
 		
 		if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-			if self.device:getModData().tcmusic.playNow and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+			-- print(self.device:getModData().tcmusic)
+			-- print(self.device:getModData().tcmusic.mediaItem)
+			if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
 				self.toggleOnOffButton:setTitle(self.textStop);
 			else
 				self.toggleOnOffButton:setTitle(self.textPlay);
 			end
 		else
-			if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+			if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
 				self.toggleOnOffButton:setTitle(self.textStop);
 			else
 				if self.device:getModData().tcmusic.needSpeaker and not self.device:getModData().tcmusic.connectTo then
@@ -252,7 +253,7 @@ function TCRWMMedia:update()
                 self.itemDropBox:setStoredItemFake( self.tapeTex );
             end
 
-            if self.device:getModData().tcmusic.playNow and ((self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow)) or (self.device:getModData().tcmusic.deviceType == "VehiclePart" and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow))) then
+            if self.device:getModData().tcmusic.mediaItem and (self.device:getModData().tcmusic.isPlaying or (self.device:getModData().tcmusic.deviceType == "VehiclePart" and self.device:getVehicle():getEmitter() and self.device:getVehicle():getEmitter():isPlaying(self.device:getModData().tcmusic.mediaItem))) then
                 self.lcd:setText(self:getMediaText());
                 self.lcd:setDoScroll(true);
             else
@@ -314,7 +315,7 @@ function TCRWMMedia:onJoypadDown(button)
 end
 
 function TCRWMMedia:getAPrompt()
-    if self.device:getModData().tcmusic.playNow and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.playNow) then
+    if self.device:getModData().tcmusic.mediaItem and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.mediaItem) then
         return self.textStop;
     else
         return self.textPlay;
