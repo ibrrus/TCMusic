@@ -200,9 +200,6 @@ function ISTCBoomboxAction:performTogglePlayMedia()
 			else
 				getSoundManager():StopMusic()
 				self.device:getModData().tcmusic.isPlaying = true
-				-- print(191)
-				-- print(self.device:getModData().tcmusic.mediaItem)
-				-- print(self.device:getDeviceData():getDeviceVolume())
 				self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, false)
 				ModData.getOrCreate("trueMusicData")["now_play"][musicId] = {
 					volume = self.deviceData:getDeviceVolume(),

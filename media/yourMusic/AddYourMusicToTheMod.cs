@@ -427,7 +427,7 @@ public class MusicGenerator
                 {
                     sw.WriteLine(TCMusicScriptsStr);
                 }
-		using (StreamWriter sw = new StreamWriter(@"../lua/client/TCGMusicDefenitions" + type + ".lua", false, System.Text.Encoding.Default))
+		using (StreamWriter sw = new StreamWriter(@"../lua/shared/TCGMusicDefenitions" + type + ".lua", false, System.Text.Encoding.Default))
                 {
                     sw.WriteLine(TCMusicDefenitionsStr);
                 }
