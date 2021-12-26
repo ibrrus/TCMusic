@@ -49,7 +49,7 @@ function ISInventoryMenuElements.ContextBoombox()
 
     function self.openPanel( _p, _item )
         if not _item:getModData().tcmusic.worldObj then
-			print ("SearchBoombox")
+			-- print ("SearchBoombox")
 			TCMusic.searchBoombox (_item, 1, 1)
 		end
 		if not _item:getModData().tcmusic.worldObj then

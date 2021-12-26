@@ -1,11 +1,21 @@
-v.2.09dev1
-2021-12-20
+v.2.09
+2021-12-26
 
-Исправлены ошибки в спавне музыкальных проигрывателей.
-Изменена логига генерации файлов со спавном кассет и пластином.
+Синхронизирована музыка в мультиплеере.
+Добавлено влияние наушников на то, слышат ли музыку другие игроки.
+Убрана необходимость использования динамиков для винилового проигрывателя.
+Добавлено влияние открытых/разбитых окон автомобиля на громкость музыки и приманивание зомби.
+Заблокирована возможность включения игроком двух бумбоксов одновремено (из инвентаря).
+Добавлен рандомный спавн кассет и пластинок в разных типах контейнеров.
+Добавлены расширенные настройки звуков для регулировки громкости каждой песни.
 
-Fixed errors in music players spawning.
-Changed logic of files generation with cassettes and vinyls spawning.
+Synchronized music in multiplayer.
+Added the effect of headphones on whether another players can hear the music.
+Removed the need for speakers for the vinyl player.
+Added effect of open/broken car windows on music volume and zombie baiting.
+Blocked possibility for player to turn on two boomboxes at the same time (from inventory).
+Added random spawn of cassettes and vinyls in different types of containers.
+Added advanced sound settings to adjust the volume of each song.
 
 -------------------
 

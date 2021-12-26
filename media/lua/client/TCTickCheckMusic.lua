@@ -111,7 +111,7 @@ function OnRenderTickClientCheckMusic ()
 					
 				elseif strCoord then -- Музыка из мира
 					local musicData = musicClientTable[musicId] -- musicId = координаты места где стоит музыкальный проигрыватель
-					if not musicData then -- если проигрывателя нет в локальной таблице, значит музыка не играет. Ищем проигрыватель, включаем музыку и записываем авто в таблицу.
+					if not (musicData and musicData["obj"]) then -- если проигрывателя нет в локальной таблице, значит музыка не играет. Ищем проигрыватель, включаем музыку и записываем авто в таблицу.
 						local i = string.find(strCoord, "-")
 						local x = tonumber(string.sub(strCoord, 1, i-1))
 						strCoord = string.sub(strCoord, i+1)
@@ -142,7 +142,9 @@ function OnRenderTickClientCheckMusic ()
 												if musicData["obj"]:getDeviceData():getEmitter() and musicData["obj"]:getDeviceData():getEmitter():isPlaying(musicData["obj"]:getModData().tcmusic.mediaItem) then
 													-- Если музыка уже играет не включать повторно (музыка для игроков в наушниках включается в другом месте)
 												else
-													musicData["obj"]:getDeviceData():getEmitter():stopAll()
+													if musicData["obj"]:getDeviceData():getEmitter() then
+														musicData["obj"]:getDeviceData():getEmitter():stopAll()
+													end
 													musicData["obj"]:getDeviceData():playSound(musicData["obj"]:getModData().tcmusic.mediaItem, musicData["volume"] * 0.4, false)
 												end
 												break
@@ -323,7 +325,7 @@ function TCMusic.searchBoombox (_item, dx, dy)
 										_item:getWorldItem():getSquare():getX() .. 
 										_item:getWorldItem():getSquare():getY() .. 
 										_item:getWorldItem():getSquare():getZ() then
-									print("Boombox found!")
+									-- print("Boombox found!")
 									if not _item:getModData().tcmusic then
 										_item:getModData().tcmusic = {}
 									end

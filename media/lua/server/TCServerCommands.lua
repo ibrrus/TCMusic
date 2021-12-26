@@ -32,20 +32,19 @@ function TrueMCommands.setMediaItem(player, args)
 end
 
 function TrueMCommands.createWO(player, args)
-print("TrueMCommands.createWO")
+-- print("TrueMCommands.createWO")
 	local sqr = getSquare(args.x, args.y, args.z)
 	if sqr then
 		local t = ModData.getOrCreate("trueMusicData")["wo"]
 		local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
 		t[id] = true
 	else
-	-- print(
 		noise('no such square')
 	end
 end
 
 function TrueMCommands.deleteWO(player, args)
-print("TrueMCommands.deleteWO")
+-- print("TrueMCommands.deleteWO")
 -- print(args.obj)
 	-- if args.obj then
 	local sqr = getSquare(args.x, args.y, args.z)
@@ -53,7 +52,7 @@ print("TrueMCommands.deleteWO")
 		local t = ModData.getOrCreate("trueMusicData")["wo"]
 		local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
 		if t[id] then
-			print("OBJECT IN DB")
+			-- print("OBJECT IN DB")
 			for i=1,sqr:getObjects():size() do
 				local object = sqr:getObjects():get(i-1)
 				if instanceof( object, "IsoWaveSignal") then
@@ -70,7 +69,7 @@ print("TrueMCommands.deleteWO")
 				end
 			end
 		else
-			print("OBJECT NOT IN DB")
+			-- print("OBJECT NOT IN DB")
 		end
 	else
 	-- print(
@@ -79,7 +78,7 @@ print("TrueMCommands.deleteWO")
 end
 
 TrueMCommands.OnClientCommand = function(module, command, player, args)
-print("TrueMVehicleCommands.OnClientCommand")
+-- print("TrueMVehicleCommands.OnClientCommand")
 	if module == 'truemusic' and TrueMCommands[command] then
 		local argStr = ''
 		args = args or {}

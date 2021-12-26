@@ -12,7 +12,7 @@ ISTCBoomboxWindow.instances = {};
 ISTCBoomboxWindow.instancesIso = {};
 
 function ISTCBoomboxWindow.activate( _player, _deviceObject )
-print("ISTCBoomboxWindow.activate")
+-- print("ISTCBoomboxWindow.activate")
     local playerNum = _player:getPlayerNum();
 
     local radioWindow, instances;
@@ -197,7 +197,7 @@ end
 
 -- read from item/object and set modules
 function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
-	print("ISTCBoomboxWindow:readFromObject")
+	-- print("ISTCBoomboxWindow:readFromObject")
     self:clear();
     self.character = _player;
     self.device = _deviceObject;

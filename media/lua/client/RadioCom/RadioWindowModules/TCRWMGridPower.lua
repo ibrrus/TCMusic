@@ -53,7 +53,7 @@ end
 
 function TCRWMGridPower:toggleOnOff()
     if self:doWalkTo() then
-	print("TCRWMGridPower:toggleOnOff()")
+	-- print("TCRWMGridPower:toggleOnOff()")
         ISTimedActionQueue.add(ISTCBoomboxAction:new("ToggleOnOff",self.player, self.device));
     end
 end
@@ -87,7 +87,7 @@ end
 --]]
 
 function TCRWMGridPower:clear()
-print("TCRWMGridPower:clear")
+-- print("TCRWMGridPower:clear")
     RWMPanel.clear(self);
     --self.player = nil;
     --self.device = nil;
