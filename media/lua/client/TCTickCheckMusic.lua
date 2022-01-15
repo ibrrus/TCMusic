@@ -33,12 +33,12 @@ function OnRenderTickClientCheckMusic ()
 						local id = vehicle:getEmitter():playSoundImpl(vehicleRadio:getModData().tcmusic.mediaItem, IsoObject.new())
 						local vol = vehicleRadio:getDeviceData():getDeviceVolume()
 						local vol3d = true
-						if vehicleRadio:getModData().tcmusic.windowsOpen then -- Открытые/разбитые окна влияют на громкость музыку и дальность приманивания зомби
-							vol = vol * 3
-						end
 						if vehicle == getPlayer():getVehicle() then -- Если текущий игрок сидит в "играющей" машине для него повышается громкость и выключается 3д-эффект
 							vol = vol * 5
 							vol3d = false
+						elseif vehicleRadio:getModData().tcmusic.windowsOpen then
+							-- Открытые/разбитые окна влияют на громкость музыку и дальность приманивания зомби
+							vol = vol * 3
 						end
 						musicVehicleTable[vehicle:getSqlId()] = {
 							obj = vehicle,
@@ -53,13 +53,13 @@ function OnRenderTickClientCheckMusic ()
 								musicVehicleTable[vehicle:getSqlId()]["obj"]:getEmitter():isPlaying(musicVehicleTable[vehicle:getSqlId()]["localmusicid"]) then
 							-- если музыка играет, продолжаем контролировать громкость и необходимость вкл/выкл 3д-эффекта
 							local vol = vehicleRadio:getDeviceData():getDeviceVolume()
-							if vehicleRadio:getModData().tcmusic.windowsOpen then
-								vol = vol * 3
-							end
 							if vehicle == getPlayer():getVehicle() then
 								vol = vol * 5
 								vehicle:getEmitter():set3D(musicVehicleTable[vehicle:getSqlId()]["localmusicid"], false)
 							else
+								if vehicleRadio:getModData().tcmusic.windowsOpen then
+									vol = vol * 3
+								end
 								vehicle:getEmitter():set3D(musicVehicleTable[vehicle:getSqlId()]["localmusicid"], true)
 							end
 							if musicVehicleTable[vehicle:getSqlId()]["volume"] ~= vol then

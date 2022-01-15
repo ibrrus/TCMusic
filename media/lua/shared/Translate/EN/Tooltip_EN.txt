@@ -1,4 +1,0 @@
-Tooltip_EN = {
-	Tooltip_item_Boombox = "Foreign boombox. Doesn't get local radio,<br>but can play cassettes. Powered by batteries.",
-	Tooltip_item_Vinyl = "It needs electricity and connected speakers to function.",
-}

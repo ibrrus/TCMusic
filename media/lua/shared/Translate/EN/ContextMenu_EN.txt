@@ -1,6 +1,0 @@
-ContextMenu_EN = {
-	ContextMenu_Stop_music = "Stop music",
-	ContextMenu_Play_music = "Play music",
-    ContextMenu_Sound_carrier_not_install = "Sound carrier not install",
-    ContextMenu_Song = "Song",
-}

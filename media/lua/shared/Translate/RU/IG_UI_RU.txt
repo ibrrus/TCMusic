@@ -1,7 +1,0 @@
-IGUI_RU = {
-	IGUI_media_dragCassette = "Вставьте кассету",
-	IGUI_media_dragVinyl = "Вставьте винил",
-	IGUI_TC_connect_speaker = "Подключить колонку",
-	IGUI_PlayerText_TC_need_speaker = "Колонка должна стоять рядом с проигрывателем.",
-	IGUI_MusicOptionsCar = "Магнитола",
-}

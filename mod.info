@@ -1,7 +1,7 @@
-name=True Music_TEST_v.2.09
+name=True Music_TEST_v.2.10dev1
 poster=poster.png
-id=truemusictest
+id=truemusic_test
 description=
-require=tsarslibtest
+require=tsarslib_test
 pack=tsarcraft_music
 tiledef=tsarcraft_music 222

@@ -1,4 +1,0 @@
-ItemName_RU = {
-    ItemName_Tsarcraft.TCBoombox = "Бумбокс 'Kazakhstan-102-stereo'",
-    ItemName_Tsarcraft.TCVinylplayer = "Виниловый проигрыватель 'Elektronika S1-01'",
-}
