@@ -262,6 +262,9 @@ function ISTCBoomboxAction:performAddMedia()
 				-- print(self.device:getModData().tcmusic.mediaItem)
 				local mediaItemName = inventoryItem:getType()
 				sendClientCommand(self.character, 'truemusic', 'setMediaItem', { vehicle = self.device:getVehicle():getId(), mediaItem = mediaItemName, isPlaying = false })
+                if isClient() then
+                    container:removeItemOnServer(inventoryItem);
+                end
 			else
 				self.device:getModData().tcmusic.mediaItem = inventoryItem:getType();
 			end

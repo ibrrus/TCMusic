@@ -1,3 +1,20 @@
+v.2.10
+2022-01-20
+
+Перенесены переводы в tsarslib.
+Исправлена ошибка связанная с увеличением громкости музыки при открытии окна автомобиля.
+Исправлена ошибка позволяющая дубликовать кассеты при помощи бардачка.
+Исправлена ошибка позволяющая дубликовать батарейки при помощи бумбокса.
+Исправлена ошибка из-за которой в мире мог появиться невидимый проигрыватель.
+
+Moved translations to tsarslib.
+Fixed bug related to music volume increase when opening car window.
+Fixed a bug with duplicate cassettes using a glove box.
+Fixed a bug with duplicate batteries using a boombox.
+Fixed a bug that could cause an invisible music player to appear in the world.
+
+-------------------
+
 v.2.09
 2021-12-26
 
