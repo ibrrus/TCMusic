@@ -55,27 +55,29 @@ function TrueMCommands.deleteWO(player, args)
         -- print(args.y)
         -- print(args.z)
         local objDelete = false
-        for i=1,sqr:getObjects():size() do
-            local object = sqr:getObjects():get(i-1)
-            if instanceof( object, "IsoWaveSignal") then
-                local sprite = object:getSprite()
-                -- print(sprite)
-                if sprite ~= nil then
-                    local name_sprite = sprite:getName()
-                    -- print(nameSprite)
-                    if name_sprite == args.nameSprite then
-                        sqr:transmitRemoveItemFromSquare(object)
-                        objDelete = true
+        if sqr:getObjects():size() > 0 then
+            for i=1,sqr:getObjects():size() do
+                local object = sqr:getObjects():get(i-1)
+                if instanceof( object, "IsoWaveSignal") then
+                    local sprite = object:getSprite()
+                    -- print(sprite)
+                    if sprite ~= nil then
+                        local name_sprite = sprite:getName()
+                        -- print(nameSprite)
+                        if name_sprite == args.nameSprite then
+                            sqr:transmitRemoveItemFromSquare(object)
+                            objDelete = true
+                        end
                     end
                 end
             end
-        end
-        local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
-        if t[id] and objDelete then
-            -- print("OBJECT IN DB")
-            t[id] = nil
-        else
-            -- print("OBJECT NOT IN DB")
+            local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
+            if t[id] and objDelete then
+                -- print("OBJECT IN DB")
+                t[id] = nil
+            else
+                -- print("OBJECT NOT IN DB")
+            end
         end
     else
         noise('no such square')

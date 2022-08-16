@@ -1,3 +1,16 @@
+-------------------
+v.2.11
+2022-08-16
+
+Исправлена ошибка с появлением неправильного меню бумбокса при активации с земли.
+Исправлена ошибка в таблице спавна предметов.
+Добавлены дополнительные проверки исключений.
+
+Fixed bug with appearance of wrong boombox menu when activating from the ground.
+Fixed bug in the item spawn table.
+Added additional exception checks.
+
+-------------------
 v.2.10
 2022-01-20
 
@@ -14,7 +27,6 @@ Fixed a bug with duplicate batteries using a boombox.
 Fixed a bug that could cause an invisible music player to appear in the world.
 
 -------------------
-
 v.2.09
 2021-12-26
 

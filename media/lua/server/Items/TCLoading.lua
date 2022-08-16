@@ -132,7 +132,7 @@
 	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, 0.5);
 	
 	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, "Tsarcraft.TCBoombox");
-	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].junk.items, 0.5);
+	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, 0.5);
 	
 	-- TCVinylplayer
 	
@@ -141,7 +141,7 @@
 	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, 0.5);
 	
 	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, "Tsarcraft.TCVinylplayer");
-	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].junk.items, 0.5);
+	table.insert(ProceduralDistributions["list"]["StoreCounterCleaning"].items, 0.5);
 	
 	table.insert(ProceduralDistributions["list"]["ElectronicStoreMusic"].items, "Tsarcraft.TCVinylplayer");
 	table.insert(ProceduralDistributions["list"]["ElectronicStoreMusic"].items, 2);

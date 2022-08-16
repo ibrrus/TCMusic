@@ -29,7 +29,12 @@ function ISInventoryMenuElements.ContextBoombox()
                         _item:getModData().tcmusic.worldObj = nil
                         _item:getModData().tcmusic.needSpeaker = nil
                     end
-                    self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
+                    local old_option_update = self.invMenu.context:getOptionFromName(getText("IGUI_DeviceOptions"))
+                    if old_option_update then
+                        self.invMenu.context:updateOptionTsar(old_option_update.id, old_option_update.name, old_option_update.target, self.openPanel, _item)
+                    else
+                        self.invMenu.context:addOption(getText("IGUI_DeviceOptions"), self.invMenu, self.openPanel, _item );
+                    end
                 end
             else
                 if TCMusic.WorldMusicPlayer[_item:getFullType()] then
@@ -48,38 +53,7 @@ function ISInventoryMenuElements.ContextBoombox()
     end        
 
     function self.openPanel( _p, _item )
-        if not _item:getModData().tcmusic.worldObj then
-            -- print ("SearchBoombox")
-            TCMusic.searchBoombox (_item, 1, 1)
-        end
-        if not _item:getModData().tcmusic.worldObj then
-            -- print("BOOMBOX NOT FOUND!")
-            local radio = IsoRadio.new(getCell(), _item:getWorldItem():getSquare(), getSprite(TCMusic.WorldMusicPlayer[_item:getFullType()])) -- 34 62
-            _item:getWorldItem():getSquare():AddTileObject(radio)
-            radio:getModData().tcmusic = _item:getModData().tcmusic
-            radio:getModData().tcmusic.itemid = _item:getWorldItem():getSquare():getX() .. 
-                                                _item:getWorldItem():getSquare():getY() .. 
-                                                _item:getWorldItem():getSquare():getZ()
-            _item:getModData().tcmusic.worldObj = radio
-            radio:getModData().tcmusic.deviceType = "IsoObject"
-            radio:getDeviceData():setIsTurnedOn(false)
-            radio:getDeviceData():setPower(_item:getDeviceData():getPower())
-            radio:getDeviceData():setDeviceVolume(_item:getDeviceData():getDeviceVolume())
-            if _item:getDeviceData():getIsBatteryPowered() and _item:getDeviceData():getHasBattery() then
-                radio:getDeviceData():setPower(_item:getDeviceData():getPower())
-            else
-                radio:getDeviceData():setHasBattery(false)
-            end
-
-            if _item:getDeviceData():getHeadphoneType() >= 0 then
-                _item:getDeviceData():getHeadphones(_p.player:getInventory())
-            end
-            if isClient() then 
-                radio:transmitCompleteItemToServer(); 
-            end
-            -- local id = "#" .. radio:getX() .. "-" .. radio:getY() .. "-" .. radio:getZ()
-            sendClientCommand(_p.player, 'truemusic', 'createWO', { x = radio:getX(), y = radio:getY(), z = radio:getZ() })
-        end
+        ISRadioWindow.searchBoombox( _p, _item )
         ISTCBoomboxWindow.activate( _p.player, _item:getModData().tcmusic.worldObj );
     end
     return self;
