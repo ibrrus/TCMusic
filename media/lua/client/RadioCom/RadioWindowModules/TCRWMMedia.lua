@@ -154,6 +154,20 @@ function TCRWMMedia:clear()
     RWMPanel.clear(self);
 end
 
+--- Update the itemDropBox tooltip selectively
+-- Adds a tooltip based on current media and on media type (Cassette/Vinyl)
+function TCRWMMedia:updateToolTip( device )
+        device = device or self.device
+        deviceData = device:getDeviceData()
+        local tooltip = self:getMediaName(device)
+        if deviceData:getMediaType() == 0 then
+                self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragCassette") );
+        elseif deviceData:getMediaType()==1 then
+                self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragVinyl") );
+        end
+end
+
+
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
 	-- print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
@@ -168,17 +182,16 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
 	-- print(_deviceData:getMediaType())
     if _deviceData:getMediaType()==1 then
         self.itemDropBox:setBackDropTex( self.cdTex, 0.4, 1,1,1 );
-        self.itemDropBox:setToolTip( true, getText("IGUI_media_dragVinyl") );
         self.lcd.ledColor = self.lcdBlue.back;
         self.lcd.ledTextColor = self.lcdBlue.text;
     end
     if _deviceData:getMediaType()==0 then
 		-- print("MediaType 0")
         self.itemDropBox:setBackDropTex( self.tapeTex, 0.4, 1,1,1 );
-        self.itemDropBox:setToolTip( true, getText("IGUI_media_dragCassette") );
         self.lcd.ledColor = self.lcdGreen.back;
         self.lcd.ledTextColor = self.lcdGreen.text;
     end
+    self:updateToolTip(_deviceObject)
 
     local read =  RWMPanel.readFromObject(self, _player, _deviceObject, _deviceData, _deviceType );
 
@@ -192,17 +205,29 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
     return read;
 end
 
-function TCRWMMedia:getMediaText()
-    local text = "";
-    local addedSegment = false;
-    if self.device:getModData().tcmusic.mediaItem then
-        local itemTape = InventoryItemFactory.CreateItem("Tsarcraft." .. self.device:getModData().tcmusic.mediaItem)
-		if itemTape then
-			addedSegment = true;
-			text = itemTape:getDisplayName()
-		end
+--- Get the display name of the current media
+-- @return string if there is an item
+-- @return nil if there is no item
+function TCRWMMedia:getMediaName(device)
+    device = device or self.device
+    if not device or not device:getModData().tcmusic.mediaItem then
+        return nil
     end
-    if addedSegment then
+    local item = InventoryItemFactory.CreateItem("Tsarcraft." .. device:getModData().tcmusic.mediaItem)
+    if not item then
+        return nil
+    end
+    return item:getDisplayName()
+end
+
+--- Get the display text of the current media
+-- @return string display text for the media, or text stating no media inserted
+function TCRWMMedia:getMediaText()
+    local text = nil;
+    if self.device:getModData().tcmusic.mediaItem then
+        text = self:getMediaName()
+    end
+    if text ~= nil then
         return text.." *** ";
     end
     return self.deviceData:getMediaType()==0 and self.textNoTape or self.textNoCD;
@@ -265,6 +290,7 @@ function TCRWMMedia:update()
             self.lcd:setText(self.mediaText);
             self.lcd:setDoScroll(false);
         end
+        self:updateToolTip(self.device);
     end
 end
 
