@@ -13,11 +13,22 @@ module Tsarcraft
 		scale = 0.015,
 	}
 	
+	model TCBoombox
+	{
+		mesh = WorldItems/TCBoombox,
+		texture = WorldItems/TCBoombox_BaseColor,
+		scale = 0.0012,
+	}
 	model TCBoombox_Ground
 	{
 		mesh = WorldItems/TCBoombox,
 		texture = WorldItems/TCBoombox_BaseColor,
-		scale = 0.0015,
+		scale = 0.0013,
+		attachment world
+		{
+			offset = 0.0 0.0 -0.24,
+			rotate = 0.0 90.0 90.0,
+		}
 	}
 	model TCTape1
 	{
