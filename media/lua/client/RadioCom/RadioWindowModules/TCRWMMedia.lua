@@ -158,7 +158,7 @@ end
 -- Adds a tooltip based on current media and on media type (Cassette/Vinyl)
 function TCRWMMedia:updateToolTip( device )
         device = device or self.device
-        deviceData = device:getDeviceData()
+        local deviceData = device:getDeviceData()
         local tooltip = self:getMediaName(device)
         if deviceData:getMediaType() == 0 then
                 self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragCassette") );
