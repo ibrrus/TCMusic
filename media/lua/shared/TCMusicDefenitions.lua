@@ -8,17 +8,17 @@ if (TCMusic.VehicleMusicPlayer == nil) then TCMusic.VehicleMusicPlayer = {} end
 if (TCMusic.WorldMusicPlayer == nil) then TCMusic.WorldMusicPlayer = {} end
 if (GlobalMusic == nil) then GlobalMusic = {} end
 
-	TCMusic.music_time["tsar_bass"] = 4.48
-	TCMusic.music_time["tsar_drum"] = 4.41
-	TCMusic.music_time["tsar_grandpiano"] = 9.33
-	TCMusic.music_time["tsar_organ"] = 12.5
-	TCMusic.music_time["tsar_piano"] = 8.91
-	TCMusic.music_time["tsar_standartpiano"] = 17.48
-	TCMusic.music_time["tsar_vocal"] = 4.47
-	TCMusic.music_time["TCBoombox_service"] = 3
-	TCMusic.music_time["TCVinylplayer_service"] = 5.4
-	-- tsarcraft_music_01_62 -- tsarcraft_music_01_35
-	-- tsarcraft_music_01_63 -- tsarcraft_music_01_36
+TCMusic.music_time["tsar_bass"] = 4.48
+TCMusic.music_time["tsar_drum"] = 4.41
+TCMusic.music_time["tsar_grandpiano"] = 9.33
+TCMusic.music_time["tsar_organ"] = 12.5
+TCMusic.music_time["tsar_piano"] = 8.91
+TCMusic.music_time["tsar_standartpiano"] = 17.48
+TCMusic.music_time["tsar_vocal"] = 4.47
+TCMusic.music_time["TCBoombox_service"] = 3
+TCMusic.music_time["TCVinylplayer_service"] = 5.4
+-- tsarcraft_music_01_62 -- tsarcraft_music_01_35
+-- tsarcraft_music_01_63 -- tsarcraft_music_01_36
 local DEBUG = false
 if DEBUG then
 	TCMusic.ItemMusicPlayer["Tsarcraft.TCBoombox"] = "tsarcraft_music_01_35"

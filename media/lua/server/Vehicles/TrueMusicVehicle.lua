@@ -32,8 +32,8 @@ function Vehicles.Update.Radio(vehicle, part, elapsedMinutes)
 	local deviceData = part:getDeviceData()
 	if deviceData then
 		if part:getModData().tcmusic and 
-				part:getModData().tcmusic.isPlaying and 
-				part:getModData().tcmusic.mediaItem then
+			part:getModData().tcmusic.isPlaying and 
+			part:getModData().tcmusic.mediaItem then
 			-- print("deviceData:getIsTurnedOn()")
 			if deviceData:getIsTurnedOn() then 
 				-- print(deviceData:getIsTurnedOn())

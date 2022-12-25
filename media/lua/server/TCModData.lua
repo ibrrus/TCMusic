@@ -11,7 +11,7 @@ TrueMusicOnReceiveGlobalModData = function(_module, _packet)
 	-- print("SERVER" .. _module)
 	if (not _packet) then
 		print("aborted OnReceiveGlobalModData in trueClient "
-				.. (_packet or "missing _packet."));
+		.. (_packet or "missing _packet."));
 	else
 		ModData.add(_module, _packet);
 	end;

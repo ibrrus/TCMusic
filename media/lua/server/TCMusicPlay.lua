@@ -21,7 +21,7 @@ function OnTickServerCheckMusic ()
 			local volume = musicData["volume"]
 			local timestamp = musicData["timestamp"]
 			local headphone = musicData["headphone"]
-			
+
 			if timestamp == "update" then
 				timestamp = getGametimeTimestamp()
 			end
