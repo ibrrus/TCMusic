@@ -1,18 +1,18 @@
 module Tsarcraft
 {
-    imports
-    {
-        Base
+	imports
+	{
+		Base
 
-    }
-	
+	}
+
 	model TCVinyl_Ground
 	{
 		mesh = WorldItems/TCVinyl,
 		texture = WorldItems/TCVinyl_BaseColor,
 		scale = 0.015,
 	}
-	
+
 	model TCBoombox_Ground
 	{
 		mesh = WorldItems/TCBoombox,
@@ -21,81 +21,81 @@ module Tsarcraft
 	}
 	model TCTape1
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape1,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape1,
+		scale = 0.0005,
 	}
-	
+
 	model TCTape2
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape2,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape2,
+		scale = 0.0005,
 	}
-	
+
 	model TCTape3
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape3,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape3,
+		scale = 0.0005,
 	}
-	
+
 	model TCTape4
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape4,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape4,
+		scale = 0.0005,
 	}
-	
+
 	model TCTape5
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape5,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape5,
+		scale = 0.0005,
 	}
 	model TCTape6
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape6,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape6,
+		scale = 0.0005,
 	}
 	model TCTape7
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape7,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape7,
+		scale = 0.0005,
 	}
 	model TCTape8
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape8,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape8,
+		scale = 0.0005,
 	}
 	model TCTape9
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape9,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape9,
+		scale = 0.0005,
 	}
 	model TCTape10
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape10,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape10,
+		scale = 0.0005,
 	}
 	model TCTape11
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape11,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape11,
+		scale = 0.0005,
 	}
 	model TCTape12
 	{
-		mesh			=	WorldItems/TCTape,
-		texture			=	WorldItems/TCTape12,
-		scale	=	0.0005,
+		mesh = WorldItems/TCTape,
+		texture = WorldItems/TCTape12,
+		scale = 0.0005,
 	}
-	
+
 	model TCVinylrecord1
 	{
 		mesh = WorldItems/TCCover,
@@ -169,4 +169,4 @@ module Tsarcraft
 		scale = 0.0012,
 	}
 }
-	
+
