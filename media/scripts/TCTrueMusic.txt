@@ -13,6 +13,7 @@ module Tsarcraft
 		Icon			=	TCBoombox,
 		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
+		StaticModel = Tsarcraft.TCBoombox,
 		WorldStaticModel = Tsarcraft.TCBoombox_Ground,
 		ConditionMax	= 100,
 		UseDelta		= 0.009, 
@@ -31,7 +32,7 @@ module Tsarcraft
 		Tooltip = Tooltip_item_Boombox,
 		AcceptMediaType = 0,
 		ReplaceInSecondHand = TC_Boombox_LHand holdingbagleft,
-        ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
+		ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
 		UseWorldItem 	= 	TRUE,
     }
 	
