@@ -1,56 +1,57 @@
 module Tsarcraft
 {
-	imports
-	{
-		Base
-	}
+    imports
+    {
+        Base
+
+    }
 	
 	item TCBoombox
-	{
-		AcceptMediaType = 0,
-		BaseVolumeRange = 15,
-		ConditionMax = 100,
-		DisappearOnUse = FALSE,
+    {
+		Type			=   Radio,
+		Weight			=	2.4,
+		Icon			=	TCBoombox,
+		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Boombox,
-		Icon = TCBoombox,
-		IsHighTier = FALSE,
-		IsPortable = TRUE,
-		IsTelevision = FALSE,
-		MaxChannel = 200,
-		MicRange = 0,
-		MinChannel = 100,
-		ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
-		ReplaceInSecondHand = TC_Boombox_LHand holdingbagleft,
-		ResizeWorldIcon = 1.0,
-		Tooltip = Tooltip_item_Boombox,
-		TransmitRange = 0,
-		TwoWay = FALSE,
-		Type = Radio,
-		UseDelta = 0.009, 
-		UsesBattery = TRUE,
-		UseWhileEquipped = FALSE,
-		UseWorldItem = TRUE,
-		Weight = 2.4,
 		WorldStaticModel = Tsarcraft.TCBoombox_Ground,
-	}
+		ConditionMax	= 100,
+		UseDelta		= 0.009, 
+		UseWhileEquipped	= FALSE,
+		DisappearOnUse		= FALSE,
+		TwoWay			= FALSE,
+		TransmitRange		= 0,
+		MicRange		= 0,
+		BaseVolumeRange		= 15,
+		IsPortable		= TRUE,
+		IsTelevision		= FALSE,
+		MinChannel		= 100,
+		MaxChannel		= 200,
+		UsesBattery		= TRUE,
+		IsHighTier		= FALSE,
+		Tooltip = Tooltip_item_Boombox,
+		AcceptMediaType = 0,
+		ReplaceInSecondHand = TC_Boombox_LHand holdingbagleft,
+        ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
+		UseWorldItem 	= 	TRUE,
+    }
 	
 	item TCVinylplayer
-	{
-		AcceptMediaType = 1,
-		ConditionMax = 100,
+    {
+		Type			=   Radio,
+		Weight			=	4.7,
+		Icon			=	TCVinylplayer,
+		ResizeWorldIcon 	= 	1.0,
 		DisplayName = Vinyl player,
-		Icon = TCVinylplayer,
-		IsPortable = FALSE,
-		MaxChannel = 200,
-		MinChannel = 100,
-		ResizeWorldIcon = 1.0,
-		Tooltip = Tooltip_item_Vinyl,
-		Type = Radio,
-		UseDelta = 0.009, 
-		UsesBattery = FALSE,
-		UseWorldItem = TRUE,
-		Weight = 4.7,
 		WorldStaticModel = Tsarcraft.TCVinyl_Ground,
-	}
+		IsPortable		= FALSE,
+		ConditionMax	= 100,
+		UseDelta		= 0.009, 
+		MinChannel		= 100,
+		MaxChannel		= 200,
+		UsesBattery		= FALSE,
+		Tooltip = Tooltip_item_Vinyl,
+		AcceptMediaType = 1,
+		UseWorldItem 	= 	TRUE,
+    }
 
 }

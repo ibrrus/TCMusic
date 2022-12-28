@@ -28,7 +28,7 @@ module Tsarcraft
 			file = media/sound/Tsarsound/TCVinylplayer_service.wav,
 			distanceMax = 50,
 		}
-	} 
+	}	
 	
 	sound TCVinylplayer_stop
 	{
@@ -112,6 +112,6 @@ module Tsarcraft
 			file = media/sound/Tsarsound/tsar_vocal.wav,
 			distanceMax = 50,
 		}
-	} 
+	}	
 	
 }
