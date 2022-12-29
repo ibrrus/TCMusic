@@ -3,8 +3,8 @@
 if isClient() then return end
 local TrueMCommands = {}
 
-function TrueMCommands.setMediaItem(player, args)
--- print("Commands.setMediaItem")
+function TrueMCommands.setMediaItemToVehiclePart(player, args)
+-- print("Commands.setMediaItemToVehiclePart")
     local vehicle = getVehicleById(args.vehicle)
     if vehicle then
         local part = vehicle:getPartById("Radio");
@@ -31,18 +31,18 @@ function TrueMCommands.setMediaItem(player, args)
     end
 end
 
-function TrueMCommands.createWO(player, args)
--- print("TrueMCommands.createWO")
-    local sqr = getSquare(args.x, args.y, args.z)
-    if sqr then
-        local t = ModData.getOrCreate("trueMusicData")["wo"]
-        local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
-        t[id] = true
-        -- print(t[id])
-    else
-        noise('no such square')
-    end
-end
+-- function TrueMCommands.createWO(player, args) -- @warning забыл для чего это
+-- -- print("TrueMCommands.createWO")
+    -- local sqr = getSquare(args.x, args.y, args.z)
+    -- if sqr then
+        -- local t = ModData.getOrCreate("trueMusicData")["wo"]  -- @warning забыл для чего это
+        -- local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
+        -- t[id] = true
+        -- -- print(t[id])
+    -- else
+        -- noise('no such square')
+    -- end
+-- end
 
 function TrueMCommands.deleteWO(player, args)
 -- print("TrueMCommands.deleteWO")
@@ -50,7 +50,7 @@ function TrueMCommands.deleteWO(player, args)
     -- if args.obj then
     local sqr = getSquare(args.x, args.y, args.z)
     if sqr then
-        local t = ModData.getOrCreate("trueMusicData")["wo"]
+        -- local t = ModData.getOrCreate("trueMusicData")["wo"] -- @warning забыл для чего это
         -- print(args.x)
         -- print(args.y)
         -- print(args.z)
@@ -72,12 +72,12 @@ function TrueMCommands.deleteWO(player, args)
                 end
             end
             local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
-            if t[id] and objDelete then
-                -- print("OBJECT IN DB")
-                t[id] = nil
-            else
-                -- print("OBJECT NOT IN DB")
-            end
+            -- if t[id] and objDelete then -- @warning забыл для чего это
+                -- -- print("OBJECT IN DB")
+                -- t[id] = nil -- @warning забыл для чего это
+            -- else
+                -- -- print("OBJECT NOT IN DB")
+            -- end
         end
     else
         noise('no such square')

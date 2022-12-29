@@ -1,6 +1,6 @@
 --***********************************************************
 --**                    THE INDIE STONE                    **
---**				  Author: turbotutone				   **
+--**                  Author: turbotutone                   **
 --***********************************************************
 require "RadioCom/RadioWindowModules/RWMPanel"
 require "TCMusicDefenitions"
@@ -54,53 +54,53 @@ function TCRWMMedia:createChildren()
 end
 
 function TCRWMMedia:connectSpeaker (_item, dx, dy)
-	local square = _item:getSquare()
-	if square == nil then return end
-	for y=square:getY() - dy, square:getY() + dy do
-		for x=square:getX() - dx, square:getX() + dx do
-			local square2 = getCell():getGridSquare(x, y, square:getZ())
-			if square2 ~= nil then
-				for i=1,square2:getObjects():size() do
-					local object = square2:getObjects():get(i-1)
-					if instanceof( object, "IsoWorldInventoryObject") then
-						if object:getItem():getType() == "Speaker" then
-							if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
-								
-							else
-								object:getModData().tcmusic = {}
-								object:getModData().tcmusic.connectTo = _item
-								_item:getModData().tcmusic.connectTo = object
-								object:transmitModData()
-								return true
-							end
-						end	
-					end
-				end
-			end
-		end
-	end
-	return false
+    local square = _item:getSquare()
+    if square == nil then return end
+    for y=square:getY() - dy, square:getY() + dy do
+        for x=square:getX() - dx, square:getX() + dx do
+            local square2 = getCell():getGridSquare(x, y, square:getZ())
+            if square2 ~= nil then
+                for i=1,square2:getObjects():size() do
+                    local object = square2:getObjects():get(i-1)
+                    if instanceof( object, "IsoWorldInventoryObject") then
+                        if object:getItem():getType() == "Speaker" then
+                            if object:getModData().tcmusic and object:getModData().tcmusic.connectTo then
+                                
+                            else
+                                object:getModData().tcmusic = {}
+                                object:getModData().tcmusic.connectTo = _item
+                                _item:getModData().tcmusic.connectTo = object
+                                object:transmitModData()
+                                return true
+                            end
+                        end    
+                    end
+                end
+            end
+        end
+    end
+    return false
 end
 
 
 function TCRWMMedia:togglePlayMedia()
     if self:doWalkTo() then
-		-- print("TCRWMMedia.togglePlayMedia")
-		if not self.device:getModData().tcmusic.needSpeaker or self.device:getModData().tcmusic.connectTo then
-			ISTimedActionQueue.add(ISTCBoomboxAction:new("TogglePlayMedia",self.player, self.device ));
-		else
-			if TCRWMMedia.connectSpeaker(self.player, self.device, 1, 1) then
-				
-			else
-				self.player:Say(getText("IGUI_PlayerText_TC_need_speaker"))
-			end
-		end
+        -- print("TCRWMMedia.togglePlayMedia")
+        if not self.device:getModData().tcmusic.needSpeaker or self.device:getModData().tcmusic.connectTo then
+            ISTimedActionQueue.add(ISTCBoomboxAction:new("TogglePlayMedia",self.player, self.device ));
+        else
+            if TCRWMMedia.connectSpeaker(self.player, self.device, 1, 1) then
+                
+            else
+                self.player:Say(getText("IGUI_PlayerText_TC_need_speaker"))
+            end
+        end
     end
 end
 
 function TCRWMMedia:removeMedia()
     if self:doWalkTo() then
-		-- print("TCRWMMedia.removeMedia")
+        -- print("TCRWMMedia.removeMedia")
         ISTimedActionQueue.add(ISTCBoomboxAction:new("RemoveMedia",self.player, self.device ));
     end
 end
@@ -130,24 +130,24 @@ end
 
 function TCRWMMedia:verifyItem( _item )
 -- print("TCRWMMedia:verifyItem")
-	-- print(_item)
-	-- print(_item:getType())
-	-- print(self.deviceType)
+    -- print(_item)
+    -- print(_item:getType())
+    -- print(self.deviceType)
     if GlobalMusic[_item:getType()] then
-		if self.deviceType == "InventoryItem" then
-			if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
-				return true;
-			end
-		elseif self.deviceType == "IsoObject" then
-			if TCMusic.WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
-				return true;
-			end
-		elseif self.deviceType == "VehiclePart" then
-			if self.device:getInventoryItem() and TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()] == GlobalMusic[_item:getType()] then
-				return true;
-			end
-		end
-	end
+        if self.deviceType == "InventoryItem" then
+            if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
+                return true;
+            end
+        elseif self.deviceType == "IsoObject" then
+            if TCMusic.WorldMusicPlayer[self.device:getSprite():getName()] == GlobalMusic[_item:getType()] then
+                return true;
+            end
+        elseif self.deviceType == "VehiclePart" then
+            if self.device:getInventoryItem() and TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()] == GlobalMusic[_item:getType()] then
+                return true;
+            end
+        end
+    end
 end
 
 function TCRWMMedia:clear()
@@ -169,24 +169,24 @@ end
 
 
 function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _deviceType )
-	-- print("TCRWMMedia:readFromObject")
+    -- print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
-		-- print("_deviceData false")
-		if _deviceType == "VehiclePart" then
-			_deviceData:setMediaType(0)
-		else
-			return false;
-		end
+        -- print("_deviceData false")
+        if _deviceType == "VehiclePart" then
+            _deviceData:setMediaType(0)
+        else
+            return false;
+        end
     end
     self.mediaIndex = -9999;
-	-- print(_deviceData:getMediaType())
+    -- print(_deviceData:getMediaType())
     if _deviceData:getMediaType()==1 then
         self.itemDropBox:setBackDropTex( self.cdTex, 0.4, 1,1,1 );
         self.lcd.ledColor = self.lcdBlue.back;
         self.lcd.ledTextColor = self.lcdBlue.text;
     end
     if _deviceData:getMediaType()==0 then
-		-- print("MediaType 0")
+        -- print("MediaType 0")
         self.itemDropBox:setBackDropTex( self.tapeTex, 0.4, 1,1,1 );
         self.lcd.ledColor = self.lcdGreen.back;
         self.lcd.ledTextColor = self.lcdGreen.text;
@@ -236,39 +236,39 @@ end
 function TCRWMMedia:update()
 -- print("TCRWMMedia:update()")
     ISPanel.update(self);
-	-- print(self.device:getModData().tcmusic)
-	
+    -- print(self.device:getModData().tcmusic)
+    
     if self.player and self.device and self.deviceData and self.device:getModData().tcmusic then
-		-- print("---------------------------------")
+        -- print("---------------------------------")
         local isOn = self.deviceData:getIsTurnedOn();
 
         self.lcd:toggleOn(isOn);
 
         if (not isOn) and self.device:getModData().tcmusic.mediaItem and self.device:getDeviceData():getEmitter() and self.device:getDeviceData():getEmitter():isPlaying(self.device:getModData().tcmusic.mediaItem) then
-			self.deviceData:getEmitter():stopAll()
-			ISBaseTimedAction.perform(self)
+            self.deviceData:getEmitter():stopAll()
+            ISBaseTimedAction.perform(self)
         end
-		
-		
-		if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-			-- print(self.device:getModData().tcmusic)
-			-- print(self.device:getModData().tcmusic.mediaItem)
-			if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
-				self.toggleOnOffButton:setTitle(self.textStop);
-			else
-				self.toggleOnOffButton:setTitle(self.textPlay);
-			end
-		else
-			if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
-				self.toggleOnOffButton:setTitle(self.textStop);
-			else
-				if self.device:getModData().tcmusic.needSpeaker and not self.device:getModData().tcmusic.connectTo then
-					self.toggleOnOffButton:setTitle(self.textSpeaker);
-				else
-					self.toggleOnOffButton:setTitle(self.textPlay);
-				end
-			end
-		end
+        
+        
+        if self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+            -- print(self.device:getModData().tcmusic)
+            -- print(self.device:getModData().tcmusic.mediaItem)
+            if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
+                self.toggleOnOffButton:setTitle(self.textStop);
+            else
+                self.toggleOnOffButton:setTitle(self.textPlay);
+            end
+        else
+            if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
+                self.toggleOnOffButton:setTitle(self.textStop);
+            else
+                if self.device:getModData().tcmusic.needSpeaker and not self.device:getModData().tcmusic.connectTo then
+                    self.toggleOnOffButton:setTitle(self.textSpeaker);
+                else
+                    self.toggleOnOffButton:setTitle(self.textPlay);
+                end
+            end
+        end
 
         if self.device:getModData().tcmusic.mediaItem then
             if self.deviceData:getMediaType()==1 then
@@ -313,31 +313,31 @@ function TCRWMMedia:onJoypadDown(button)
             local inv = self.player:getInventory();
             -- local type = self.deviceData:getMediaType();
             local medias = {};
-			
-			if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-				musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
-			elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
-				musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
-			elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-				musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
-			end
-			-- print(musicPlayer)
-			for i=0, inv:getItemsFromCategory("Item"):size()-1 do
-				local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
-				local musicCarrier = GlobalMusic[itemInContainer:getType()]
-				-- print(musicCarrier)
-				if musicCarrier and musicCarrier == musicPlayer then	
-					table.insert(medias, itemInContainer);
-				end
-			end
+            
+            if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+                musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
+            elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
+                musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
+            elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+                musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+            end
+            -- print(musicPlayer)
+            for i=0, inv:getItemsFromCategory("Item"):size()-1 do
+                local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
+                local musicCarrier = GlobalMusic[itemInContainer:getType()]
+                -- print(musicCarrier)
+                if musicCarrier and musicCarrier == musicPlayer then    
+                    table.insert(medias, itemInContainer);
+                end
+            end
             if #medias>0 then
-				-- print("addMedia")
+                -- print("addMedia")
                 self:addMedia( medias );
             end
         end
     else
-		-- print("button ", button)
-	end
+        -- print("button ", button)
+    end
 end
 
 function TCRWMMedia:getAPrompt()
@@ -355,23 +355,23 @@ function TCRWMMedia:getBPrompt()
         -- local type = self.deviceData:getMediaType();
         local medias = {};
         if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-			musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
-		elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
-			musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
-		elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
-			musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
-		end
-		-- print(musicPlayer)
-		for i=0, inv:getItemsFromCategory("Item"):size()-1 do
-			local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
-			-- print(itemInContainer)
-			local musicCarrier = GlobalMusic[itemInContainer:getType()]
-			-- print(musicCarrier)
-			-- print("--------------------------")
-			if musicCarrier and musicCarrier == musicPlayer then	
-				table.insert(medias, itemInContainer);
-			end
-		end
+            musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
+        elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
+            musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
+        elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+            musicPlayer = TCMusic.VehicleMusicPlayer[self.device:getInventoryItem():getFullType()]
+        end
+        -- print(musicPlayer)
+        for i=0, inv:getItemsFromCategory("Item"):size()-1 do
+            local itemInContainer = inv:getItemsFromCategory("Item"):get(i)
+            -- print(itemInContainer)
+            local musicCarrier = GlobalMusic[itemInContainer:getType()]
+            -- print(musicCarrier)
+            -- print("--------------------------")
+            if musicCarrier and musicCarrier == musicPlayer then    
+                table.insert(medias, itemInContainer);
+            end
+        end
         if #medias>0 then
             return getText("IGUI_media_addMedia");
         end

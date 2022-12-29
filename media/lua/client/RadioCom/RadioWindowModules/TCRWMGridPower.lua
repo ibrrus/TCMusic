@@ -1,6 +1,6 @@
 --***********************************************************
 --**                    THE INDIE STONE                    **
---**				  Author: turbotutone				   **
+--**                  Author: turbotutone                   **
 --***********************************************************
 require "RadioCom/RadioWindowModules/RWMPanel"
 
@@ -53,7 +53,7 @@ end
 
 function TCRWMGridPower:toggleOnOff()
     if self:doWalkTo() then
-	-- print("TCRWMGridPower:toggleOnOff()")
+    -- print("TCRWMGridPower:toggleOnOff()")
         ISTimedActionQueue.add(ISTCBoomboxAction:new("ToggleOnOff",self.player, self.device));
     end
 end
