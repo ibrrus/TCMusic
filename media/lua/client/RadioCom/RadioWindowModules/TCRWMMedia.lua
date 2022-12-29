@@ -1,9 +1,7 @@
---***********************************************************
---**                    THE INDIE STONE                    **
---**                  Author: turbotutone                   **
---***********************************************************
+-- @filename - TCRWMMedia.lua
+
 require "RadioCom/RadioWindowModules/RWMPanel"
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 
 TCRWMMedia = RWMPanel:derive("TCRWMMedia");
 
@@ -128,8 +126,10 @@ function TCRWMMedia:addMediaAux(item)
     end
 end
 
+--- Проверка, что игрок "вставляет" правильный предмет
+-- Функция не обновляется на горячую, нужен перезапуск уровня
 function TCRWMMedia:verifyItem( _item )
--- print("TCRWMMedia:verifyItem")
+    -- print("TCRWMMedia:verifyItem")
     -- print(_item)
     -- print(_item:getType())
     -- print(self.deviceType)
@@ -161,9 +161,9 @@ function TCRWMMedia:updateToolTip( device )
         local deviceData = device:getDeviceData()
         local tooltip = self:getMediaName(device)
         if deviceData:getMediaType() == 0 then
-                self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragCassette") );
+            self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragCassette") );
         elseif deviceData:getMediaType()==1 then
-                self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragVinyl") );
+            self.itemDropBox:setToolTip( true, tooltip or getText("IGUI_media_dragVinyl") );
         end
 end
 

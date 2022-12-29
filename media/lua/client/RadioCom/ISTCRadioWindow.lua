@@ -1,5 +1,5 @@
 -- @filename - ISTCRadioWindow.lua
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 
 TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 

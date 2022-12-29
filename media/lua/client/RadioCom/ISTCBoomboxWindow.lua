@@ -5,7 +5,7 @@
 
 require "ISUI/ISCollapsableWindow"
 require "RadioCom/ISRadioWindow"
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 
 ISTCBoomboxWindow = ISCollapsableWindow:derive("ISTCBoomboxWindow");
 ISTCBoomboxWindow.instances = {};

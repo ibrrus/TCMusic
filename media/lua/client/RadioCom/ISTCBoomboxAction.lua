@@ -1,10 +1,7 @@
---***********************************************************
---**                    THE INDIE STONE                    **
---**                  Author: turbotutone                   **
---***********************************************************
+-- @filename - ISTCBoomboxAction.lua
 
 require "TimedActions/ISBaseTimedAction"
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 
 ISTCBoomboxAction = ISBaseTimedAction:derive("ISTCBoomboxAction")
 
@@ -108,8 +105,11 @@ function ISTCBoomboxAction:isValidSetVolume()
 end
 
 function ISTCBoomboxAction:performSetVolume()
-    if self:isValidSetVolume() then
-        self.deviceData:setDeviceVolume(self.secondaryItem);
+    if self:isValidSetVolume() then 
+        print("ISTCBoomboxAction:performSetVolume():isValidSetVolume()")
+        print(self.deviceData:getDeviceVolume())
+        self.deviceData:setDeviceVolume(self.secondaryItem)
+        print(self.deviceData:getDeviceVolume())
         self:actionWhenPlaying()
     end
 end
@@ -162,7 +162,7 @@ function ISTCBoomboxAction:isValidTogglePlayMedia()
 end
 
 function ISTCBoomboxAction:performTogglePlayMedia()
-    -- print("ISTCBoomboxAction:performTogglePlayMedia()")
+    print("ISTCBoomboxAction:performTogglePlayMedia()")
     if self:isValidTogglePlayMedia() then
         if isClient() then 
             -- ModData.request("trueMusicData") 
@@ -200,7 +200,13 @@ function ISTCBoomboxAction:performTogglePlayMedia()
             else
                 getSoundManager():StopMusic()
                 self.device:getModData().tcmusic.isPlaying = true
-                self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, false)
+                print("self.deviceData:playSound")
+                print(self.deviceData)
+                print(self.deviceData:getEmitter())
+                print(getPlayer():getEmitter())
+                self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, true)
+                
+                -- self.deviceData:playSoundLocal("TelevisionZap", true);
                 ModData.getOrCreate("trueMusicData")["now_play"][musicId] = {
                     volume = self.deviceData:getDeviceVolume(),
                     headphone = self.deviceData:getHeadphoneType() >= 0,
@@ -221,7 +227,7 @@ end
 
 -- AddMedia
 function ISTCBoomboxAction:isValidAddMedia()
-    -- print("ISTCBoomboxAction:isValidAddMedia()")
+    print("ISTCBoomboxAction:isValidAddMedia()")
     -- print((not self.deviceData:getParent():getModData().tcmusic.mediaItem) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()])
     -- print(self.device:getModData().tcmusic.deviceType)
     -- print(self.device:getModData().tcmusic.mediaItem)

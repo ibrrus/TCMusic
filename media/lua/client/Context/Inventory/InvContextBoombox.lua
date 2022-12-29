@@ -3,7 +3,7 @@
 --**                  Author: turbotutone                   **
 --***********************************************************
 
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 require "TCTickCheckMusic"
 
 ISInventoryMenuElements = ISInventoryMenuElements or {};
