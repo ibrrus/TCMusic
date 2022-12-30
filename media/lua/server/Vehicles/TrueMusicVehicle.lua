@@ -31,6 +31,7 @@ function Vehicles.Update.Radio(vehicle, part, elapsedMinutes)
     TCOldVehUpdateRadio(vehicle, part, elapsedMinutes)
     local deviceData = part:getDeviceData()
     if deviceData then
+        deviceData:setMediaType(0)
         if part:getModData().tcmusic and 
                 part:getModData().tcmusic.isPlaying and 
                 part:getModData().tcmusic.mediaItem then

@@ -31,5 +31,11 @@ end
 
 
 function ISMusicVehicleMenu.onSignalDevice(playerObj, part)
+    if not part:getModData().tcmusic then
+        part:getModData().tcmusic = {}
+        part:getModData().tcmusic.mediaItem = nil
+        part:getModData().tcmusic.worldObj = nil
+        part:getModData().tcmusic.needSpeaker = nil
+    end
     ISTCBoomboxWindow.activate(playerObj, part)
 end

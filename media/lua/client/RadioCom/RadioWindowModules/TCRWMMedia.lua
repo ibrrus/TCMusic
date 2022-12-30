@@ -172,6 +172,7 @@ function TCRWMMedia:readFromObject( _player, _deviceObject, _deviceData, _device
     -- print("TCRWMMedia:readFromObject")
     if _deviceData:getMediaType() < 0 then
         -- print("_deviceData false")
+        -- print(_deviceType)
         if _deviceType == "VehiclePart" then
             _deviceData:setMediaType(0)
         else
@@ -269,7 +270,7 @@ function TCRWMMedia:update()
                 end
             end
         end
-
+        -- print(self.device:getModData().tcmusic.mediaItem)
         if self.device:getModData().tcmusic.mediaItem then
             if self.deviceData:getMediaType()==1 then
                 self.itemDropBox:setStoredItemFake( self.cdTex );

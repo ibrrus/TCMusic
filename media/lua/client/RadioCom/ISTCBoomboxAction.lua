@@ -106,10 +106,8 @@ end
 
 function ISTCBoomboxAction:performSetVolume()
     if self:isValidSetVolume() then 
-        print("ISTCBoomboxAction:performSetVolume():isValidSetVolume()")
-        print(self.deviceData:getDeviceVolume())
         self.deviceData:setDeviceVolume(self.secondaryItem)
-        print(self.deviceData:getDeviceVolume())
+        self.deviceData:getEmitter():setVolumeAll(self.deviceData:getDeviceVolume() * 0.4)
         self:actionWhenPlaying()
     end
 end
@@ -162,7 +160,7 @@ function ISTCBoomboxAction:isValidTogglePlayMedia()
 end
 
 function ISTCBoomboxAction:performTogglePlayMedia()
-    print("ISTCBoomboxAction:performTogglePlayMedia()")
+    -- print("ISTCBoomboxAction:performTogglePlayMedia()")
     if self:isValidTogglePlayMedia() then
         if isClient() then 
             -- ModData.request("trueMusicData") 
@@ -177,18 +175,12 @@ function ISTCBoomboxAction:performTogglePlayMedia()
                 self.deviceData:setChannelRaw(100)
                 sendClientCommand(self.character, 'truemusic', 'setMediaItemToVehiclePart', { vehicle = self.device:getVehicle():getId(), mediaItem = self.device:getModData().tcmusic.mediaItem, isPlaying = true })
             end    
-        else
+        elseif self.device:getModData().tcmusic.deviceType == "InventoryItem" then
             local musicId = nil
-            local needTransmit = false
-            if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-                if isClient() then
-                    musicId = self.character:getOnlineID()
-                else
-                    musicId = self.character:getUsername()
-                end
+            if isClient() then
+                musicId = self.character:getOnlineID()
             else
-                musicId = "#" .. self.device:getX() .. "-" .. self.device:getY() .. "-" .. self.device:getZ()
-                needTransmit = true
+                musicId = self.character:getUsername()
             end
             
             if self.device:getModData().tcmusic.isPlaying then -- self.deviceData:isPlayingMedia()
@@ -200,13 +192,7 @@ function ISTCBoomboxAction:performTogglePlayMedia()
             else
                 getSoundManager():StopMusic()
                 self.device:getModData().tcmusic.isPlaying = true
-                print("self.deviceData:playSound")
-                print(self.deviceData)
-                print(self.deviceData:getEmitter())
-                print(getPlayer():getEmitter())
                 self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, true)
-                
-                -- self.deviceData:playSoundLocal("TelevisionZap", true);
                 ModData.getOrCreate("trueMusicData")["now_play"][musicId] = {
                     volume = self.deviceData:getDeviceVolume(),
                     headphone = self.deviceData:getHeadphoneType() >= 0,
@@ -217,9 +203,32 @@ function ISTCBoomboxAction:performTogglePlayMedia()
                     ModData.getOrCreate("trueMusicData")["now_play"][musicId]["itemid"] = self.device:getID()
                 end
             end
-            if needTransmit then
-                self.device:transmitModData()
+        else
+            local musicId = nil
+            musicId = "#" .. self.device:getX() .. "-" .. self.device:getY() .. "-" .. self.device:getZ()
+
+            if self.device:getModData().tcmusic.isPlaying then -- self.deviceData:isPlayingMedia()
+                self.device:getModData().tcmusic.isPlaying = false 
+                if self.deviceData:getEmitter() then
+                    self.deviceData:getEmitter():stopAll()
+                end
+                ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
+            else
+                getSoundManager():StopMusic()
+                self.device:getModData().tcmusic.isPlaying = true
+                self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, true)
+                
+                ModData.getOrCreate("trueMusicData")["now_play"][musicId] = {
+                    volume = self.deviceData:getDeviceVolume(),
+                    headphone = self.deviceData:getHeadphoneType() >= 0,
+                    timestamp = "update",
+                    musicName = self.device:getModData().tcmusic.mediaItem,
+                }
+                if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+                    ModData.getOrCreate("trueMusicData")["now_play"][musicId]["itemid"] = self.device:getID()
+                end
             end
+            self.device:transmitModData()
         end
         if isClient() then ModData.transmit("trueMusicData") end
     end
@@ -227,7 +236,7 @@ end
 
 -- AddMedia
 function ISTCBoomboxAction:isValidAddMedia()
-    print("ISTCBoomboxAction:isValidAddMedia()")
+    -- print("ISTCBoomboxAction:isValidAddMedia()")
     -- print((not self.deviceData:getParent():getModData().tcmusic.mediaItem) and self.deviceData:getMediaType() == TCMusicData[self.secondaryItem:getType()])
     -- print(self.device:getModData().tcmusic.deviceType)
     -- print(self.device:getModData().tcmusic.mediaItem)
