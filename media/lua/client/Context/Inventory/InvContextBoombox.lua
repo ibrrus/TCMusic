@@ -20,6 +20,7 @@ function ISInventoryMenuElements.ContextBoombox()
             return;
         end
         if instanceof(_item, "Radio") then
+            -- если радио на земле
             if _item:getContainer() ~= self.invMenu.inventory then
                 if TCMusic.WorldMusicPlayer[_item:getFullType()] and _item:getContainer():getType() == "floor" and _item:getWorldItem() and _item:getWorldItem():getSquare() then
                     if not _item:getModData().tcmusic then

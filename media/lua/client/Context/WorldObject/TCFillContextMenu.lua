@@ -57,18 +57,21 @@ function TCFillContextMenu (player, context, worldobjects, test)
     if #worldObjects == 0 then return false end
     local itemList = {}
     for _,worldObject in ipairs(worldObjects) do
-        local itemName = worldObject:getName() or (worldObject:getItem():getName() or "???")
+        itemName = worldObject:getName() or (worldObject:getItem():getName() or "???")
         if not itemList[itemName] then itemList[itemName] = {} end
         table.insert(itemList[itemName], worldObject)
     end
-
+    removeFirstOption = false
     for name,items in pairs(itemList) do
-        local _item = items[1]:getItem()
-        local square = items[1]:getSquare()
+        _item = items[1]:getItem()
+        square = items[1]:getSquare()
         if instanceof(_item, "Radio")  then
             if _item:getType() == "TCBoombox" or _item:getType() == "TCVinylplayer" then
-                context:removeOptionTsar(context:getOptionFromName(getText("IGUI_DeviceOptions")))
-                context:removeOptionTsar(context:getOptionFromName(getText("IGUI_DeviceOptions")))
+                if not removeFirstOption then
+                    context:removeOptionTsar(context:getOptionFromName(getText("IGUI_DeviceOptions")))
+                    context:removeOptionTsar(context:getOptionFromName(getText("IGUI_DeviceOptions")))
+                    removeFirstOption = true
+                end
                 context:addOptionOnTop(getText("IGUI_DeviceOptions"), playerObj, ISRadioWindow.activateBoombox, _item );
             end
         end

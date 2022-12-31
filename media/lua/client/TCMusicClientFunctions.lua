@@ -49,26 +49,36 @@ function TCMusic.OnObjectAboutToBeRemoved(object)
         if _item:getModData().tcmusic and _item:getModData().tcmusic.worldObj then
             local radio = _item:getModData().tcmusic.worldObj
             if radio then
-                local _sqr = radio:getSquare()
-                _item:getModData().tcmusic = radio:getModData().tcmusic
-                if radio:getDeviceData():getIsBatteryPowered() and radio:getDeviceData():getHasBattery() then
-                    _item:getDeviceData():setHasBattery(true)
-                    _item:getDeviceData():setPower(radio:getDeviceData():getPower())
-                else
-                    _item:getDeviceData():setHasBattery(false)
+                if radio:getSquare() then
+                    _item:getModData().tcmusic = radio:getModData().tcmusic
+                    if radio:getDeviceData():getIsBatteryPowered() and radio:getDeviceData():getHasBattery() then
+                        _item:getDeviceData():setHasBattery(true)
+                        _item:getDeviceData():setPower(radio:getDeviceData():getPower())
+                    else
+                        _item:getDeviceData():setHasBattery(false)
+                    end
+                    _item:getDeviceData():setDeviceVolume(radio:getDeviceData():getDeviceVolume())
+                    sendClientCommand(getPlayer(), 'truemusic', 'deleteWO', { 
+                        x = radio:getX(), 
+                        y = radio:getY(), 
+                        z = radio:getZ(),
+                        nameSprite = TCMusic.WorldMusicPlayer[_item:getFullType()],
+                    })
                 end
-                _item:getDeviceData():setDeviceVolume(radio:getDeviceData():getDeviceVolume())
-                sendClientCommand(getPlayer(), 'truemusic', 'deleteWO', { 
-                    x = radio:getX(), 
-                    y = radio:getY(), 
-                    z = radio:getZ(),
-                    nameSprite = TCMusic.WorldMusicPlayer[_item:getFullType()],
-                })
                 _item:getModData().tcmusic.isPlaying = false
                 _item:getModData().tcmusic.worldObj = nil
                 _item:getModData().tcmusic.deviceType = "InventoryItem"
             end
         end
+    -- TODO обработка случая, если "невидимое" радио было уничтожено
+    elseif instanceof(object, "IsoRadio") then
+        -- local sprite = object:getSprite()
+        -- if sprite ~= nil then
+            -- local name_sprite = object:getSprite():getName()
+            -- if TCMusic.WorldMusicPlayer[name_sprite] then
+                
+            -- end
+        -- end
     end
 end
 

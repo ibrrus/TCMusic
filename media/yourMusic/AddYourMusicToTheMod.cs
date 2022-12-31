@@ -396,11 +396,11 @@ public class MusicGenerator
                         
                         //spawnRandom
                         randomNum = rnd.Next(0, ProceduralDistributionsItemsCassette.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.07);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.05);\n";
                         randomNum = rnd.Next(0, ProceduralDistributionsItemsCassette.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.07);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.05);\n";
                         randomNum = rnd.Next(0, ProceduralDistributionsItemsCassette.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.07);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassette[randomNum] + "\"].items, 0.05);\n";
                         // junk
                         // randomNum = rnd.Next(0, ProceduralDistributionsItemsCassetteJunk.Length);
                         // TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassetteJunk[randomNum] + "\"].junk.items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsCassetteJunk[randomNum] + "\"].junk.items, 0.07);\n";
@@ -410,17 +410,17 @@ public class MusicGenerator
                     else if (type == "TCVinylplayer") 
                     {
                         // Фиксированный спавн
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"MusicStoreCDs\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"MusicStoreCDs\"].items, 0.1);\n";
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"MusicStoreSpeaker\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"MusicStoreSpeaker\"].items, 0.1);\n";
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"ElectronicStoreMusic\"].junk.items, 0.1);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"MusicStoreCDs\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"MusicStoreCDs\"].items, 0.02);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"MusicStoreSpeaker\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"MusicStoreSpeaker\"].items, 0.02);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"ElectronicStoreMusic\"].junk.items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"ElectronicStoreMusic\"].junk.items, 0.02);\n";
                         
                         //spawnRandom
                         randomNum = rnd.Next(0, ProceduralDistributionsItemsVinyl.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.05);\n";
-                        randomNum = rnd.Next(0, ProceduralDistributionsItemsVinyl.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.05);\n";
-                        randomNum = rnd.Next(0, ProceduralDistributionsItemsVinyl.Length);
-                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.05);\n";
+                        TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.01);\n";
+                        // randomNum = rnd.Next(0, ProceduralDistributionsItemsVinyl.Length);
+                        // TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.01);\n";
+                        // randomNum = rnd.Next(0, ProceduralDistributionsItemsVinyl.Length);
+                        // TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinyl[randomNum] + "\"].items, 0.01);\n";
                         // junk
                         // randomNum = rnd.Next(0, ProceduralDistributionsItemsVinylJunk.Length);
                         // TCLoading += "table.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinylJunk[randomNum] + "\"].junk.items, \"Tsarcraft."  + unit + item + "\");\ntable.insert(ProceduralDistributions.list[\"" + ProceduralDistributionsItemsVinylJunk[randomNum] + "\"].junk.items, 0.05);\n";
