@@ -1,8 +1,28 @@
 -------------------
 v.2.12
-2022-12-28
+2023-01-01
 
+Исправлены 3д-модели музыкальных проигрывателей (спасибо ckyb).
+Исправлен текст всплывающего меню при установки кассеты или винила (спасибо ckyb).
+Bugfix: в одиночной игре для локального игрока не контролировался момент отключения музыки.
+Bugfix: кассеты можно было включать не во всех автомобилях.
+Bugfix: кассета пропадала при установке ей в магнитолу автомобиля.
+Bugfix: если игрок выбрасывал включенный бумбокс, зомби продолжали агриться на игрока.
+Bugfix: при размещении нескольких проигрыватель в одной ячейке, в контекстном меню появлялся пункт управления только одним из проигрывателей.
+Bugfix: если извлечь пластинку во время воспроизведения музыки, появлялась ошибка.
+Bugfix: если взорвать или поджечь бумбокс, музыка останавливалась, а зомби продолжали приманиваться к точке.
+Улучшен генератор аддонов: уменьшен шанс спавна кассет и винила, добавлен спавн в бардачке автомобилей, добавлены новые типы контейнеров для спавна.
 
+Fixed 3D models of music players (thanks to ckyb).
+Fixed pop-up menu text when installing cassette or vinyl (thanks to ckyb).
+Bugfix: in single player local player game, the moment the music was turned off was not controlled.
+Bugfix: cassettes could not be enabled in all vehicles.
+Bugfix: a cassette tape was lost when it was inserted into a car stereo.
+Bugfix: if a player threw a boombox on, zombies kept aggroing at the player.
+Bugfix: if multiple players are placed in the same cell, the context menu would only appear to control one of the players.
+Bugfix: if ejecting a record while playing music, an error would appear.
+Bugfix: if you blow up or set fire to a boombox, the music would stop and zombies would continue to be lured to the point.
+Improved addon generator: reduced chance of cassettes and vinyl spawn, added car glovebox spawn, added new types of containers for spawn.
 
 -------------------
 v.2.11

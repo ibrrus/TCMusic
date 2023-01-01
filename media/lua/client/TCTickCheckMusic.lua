@@ -111,7 +111,7 @@ function OnRenderTickClientCheckMusic ()
         local musicServerTable = ModData.getOrCreate("trueMusicData")
         if musicServerTable and musicServerTable["now_play"] then
             for musicId, musicServerData in pairs(musicServerTable["now_play"]) do
-                print("IN MODDATA:" .. musicId)
+                -- print("IN MODDATA:" .. musicId)
                 local strCoord = string.match(musicId, '%d*[-]%d*[-]%d*')
 
                 -- Автомобильная музыка обрабатывается в коде выше
@@ -198,7 +198,7 @@ function OnRenderTickClientCheckMusic ()
                                     end
                                 end
                             else
-                                print("ERR")
+                                -- print("ERR")
                                 woMusicTable[musicId] = nil
                             end
                         else
