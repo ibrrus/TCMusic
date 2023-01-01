@@ -1,11 +1,11 @@
 --***********************************************************
 --**                    THE INDIE STONE                    **
---**				  Author: turbotutone				   **
+--**                  Author: turbotutone                   **
 --***********************************************************
 
 require "ISUI/ISCollapsableWindow"
 require "RadioCom/ISRadioWindow"
-require "TCMusicDefenitions"
+require "TCMusicClientFunctions"
 
 ISTCBoomboxWindow = ISCollapsableWindow:derive("ISTCBoomboxWindow");
 ISTCBoomboxWindow.instances = {};
@@ -105,7 +105,7 @@ function ISTCBoomboxWindow:update()
         if self.deviceType and self.device and self.character and self.deviceData then
             if self.deviceType=="InventoryItem" then -- incase of inventory item check if player has it in a hand
                 if -- self.character:getPrimaryHandItem() == self.device or 
-				self.character:getSecondaryHandItem() == self.device then
+                self.character:getSecondaryHandItem() == self.device then
                     return;
                 end
             elseif self.deviceType == "IsoObject" or self.deviceType == "VehiclePart" then -- incase of isoobject check distance.
@@ -117,15 +117,15 @@ function ISTCBoomboxWindow:update()
     end
 
     if self.deviceData and self.deviceType=="InventoryItem" and
-		( -- self.character:getPrimaryHandItem() ~= self.device and 
-		self.character:getSecondaryHandItem() ~= self.device) then        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
-		-- print("TURN OFF")
-		self.device:getModData().tcmusic.isPlaying = false;
+        ( -- self.character:getPrimaryHandItem() ~= self.device and 
+        self.character:getSecondaryHandItem() ~= self.device) then        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
+        -- print("TURN OFF")
+        self.device:getModData().tcmusic.isPlaying = false;
         self.deviceData:setIsTurnedOn(false);
     end
 
     -- otherwise remove
-	-- print("ISTCBoomboxWindow:update() close")
+    -- print("ISTCBoomboxWindow:update() close")
     self:close();
     --self:clear();
     --self:removeFromUIManager();
@@ -197,7 +197,7 @@ end
 
 -- read from item/object and set modules
 function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
-	-- print("ISTCBoomboxWindow:readFromObject")
+    -- print("ISTCBoomboxWindow:readFromObject")
     self:clear();
     self.character = _player;
     self.device = _deviceObject;
@@ -208,31 +208,31 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
         if self.deviceType then
             self.deviceData = _deviceObject:getDeviceData();
             self.title = self.deviceData:getDeviceName();
-			-- print(self.device:getModData().tcmusic.deviceType)
-			if self.deviceType == "IsoObject" then
-				if not self.device:getModData().tcmusic then
-					self.device:getModData().tcmusic = {}
-				end
-				self.device:getModData().tcmusic.deviceType = self.deviceType
-				if not isClient() and self.deviceData:getMediaType() == 1 then
-					-- self.device:getModData().tcmusic.needSpeaker = true
-				end
-				self.device:transmitModData()
-			elseif self.deviceType == "InventoryItem" then
-				if not self.device:getModData().tcmusic then
-					self.device:getModData().tcmusic = {}
-				end
-				self.device:getModData().tcmusic.deviceType = self.deviceType
-			else
-				-- print("sendClientCommand: readFromObject")
-				local mediaItemName = false
-				local isPlaying = false
-				if self.device:getModData().tcmusic then
-					mediaItemName = self.device:getModData().tcmusic.mediaItem
-					isPlaying = self.device:getModData().tcmusic.isPlaying
-				end
-				sendClientCommand(self.character, 'truemusic', 'setMediaItem', { vehicle = self.device:getVehicle():getId(), mediaItem = mediaItemName, isPlaying = isPlaying })
-			end
+            -- print(self.device:getModData().tcmusic.deviceType)
+            if self.deviceType == "IsoObject" then
+                if not self.device:getModData().tcmusic then
+                    self.device:getModData().tcmusic = {}
+                end
+                self.device:getModData().tcmusic.deviceType = self.deviceType
+                if not isClient() and self.deviceData:getMediaType() == 1 then
+                    -- self.device:getModData().tcmusic.needSpeaker = true
+                end
+                self.device:transmitModData()
+            elseif self.deviceType == "InventoryItem" then
+                if not self.device:getModData().tcmusic then
+                    self.device:getModData().tcmusic = {}
+                end
+                self.device:getModData().tcmusic.deviceType = self.deviceType
+            else
+                -- print("sendClientCommand: readFromObject")
+                local mediaItemName = false
+                local isPlaying = false
+                if self.device:getModData().tcmusic then
+                    mediaItemName = self.device:getModData().tcmusic.mediaItem
+                    isPlaying = self.device:getModData().tcmusic.isPlaying
+                end
+                sendClientCommand(self.character, 'truemusic', 'setMediaItemToVehiclePart', { vehicle = self.device:getVehicle():getId(), mediaItem = mediaItemName, isPlaying = isPlaying })
+            end
         end
     end
 

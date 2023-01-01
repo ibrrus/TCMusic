@@ -1,6 +1,6 @@
 --***********************************************************
 --**                    THE INDIE STONE                    **
---**				  Author: turbotutone				   **
+--**                  Author: turbotutone                   **
 --***********************************************************
 
 require "RadioCom/RadioWindowModules/RWMPanel"
@@ -126,10 +126,10 @@ function TCRWMVolume:readFromObject( _player, _deviceObject, _deviceData, _devic
     self.volumeBar:setVolume(math.floor(self.volume*self.volumeBar:getVolumeSteps()));
     if self.deviceData:getIsPortable() and self.deviceData:getIsTelevision()==false then
         if self.device:getModData().tcmusic.deviceType == "IsoObject" then
-			self:toggleHeaphoneSupport(false);
-		else
-			self:toggleHeaphoneSupport(true);
-		end
+            self:toggleHeaphoneSupport(false);
+        else
+            self:toggleHeaphoneSupport(true);
+        end
     else
         self:toggleHeaphoneSupport(false);
     end

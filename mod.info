@@ -1,8 +1,8 @@
-name=True Music_TEST_v.2.11
+name=True Music_TEST_v.2.12
 poster=poster.png
 id=truemusic_test
 description=
-versionMin=41.73
+versionMin=41.78
 require=tsarslib_test
 pack=tsarcraft_music
 tiledef=tsarcraft_music 222
