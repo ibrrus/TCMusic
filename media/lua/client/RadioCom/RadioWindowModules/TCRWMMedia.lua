@@ -129,10 +129,6 @@ end
 --- Проверка, что игрок "вставляет" правильный предмет
 -- Функция не обновляется на горячую, нужен перезапуск уровня
 function TCRWMMedia:verifyItem( _item )
-    -- print("TCRWMMedia:verifyItem")
-    -- print(_item)
-    -- print(_item:getType())
-    -- print(self.deviceType)
     if GlobalMusic[_item:getType()] then
         if self.deviceType == "InventoryItem" then
             if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then

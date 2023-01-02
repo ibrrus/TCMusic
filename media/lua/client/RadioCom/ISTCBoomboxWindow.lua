@@ -12,9 +12,9 @@ ISTCBoomboxWindow.instances = {};
 ISTCBoomboxWindow.instancesIso = {};
 
 function ISTCBoomboxWindow.activate( _player, _deviceObject )
--- print("ISTCBoomboxWindow.activate")
+print("ISTCBoomboxWindow.activate")
     local playerNum = _player:getPlayerNum();
-
+    
     local radioWindow, instances;
     _player:setVariable("ExerciseStarted", false);
     _player:setVariable("ExerciseEnded", true);
@@ -43,7 +43,6 @@ function ISTCBoomboxWindow.activate( _player, _deviceObject )
     --radioWindow.isJoypadWindow = JoypadState.players[playerNum+1] and true or false;
 
     radioWindow:readFromObject( _player, _deviceObject );
-
     radioWindow:addToUIManager();
     radioWindow:setVisible(true);
 
@@ -197,7 +196,7 @@ end
 
 -- read from item/object and set modules
 function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
-    -- print("ISTCBoomboxWindow:readFromObject")
+    print("ISTCBoomboxWindow:readFromObject")
     self:clear();
     self.character = _player;
     self.device = _deviceObject;
@@ -207,6 +206,7 @@ function ISTCBoomboxWindow:readFromObject( _player, _deviceObject )
             (instanceof(self.device, "VehiclePart") and "VehiclePart");
         if self.deviceType then
             self.deviceData = _deviceObject:getDeviceData();
+            print(self.deviceData:getParent())
             self.title = self.deviceData:getDeviceName();
             -- print(self.device:getModData().tcmusic.deviceType)
             if self.deviceType == "IsoObject" then
