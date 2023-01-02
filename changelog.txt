@@ -1,4 +1,12 @@
 -------------------
+v.2.13
+2023-01-03
+
+Я так и не понял, почему этот мод работал до версии 2.12. Наверное, это была какая-то магия. Но в этот раз, чтобы исправить все ошибки, мне пришлось переписать половину кода.
+
+I still haven't figured out why this mod worked before version 2.12. There must have been some magic involved. But this time, I had to rewrite half the code to fix all the bugs.
+
+-------------------
 v.2.12
 2023-01-01
 

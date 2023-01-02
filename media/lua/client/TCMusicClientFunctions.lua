@@ -1,3 +1,5 @@
+--- @filename TCMusicClientFunctions.lua
+
 require "TCMusicDefenitions"
 
 --- Поиск WO-бумбокса вокруг Item-бумбокса и запись ссылки на него в ModData
@@ -40,24 +42,49 @@ require "TCMusicDefenitions"
 -- end
 
 -- --- Удаление невидимого WO-бумбокса
-function TCMusic.OnObjectAboutToBeRemoved(object)
+function TCMusic.OnObjectAboutToBeRemovedAux(object)
     if instanceof(object, "IsoWorldInventoryObject") then
-        if _item and instanceof(object:getItem(), "Radio") and TCMusic.WorldMusicPlayer[_item:getFullType()] then
+        -- print("IsoWorldInventoryObject")
+        _item = object:getItem()
+        if _item and instanceof(_item, "Radio") and TCMusic.WorldMusicPlayer[_item:getFullType()] then
+            -- print("search")
             local square = object:getSquare()
             local _obj = nil
             for i=0, square:getObjects():size()-1 do
                 local tObj = square:getObjects():get(i)
                 if instanceof(tObj, "IsoRadio") then
-                    if tObj:getModData().RadioItemID == item:getItem():getID() then
+                    -- print(tObj:getModData().RadioItemID)
+                    if tObj:getModData().RadioItemID == _item:getID() .. "tm" then
                         _obj = tObj
+                        -- print("obj found")
                         break
                     end
                 end
             end
             if _obj ~= nil then
-                _item:getModData().tcmusic = _obj:getModData().tcmusic
+                if _obj:getModData().tcmusic then
+                    _item:getModData().tcmusic = _obj:getModData().tcmusic
+                    -- print("copy tcmusic")
+                else
+                    _item:getModData().tcmusic = {}
+                    -- print("new tcmusic")
+                end
                 _item:getModData().tcmusic.isPlaying = false
                 _item:getModData().tcmusic.deviceType = "InventoryItem"
+                
+                local deviceData = _obj:getDeviceData();
+                if deviceData then
+                    _item:setDeviceData(deviceData);
+                end
+                sendClientCommand(getPlayer(), 'truemusic', 'deleteWO', { 
+                    x = _obj:getX(), 
+                    y = _obj:getY(), 
+                    z = _obj:getZ(),
+                    nameSprite = TCMusic.WorldMusicPlayer[_item:getFullType()],
+                })
+                -- square:transmitRemoveItemFromSquare(_obj)
+                -- square:RecalcProperties();
+                -- square:RecalcAllWithNeighbours(true);
             end
         end
     -- TODO обработка случая, если "невидимое" радио было уничтожено
@@ -75,6 +102,10 @@ end
 --- Активация расширенного меню управления звуками
 function TCMusic.AdvancedSoundOptions()
     SystemDisabler.setEnableAdvancedSoundOptions(true)
+end
+
+function TCMusic.OnObjectAboutToBeRemoved(object)
+    TCMusic.OnObjectAboutToBeRemovedAux(object)
 end
 
 Events.OnObjectAboutToBeRemoved.Add(TCMusic.OnObjectAboutToBeRemoved)

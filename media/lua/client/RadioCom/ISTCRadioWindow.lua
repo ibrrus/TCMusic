@@ -4,6 +4,7 @@ require "TCMusicClientFunctions"
 TCMusic.oldISRadioWindow_activate = ISRadioWindow.activate
 
 function ISRadioWindow.activate( _player, _item, bol)
+-- print("ISRadioWindow.activate")
     if _player == getPlayer() then
         if instanceof(_item, "Radio") then
             if TCMusic.ItemMusicPlayer[_item:getFullType()] then
@@ -16,37 +17,73 @@ function ISRadioWindow.activate( _player, _item, bol)
                 TCMusic.oldISRadioWindow_activate( _player, _item, bol );
             end
         elseif instanceof(_item, "IsoWaveSignal") then
-            boomboxFound = false
-            for i=0, _item:getSquare():getWorldObjects():size()-1 do
-                local itemObj = _item:getSquare():getWorldObjects():get(i)
-                if instanceof(itemObj:getItem(), "Radio") then
-                    if itemObj:getItem():getID() == _item:getModData().RadioItemID then
-                        if TCMusic.WorldMusicPlayer[itemObj:getItem():getFullType()] then
-                            boomboxFound = true
-                            if not _item:getSprite() or not TCMusic.WorldMusicPlayer[_item:getSprite():getName()] then
-                                if itemObj:getItem():getType() == "TCBoombox" then
-                                    _item:setSpriteFromName("tsarcraft_music_01_62");
-                                    _item:transmitUpdatedSpriteToServer();
+            if not _item:getSprite() or not TCMusic.WorldMusicPlayer[_item:getSprite():getName()] then
+                -- ищем старой радио, и создаем новое радио
+                for i=0, _item:getSquare():getWorldObjects():size()-1 do
+                    local itemObj = _item:getSquare():getWorldObjects():get(i)
+                    if instanceof(itemObj:getItem(), "Radio") then
+                        if itemObj:getItem():getID() == _item:getModData().RadioItemID then
+                            if TCMusic.WorldMusicPlayer[itemObj:getItem():getFullType()] then
+                                -- нашли стандартное радио и удаляем его
+                                invItem = itemObj:getItem()
+                                square = itemObj:getSquare()
+                                
+                                square:transmitRemoveItemFromSquare(_item)
+                                square:RecalcProperties();
+                                square:RecalcAllWithNeighbours(true);
+                                
+                                -- TEST
+                                local radio = IsoRadio.new(getCell(), square, getSprite(TCMusic.WorldMusicPlayer[invItem:getFullType()]))
+                                square:AddTileObject(radio)
+                                if invItem:getModData().tcmusic then
+                                    radio:getModData().tcmusic = invItem:getModData().tcmusic
                                 else
-                                    _item:setSpriteFromName("tsarcraft_music_01_63");
-                                    _item:transmitUpdatedSpriteToServer();
+                                    radio:getModData().tcmusic = {}
                                 end
+                                radio:getModData().tcmusic.itemid = square:getX() .. 
+                                                                    square:getY() .. 
+                                                                    square:getZ()
+                                -- invItem:getModData().tcmusic.worldObj = radio
+                                radio:getModData().tcmusic.deviceType = "IsoObject"
+                                radio:getModData().tcmusic.isPlaying = false
+                                radio:getModData().RadioItemID = invItem:getID() .. "tm"
+                                radio:getDeviceData():setIsTurnedOn(false)
+                                radio:getDeviceData():setPower(invItem:getDeviceData():getPower())
+                                radio:getDeviceData():setDeviceVolume(invItem:getDeviceData():getDeviceVolume())
+                                if invItem:getDeviceData():getIsBatteryPowered() and invItem:getDeviceData():getHasBattery() then
+                                    radio:getDeviceData():setPower(invItem:getDeviceData():getPower())
+                                else
+                                    radio:getDeviceData():setHasBattery(false)
+                                end
+                                if invItem:getDeviceData():getHeadphoneType() >= 0 then
+                                    invItem:getDeviceData():getHeadphones(_p.player:getInventory())
+                                end
+                                if isClient() then 
+                                    radio:transmitCompleteItemToServer(); 
+                                end
+                                ISTCBoomboxWindow.activate( _player, radio );
+                                return
+                            else
+                                TCMusic.oldISRadioWindow_activate( _player, _item, bol );
+                                return
                             end
-                            if itemObj:getItem():getModData().tcmusic then
-                                _item:getModData().tcmusic = itemObj:getItem():getModData().tcmusic
-                                _item:getModData().tcmusic.isPlaying = false
-                                _item:getModData().tcmusic.deviceType = "IsoObject"
-                                _item:transmitModData()
+                        end
+                    end
+                end
+            else
+                for i=0, _item:getSquare():getWorldObjects():size()-1 do
+                    local itemObj = _item:getSquare():getWorldObjects():get(i)
+                    if instanceof(itemObj:getItem(), "Radio") then
+                        if itemObj:getItem():getID() .. "tm" == _item:getModData().RadioItemID then
+                            if TCMusic.WorldMusicPlayer[itemObj:getItem():getFullType()] then
+                                ISTCBoomboxWindow.activate( _player, _item );
+                                return
                             end
-                            ISTCBoomboxWindow.activate( _player, _item );
-                            break
                         end
                     end
                 end
             end
-            if not boomboxFound then
-                TCMusic.oldISRadioWindow_activate( _player, _item, bol );
-            end
+            TCMusic.oldISRadioWindow_activate( _player, _item, bol );
         else
             TCMusic.oldISRadioWindow_activate( _player, _item, bol );
         end

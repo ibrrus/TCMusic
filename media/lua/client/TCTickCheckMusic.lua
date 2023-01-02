@@ -111,7 +111,7 @@ function OnRenderTickClientCheckMusic ()
         local musicServerTable = ModData.getOrCreate("trueMusicData")
         if musicServerTable and musicServerTable["now_play"] then
             for musicId, musicServerData in pairs(musicServerTable["now_play"]) do
-                print("IN MODDATA:" .. musicId)
+                -- print("IN MODDATA:" .. musicId)
                 local strCoord = string.match(musicId, '%d*[-]%d*[-]%d*')
 
                 -- Автомобильная музыка обрабатывается в коде выше
@@ -169,7 +169,7 @@ function OnRenderTickClientCheckMusic ()
                                 end
                                 -- обработка случае, когда бумбокс уничтожили
                                 if not musicPlayerFound then
-                                    print("musicPlayerFound not FOUND")
+                                    -- print("musicPlayerFound not FOUND")
                                     ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
                                     if isClient() then ModData.transmit("trueMusicData") end
                                 end
@@ -219,8 +219,8 @@ function OnRenderTickClientCheckMusic ()
                         player = getPlayerByOnlineID(musicId)
                     else
                         for playerNum = 0, getNumActivePlayers() - 1 do
-                            local playerObj = getSpecificPlayer(playerNum)
-                            if playerObj:getUsername() == musicId then player = playerObj end
+                            local tempPlayerObj = getSpecificPlayer(playerNum)
+                            if tempPlayerObj:getUsername() == musicId then player = tempPlayerObj end
                         end
                     end
                     if player and not player:isDead() then
@@ -236,11 +236,13 @@ function OnRenderTickClientCheckMusic ()
 
                                 -- если игрок выбросил бумбокс, отправляем информацию на сервер
                                 if not musicplayer then
+                                    playerObj:getEmitter():stopSound(playerObj:getModData().tcmusicid)
                                     ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
                                     if isClient() then ModData.transmit("trueMusicData") end
                                 -- если музыка перестала играть, отправляем информацию на сервер
                                 elseif not musicplayer:getModData().tcmusic.mediaItem or
                                         not playerObj:getEmitter():isPlaying(playerObj:getModData().tcmusicid) then
+                                -- elseif not musicplayer:getModData().tcmusic.mediaItem or musicplayer:getDeviceData():getEmitter() and not musicplayer:getDeviceData():getEmitter():isPlaying(musicplayer:getModData().tcmusic.mediaItem) then
                                     musicplayer:getModData().tcmusic.isPlaying = false
                                     ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
                                     if isClient() then ModData.transmit("trueMusicData") end
@@ -260,8 +262,8 @@ function OnRenderTickClientCheckMusic ()
                                             player:getSecondaryHandItem():getDeviceData() and (player:getSecondaryHandItem():getDeviceData():getPower() > 0) then
                                         
                                         local id = player:getEmitter():playSoundImpl(musicServerData["musicName"], nil)
-                                        print("MUSIC ID:")
-                                        print(id)
+                                        -- print("MUSIC ID:")
+                                        -- print(id)
                                         local koef = 0.4 -- коэффициент отвечающий за наличие наушников
                                         if musicServerData["headphone"] then
                                             koef = 0.02
@@ -324,7 +326,7 @@ function OnRenderTickClientCheckMusic ()
         -- очищаем локальные таблицы от "фантомов", о которых не знает сервер
         for musicId, musicClientData in pairs(localWoMusicTable) do
             if not ModData.getOrCreate("trueMusicData")["now_play"][musicId] then
-                print("Must be clear localWoMusicTable")
+                -- print("Must be clear localWoMusicTable")
                 if musicClientData["obj"] then
                     if musicClientData["obj"]:getDeviceData() and musicClientData["obj"]:getDeviceData():getEmitter() then
                         musicClientData["obj"]:getDeviceData():getEmitter():stopAll()
@@ -342,7 +344,7 @@ function OnRenderTickClientCheckMusic ()
         
         for musicId, musicClientData in pairs(localPlayerMusicTable) do
             if not ModData.getOrCreate("trueMusicData")["now_play"][musicId] then
-                print("Must be clear localPlayerMusicTable")
+                -- print("Must be clear localPlayerMusicTable")
                 local player = nil
                 if isClient() then
                     player = getPlayerByOnlineID(musicId)
@@ -351,8 +353,8 @@ function OnRenderTickClientCheckMusic ()
                 end
                 if player then
                     player:getEmitter():stopSound(musicClientData["localmusicid"])
-                    print("player stopSound")
-                    print(musicClientData["localmusicid"])
+                    -- print("player stopSound")
+                    -- print(musicClientData["localmusicid"])
                 end
                 localPlayerMusicTable[musicId] = nil
             end
@@ -361,7 +363,7 @@ function OnRenderTickClientCheckMusic ()
 end
 
 function startTrueMusicTick ()
-    -- Events.OnTick.Add(OnRenderTickClientCheckMusic)
+    Events.OnTick.Add(OnRenderTickClientCheckMusic)
 end
 
 Events.OnCreatePlayer.Add(startTrueMusicTick)

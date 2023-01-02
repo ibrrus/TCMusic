@@ -67,11 +67,12 @@ function TrueMCommands.deleteWO(player, args)
                         if name_sprite == args.nameSprite then
                             sqr:transmitRemoveItemFromSquare(object)
                             objDelete = true
+                            break
                         end
                     end
                 end
             end
-            local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
+            -- local id = "#" .. args.x .. "-" .. args.y .. "-" .. args.z
             -- if t[id] and objDelete then -- @warning забыл для чего это
                 -- -- print("OBJECT IN DB")
                 -- t[id] = nil -- @warning забыл для чего это

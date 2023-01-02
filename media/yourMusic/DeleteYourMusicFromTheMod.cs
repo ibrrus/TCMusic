@@ -13,7 +13,7 @@ public class MusicGenerator
         deleteTCGFiles(@"..\lua\shared");
         deleteTCGFiles(@"..\lua\server\Items");
         deleteTCGFiles(@"..\scripts");
-        deleteAllFiles(@"..\textures\WorldItems");
+        // deleteAllFiles(@"..\textures\WorldItems");
         Console.WriteLine("\nPress any key..");
         Console.ReadKey();
     }
@@ -32,15 +32,15 @@ public class MusicGenerator
         }
     }
     
-    public static void deleteAllFiles(string type)
-    {    
-        var dir=new DirectoryInfo(type);
-        foreach (FileInfo file in dir.GetFiles())
-        {
+    // public static void deleteAllFiles(string type)
+    // {    
+        // var dir=new DirectoryInfo(type);
+        // foreach (FileInfo file in dir.GetFiles())
+        // {
             
-            file.Delete();
-        }
-        Console.WriteLine(type + " deleted.");
-    }
+            // file.Delete();
+        // }
+        // Console.WriteLine(type + " deleted.");
+    // }
 }
 
