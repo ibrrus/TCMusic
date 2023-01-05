@@ -56,7 +56,7 @@ function ISRadioWindow.activate( _player, _item, bol)
                                     radio:getDeviceData():setHasBattery(false)
                                 end
                                 if invItem:getDeviceData():getHeadphoneType() >= 0 then
-                                    invItem:getDeviceData():getHeadphones(_p.player:getInventory())
+                                    invItem:getDeviceData():getHeadphones(_player:getInventory())
                                 end
                                 if isClient() then 
                                     radio:transmitCompleteItemToServer(); 
