@@ -8,7 +8,7 @@ function ISRadioWindow.activate( _player, _item, bol)
     if _player == getPlayer() then
         if instanceof(_item, "Radio") then
             if TCMusic.ItemMusicPlayer[_item:getFullType()] then
-                if _player:isHandItem(_item) or _player:isAttachedItem(_item) then
+                if _player:isHandItem(_item) then
                     ISTCBoomboxWindow.activate( _player, _item );
                 end
             elseif TCMusic.WorldMusicPlayer[_item:getFullType()] then

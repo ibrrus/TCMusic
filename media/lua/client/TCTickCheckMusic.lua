@@ -259,7 +259,7 @@ function OnRenderTickClientCheckMusic ()
                                 -- если игрока с музыкой нет в локальной таблице
                                 if not musicData then
                                     -- проверяем, что проигрыватель всё еще в руках игрока, запускаем музыку, записываем в локальную таблицу
-                                    if (player:isHandItem(musicServerData["itemid"]) or player:isAttachedItem(musicServerData["itemid"]))
+                                    if player:isHandItem(musicServerData["itemid"])
                                        and (musicPlayer:getDeviceData() and musicPlayer:getDeviceData():getPower() > 0) then
                                         local id = player:getEmitter():playSoundImpl(musicServerData["musicName"], nil)
                                         -- print("MUSIC ID:")
@@ -277,7 +277,7 @@ function OnRenderTickClientCheckMusic ()
                                 else
                                     -- если игрок в локальной таблице и музыка продолжает играть, контролируем громкость
                                     if player:getEmitter():isPlaying(musicData["localmusicid"]) then
-                                      if (player:isHandItem(musicServerData["itemid"]) or player:isAttachedItem(musicServerData["itemid"]))
+                                      if player:isHandItem(musicServerData["itemid"])
                                          and (musicPlayer:getDeviceData() and musicPlayer:getDeviceData():getPower() > 0)
                                          and (musicPlayer:getDeviceData():getIsTurnedOn()) then
                                           local koef = 0.4  -- коэффициент отвечающий за наличие наушников
