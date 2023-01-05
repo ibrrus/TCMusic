@@ -110,6 +110,8 @@ function ISTCBoomboxAction:performSetVolume()
         self.deviceData:setDeviceVolume(self.secondaryItem)
         if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
             self.character:getEmitter():setVolume(self.character:getModData().tcmusicid, self.deviceData:getDeviceVolume() * 0.4)
+        elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+            -- TCTickCheckMusic should catch this and update the volume
         else
             self.deviceData:getEmitter():setVolumeAll(self.deviceData:getDeviceVolume() * 0.4)
         end
