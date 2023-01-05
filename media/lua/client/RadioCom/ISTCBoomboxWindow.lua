@@ -103,8 +103,7 @@ function ISTCBoomboxWindow:update()
 
         if self.deviceType and self.device and self.character and self.deviceData then
             if self.deviceType=="InventoryItem" then -- incase of inventory item check if player has it in a hand
-                if -- self.character:getPrimaryHandItem() == self.device or 
-                self.character:getSecondaryHandItem() == self.device then
+                if self.character:isHandItem(self.device) or self.character:isAttachedItem(self.device) then
                     return;
                 end
             elseif self.deviceType == "IsoObject" or self.deviceType == "VehiclePart" then -- incase of isoobject check distance.
@@ -115,9 +114,9 @@ function ISTCBoomboxWindow:update()
         end
     end
 
-    if self.deviceData and self.deviceType=="InventoryItem" and
-        ( -- self.character:getPrimaryHandItem() ~= self.device and 
-        self.character:getSecondaryHandItem() ~= self.device) then        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
+    if (self.deviceData and self.deviceType=="InventoryItem")
+       and not (self.character:isHandItem(self.device) or self.character:isAttachedItem(self.device)) then
+        -- conveniently turn off radio when unequiped to prevent accidental loss of power.
         -- print("TURN OFF")
         self.device:getModData().tcmusic.isPlaying = false;
         self.deviceData:setIsTurnedOn(false);
