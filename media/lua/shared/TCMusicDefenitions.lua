@@ -9,6 +9,7 @@ if not TCMusic then TCMusic = {} end
 if (TCMusic.ItemMusicPlayer == nil) then TCMusic.ItemMusicPlayer = {} end
 if (TCMusic.VehicleMusicPlayer == nil) then TCMusic.VehicleMusicPlayer = {} end
 if (TCMusic.WorldMusicPlayer == nil) then TCMusic.WorldMusicPlayer = {} end
+if (TCMusic.WalkmanPlayer == nil) then TCMusic.WalkmanPlayer = {} end
 if (GlobalMusic == nil) then GlobalMusic = {} end
 
 if DEBUG then
@@ -39,4 +40,5 @@ else
     TCMusic.VehicleMusicPlayer["Radio.HamRadio2"] = "tsarcraft_music_01_62"
     TCMusic.VehicleMusicPlayer["Radio.RadioBlack"] = "tsarcraft_music_01_62"
     TCMusic.VehicleMusicPlayer["Radio.RadioRed"] = "tsarcraft_music_01_62"
+    TCMusic.WalkmanPlayer["Tsarcraft.TCWalkman"] = "tsarcraft_music_01_62"
 end

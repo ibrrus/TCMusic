@@ -77,7 +77,7 @@ function ISTCBoomboxWindow:createChildren()
 
     --self:addModule(RWMSignal:new (0, 0, self.width, 0 ), "Signal", false);
     -- self:addModule(RWMGeneral:new (0, 0, self.width, 0), getText("IGUI_RadioGeneral"), true);
-    self:addModule(RWMPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
+    self:addModule(TCRWMPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
     self:addModule(TCRWMGridPower:new (0, 0, self.width, 0), getText("IGUI_RadioPower"), true);
     -- self:addModule(RWMSignal:new (0, 0, self.width, 0), getText("IGUI_RadioSignal"), true);
     self:addModule(TCRWMVolume:new (0, 0, self.width, 0), getText("IGUI_RadioVolume"), true);
@@ -104,7 +104,8 @@ function ISTCBoomboxWindow:update()
         if self.deviceType and self.device and self.character and self.deviceData then
             if self.deviceType=="InventoryItem" then -- incase of inventory item check if player has it in a hand
                 if -- self.character:getPrimaryHandItem() == self.device or 
-                self.character:getSecondaryHandItem() == self.device then
+                    self.character:getSecondaryHandItem() == self.device or 
+                    (TCMusic.WalkmanPlayer[self.device:getFullType()] and self.device:getContainer() == self.character:getInventory()) then
                     return;
                 end
             elseif self.deviceType == "IsoObject" or self.deviceType == "VehiclePart" then -- incase of isoobject check distance.

@@ -63,6 +63,7 @@ end
 
 -- ToggleOnOff
 function ISTCBoomboxAction:isValidToggleOnOff()
+-- print("ISTCBoomboxAction:isValidToggleOnOff")
     return self.deviceData:getIsBatteryPowered() and self.deviceData:getPower() > 0 or self.deviceData:canBePoweredHere();
 end
 
@@ -71,6 +72,13 @@ function ISTCBoomboxAction:performToggleOnOff()
     if self:isValidToggleOnOff() then
         if self.device:getModData().tcmusic and (self.device:getModData().tcmusic.deviceType == "VehiclePart") then
             sendClientCommand(self.character, 'truemusic', 'setMediaItemToVehiclePart', { vehicle = self.device:getVehicle():getId(), mediaItem = self.device:getModData().tcmusic.mediaItem, isPlaying = false })
+        end
+        if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+            if self.device:getModData().tcmusic.isPlaying then
+                self.device:getModData().tcmusic.isPlaying = false 
+                self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+                ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
+            end
         end
         self.deviceData:setIsTurnedOn( not self.deviceData:getIsTurnedOn() );
     end
@@ -82,8 +90,18 @@ function ISTCBoomboxAction:isValidRemoveBattery()
 end
 
 function ISTCBoomboxAction:performRemoveBattery()
+    if self.deviceData:getHasBattery() then
+        self.deviceData:setIsTurnedOn( not self.deviceData:getIsTurnedOn() );
+    end
     if self:isValidRemoveBattery() and self.character:getInventory() then
         self.deviceData:getBattery(self.character:getInventory());
+    end
+    if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+        if self.device:getModData().tcmusic.isPlaying then
+            self.device:getModData().tcmusic.isPlaying = false 
+            self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+            ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
+        end
     end
 end
 
@@ -110,6 +128,8 @@ function ISTCBoomboxAction:performSetVolume()
         self.deviceData:setDeviceVolume(self.secondaryItem)
         if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
             self.character:getEmitter():setVolume(self.character:getModData().tcmusicid, self.deviceData:getDeviceVolume() * 0.4)
+        elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
+            -- Громкость контролирует файл TCTickCheckMusic.lua
         else
             self.deviceData:getEmitter():setVolumeAll(self.deviceData:getDeviceVolume() * 0.4)
         end
@@ -137,6 +157,13 @@ end
 function ISTCBoomboxAction:performRemoveHeadphones()
     if self:isValidRemoveHeadphones() and self.character:getInventory() then
         self.deviceData:getHeadphones(self.character:getInventory());
+        if self.device:getModData().tcmusic.deviceType == "InventoryItem" and self.device:getFullType() and TCMusic.WalkmanPlayer[self.device:getFullType()] then
+            if self.device:getModData().tcmusic.isPlaying then
+                self.device:getModData().tcmusic.isPlaying = false 
+                self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+                ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
+            end
+        end
         self:actionWhenPlaying()
     end
 end
@@ -156,6 +183,9 @@ end
 -- TogglePlayMedia
 function ISTCBoomboxAction:isValidTogglePlayMedia()
     if self.deviceData:getIsTurnedOn() and self.device:getModData().tcmusic.mediaItem then
+        if self.device:getModData().tcmusic.deviceType == "InventoryItem" and TCMusic.WalkmanPlayer[self.device:getFullType()] and (self.deviceData:getHeadphoneType() < 0) then
+            return false
+        end
         if not self.device:getModData().tcmusic.needSpeaker or self.device:getModData().tcmusic.connectTo then
             return true
         else
@@ -165,7 +195,6 @@ function ISTCBoomboxAction:isValidTogglePlayMedia()
 end
 
 function ISTCBoomboxAction:performTogglePlayMedia()
-    -- print("ISTCBoomboxAction:performTogglePlayMedia()")
     if self:isValidTogglePlayMedia() then
         if isClient() then 
             -- ModData.request("trueMusicData") 
@@ -189,16 +218,22 @@ function ISTCBoomboxAction:performTogglePlayMedia()
             end
             
             if self.device:getModData().tcmusic.isPlaying then -- self.deviceData:isPlayingMedia()
-                self.device:getModData().tcmusic.isPlaying = false 
+                self.device:getModData().tcmusic.isPlaying = false
+                
                 -- if self.deviceData:getEmitter() then
                     -- self.deviceData:getEmitter():stopAll()
                 -- end
-                self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+                if self.character:getModData().tcmusicid then
+                    self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+                    self.character:getModData().tcmusicid = nil
+                end
                 ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
             else
                 getSoundManager():StopMusic()
                 self.device:getModData().tcmusic.isPlaying = true
-                -- print("playSound InventoryItem")
+                if self.character:getModData().tcmusicid then
+                    self.character:getEmitter():stopSound(self.character:getModData().tcmusicid)
+                end
                 self.character:getModData().tcmusicid = self.character:getEmitter():playSoundImpl(self.device:getModData().tcmusic.mediaItem, nil)
                 self.character:getEmitter():setVolume(self.character:getModData().tcmusicid, self.deviceData:getDeviceVolume() * 0.4)
                 -- self.deviceData:playSound(self.device:getModData().tcmusic.mediaItem, self.device:getDeviceData():getDeviceVolume() * 0.4, true)
@@ -212,7 +247,6 @@ function ISTCBoomboxAction:performTogglePlayMedia()
                     ModData.getOrCreate("trueMusicData")["now_play"][musicId]["itemid"] = self.device:getID()
                 end
             end
-        
         -- WO
         else
             local musicId = nil
@@ -257,7 +291,7 @@ function ISTCBoomboxAction:isValidAddMedia()
     -- print(self.device:getModData().tcmusic.mediaItem)
     local musicPlayer = nil
     if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-        musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
+        musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()] or TCMusic.WalkmanPlayer[self.device:getFullType()]
     elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
         musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
     elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then

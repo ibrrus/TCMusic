@@ -241,8 +241,11 @@ function OnRenderTickClientCheckMusic ()
                                     if isClient() then ModData.transmit("trueMusicData") end
                                 -- если музыка перестала играть, отправляем информацию на сервер
                                 elseif not musicplayer:getModData().tcmusic.mediaItem or
-                                        not playerObj:getEmitter():isPlaying(playerObj:getModData().tcmusicid) then
+                                        not playerObj:getEmitter():isPlaying(playerObj:getModData().tcmusicid) or
+                                        not musicplayer:getDeviceData() or
+                                        not musicplayer:getDeviceData():getIsTurnedOn()then
                                 -- elseif not musicplayer:getModData().tcmusic.mediaItem or musicplayer:getDeviceData():getEmitter() and not musicplayer:getDeviceData():getEmitter():isPlaying(musicplayer:getModData().tcmusic.mediaItem) then
+                                    playerObj:getEmitter():stopSound(playerObj:getModData().tcmusicid)
                                     musicplayer:getModData().tcmusic.isPlaying = false
                                     ModData.getOrCreate("trueMusicData")["now_play"][musicId] = nil
                                     if isClient() then ModData.transmit("trueMusicData") end
@@ -252,14 +255,14 @@ function OnRenderTickClientCheckMusic ()
                             elseif ((playerObj:getX() >= x - 60 and playerObj:getX() <= x + 60 and
                                     playerObj:getY() >= y - 60 and playerObj:getY() <= y + 60)) then
                                 local musicData = localPlayerMusicTable[musicId]
-
+                                local musicPlayer = player:getSecondaryHandItem()
                                 -- если игрока с музыкой нет в локальной таблице
                                 if not musicData then
 
                                     -- проверяем, что проигрыватель всё еще в руках игрока, запускаем музыку, записываем в локальную таблицу
                                     if -- (player:getPrimaryHandItem() and (player:getPrimaryHandItem():getID() == musicServerData["itemid"])) or 
-                                            (player:getSecondaryHandItem() and (player:getSecondaryHandItem():getID() == musicServerData["itemid"])) and 
-                                            player:getSecondaryHandItem():getDeviceData() and (player:getSecondaryHandItem():getDeviceData():getPower() > 0) then
+                                            (musicPlayer and (musicPlayer:getID() == musicServerData["itemid"])) and 
+                                            musicPlayer:getDeviceData() and (musicPlayer:getDeviceData():getPower() > 0) then
                                         
                                         local id = player:getEmitter():playSoundImpl(musicServerData["musicName"], nil)
                                         -- print("MUSIC ID:")
@@ -279,10 +282,10 @@ function OnRenderTickClientCheckMusic ()
                                     -- если игрок в локальной таблице и музыка продолжает играть, контролируем громкость
                                     if player:getEmitter():isPlaying(musicData["localmusicid"]) then
                                         if -- (player:getPrimaryHandItem() and (player:getPrimaryHandItem():getID() == musicServerData["itemid"])) or 
-                                            (player:getSecondaryHandItem() and player:getSecondaryHandItem():getDeviceData() and 
-                                                player:getSecondaryHandItem():getDeviceData():getIsTurnedOn() and 
-                                                (player:getSecondaryHandItem():getDeviceData():getPower() > 0) and 
-                                                (player:getSecondaryHandItem():getID() == musicServerData["itemid"])) then
+                                            (musicPlayer and musicPlayer:getDeviceData() and 
+                                                musicPlayer:getDeviceData():getIsTurnedOn() and 
+                                                (musicPlayer:getDeviceData():getPower() > 0) and 
+                                                (musicPlayer:getID() == musicServerData["itemid"])) then
                                             local koef = 0.4  -- коэффициент отвечающий за наличие наушников
                                             if musicServerData["headphone"] then
                                                 koef = 0.02

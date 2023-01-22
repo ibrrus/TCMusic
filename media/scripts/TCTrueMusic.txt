@@ -35,6 +35,31 @@ module Tsarcraft
 		ReplaceInPrimaryHand = TC_Boombox_RHand holdingbagright,
 		UseWorldItem 	= 	TRUE,
     }
+
+    item TCWalkman
+    {
+		Type			=   Radio,
+		Weight			=	0.4,
+		Icon			=	TCWalkman,
+		ScaleWorldIcon 	= 	0.1,
+		DisplayName = Walkman,
+		ConditionMax	= 100,
+		UseDelta		= 0.009, 
+		UseWhileEquipped	= FALSE,
+		DisappearOnUse		= FALSE,
+		TwoWay			= FALSE,
+		TransmitRange		= 0,
+		MicRange		= 0,
+		BaseVolumeRange		= 15,
+		IsPortable		= TRUE,
+		IsTelevision		= FALSE,
+		MinChannel		= 100,
+		MaxChannel		= 200,
+		UsesBattery		= TRUE,
+		Tooltip = Tooltip_item_Walkman,
+		AcceptMediaType = 0,
+		UseWorldItem 	= 	TRUE,
+    }
 	
 	item TCVinylplayer
     {

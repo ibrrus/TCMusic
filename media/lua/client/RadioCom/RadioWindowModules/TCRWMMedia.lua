@@ -131,7 +131,8 @@ end
 function TCRWMMedia:verifyItem( _item )
     if GlobalMusic[_item:getType()] then
         if self.deviceType == "InventoryItem" then
-            if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
+            if TCMusic.ItemMusicPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] or 
+                    TCMusic.WalkmanPlayer[self.device:getFullType()] == GlobalMusic[_item:getType()] then
                 return true;
             end
         elseif self.deviceType == "IsoObject" then
@@ -255,6 +256,20 @@ function TCRWMMedia:update()
             else
                 self.toggleOnOffButton:setTitle(self.textPlay);
             end
+        elseif self.device:getModData().tcmusic.deviceType == "InventoryItem" then
+            if self.device:getModData().tcmusic.mediaItem and 
+                    self.player:getModData().tcmusicid and
+                    self.player:getEmitter():isPlaying(self.player:getModData().tcmusicid) then
+                        self.toggleOnOffButton:setTitle(self.textStop);
+            else
+                if self.device:getModData().tcmusic.needSpeaker and not self.device:getModData().tcmusic.connectTo then
+                    self.toggleOnOffButton:setTitle(self.textSpeaker);
+                elseif TCMusic.WalkmanPlayer[self.device:getFullType()] and self.deviceData:getHeadphoneType() < 0 then
+                    self.toggleOnOffButton:setTitle(getText("IGUI_TC_connect_headphones"))
+                else
+                    self.toggleOnOffButton:setTitle(self.textPlay);
+                end
+            end
         else
             if self.device:getModData().tcmusic.mediaItem and self.device:getModData().tcmusic.isPlaying then
                 self.toggleOnOffButton:setTitle(self.textStop);
@@ -312,7 +327,7 @@ function TCRWMMedia:onJoypadDown(button)
             local medias = {};
             
             if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-                musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
+                musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()] or TCMusic.WalkmanPlayer[self.device:getFullType()]
             elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
                 musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
             elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then
@@ -352,7 +367,7 @@ function TCRWMMedia:getBPrompt()
         -- local type = self.deviceData:getMediaType();
         local medias = {};
         if self.device:getModData().tcmusic.deviceType == "InventoryItem" then
-            musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()]
+            musicPlayer = TCMusic.ItemMusicPlayer[self.device:getFullType()] or TCMusic.WalkmanPlayer[self.device:getFullType()]
         elseif self.device:getModData().tcmusic.deviceType == "IsoObject" then
             musicPlayer = TCMusic.WorldMusicPlayer[self.device:getSprite():getName()]
         elseif self.device:getModData().tcmusic.deviceType == "VehiclePart" then

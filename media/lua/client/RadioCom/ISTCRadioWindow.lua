@@ -11,8 +11,8 @@ function ISRadioWindow.activate( _player, _item, bol)
                 if _player:getSecondaryHandItem() == _item then
                     ISTCBoomboxWindow.activate( _player, _item );
                 end
-            elseif TCMusic.WorldMusicPlayer[_item:getFullType()] then
-                
+            elseif TCMusic.WalkmanPlayer[_item:getFullType()] then
+                ISTCBoomboxWindow.activate( _player, _item );
             else
                 TCMusic.oldISRadioWindow_activate( _player, _item, bol );
             end
@@ -32,7 +32,6 @@ function ISRadioWindow.activate( _player, _item, bol)
                                 square:RecalcProperties();
                                 square:RecalcAllWithNeighbours(true);
                                 
-                                -- TEST
                                 local radio = IsoRadio.new(getCell(), square, getSprite(TCMusic.WorldMusicPlayer[invItem:getFullType()]))
                                 square:AddTileObject(radio)
                                 if invItem:getModData().tcmusic then
@@ -47,6 +46,10 @@ function ISRadioWindow.activate( _player, _item, bol)
                                 radio:getModData().tcmusic.deviceType = "IsoObject"
                                 radio:getModData().tcmusic.isPlaying = false
                                 radio:getModData().RadioItemID = invItem:getID() .. "tm"
+                                -- local deviceData = invItem:getDeviceData();
+                                -- if deviceData then
+                                    -- radio:setDeviceData(deviceData);
+                                -- end
                                 radio:getDeviceData():setIsTurnedOn(false)
                                 radio:getDeviceData():setPower(invItem:getDeviceData():getPower())
                                 radio:getDeviceData():setDeviceVolume(invItem:getDeviceData():getDeviceVolume())
@@ -56,12 +59,14 @@ function ISRadioWindow.activate( _player, _item, bol)
                                     radio:getDeviceData():setHasBattery(false)
                                 end
                                 if invItem:getDeviceData():getHeadphoneType() >= 0 then
-                                    invItem:getDeviceData():getHeadphones(_p.player:getInventory())
+                                    invItem:getDeviceData():getHeadphones(_player:getInventory())
                                 end
                                 if isClient() then 
                                     radio:transmitCompleteItemToServer(); 
                                 end
                                 ISTCBoomboxWindow.activate( _player, radio );
+                                return
+                            elseif TCMusic.WalkmanPlayer[itemObj:getItem():getFullType()] then
                                 return
                             else
                                 TCMusic.oldISRadioWindow_activate( _player, _item, bol );

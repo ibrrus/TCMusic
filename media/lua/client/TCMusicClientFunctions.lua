@@ -72,10 +72,11 @@ function TCMusic.OnObjectAboutToBeRemovedAux(object)
                 _item:getModData().tcmusic.isPlaying = false
                 _item:getModData().tcmusic.deviceType = "InventoryItem"
                 
-                local deviceData = _obj:getDeviceData();
+                local deviceData = _obj:getDeviceData()
                 if deviceData then
-                    _item:setDeviceData(deviceData);
+                    _item:setDeviceData(deviceData)
                 end
+                _item:getDeviceData():setIsTurnedOn(false)
                 sendClientCommand(getPlayer(), 'truemusic', 'deleteWO', { 
                     x = _obj:getX(), 
                     y = _obj:getY(), 

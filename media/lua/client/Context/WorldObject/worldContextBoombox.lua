@@ -65,18 +65,22 @@ function TCFillContextMenu (player, context, worldobjects, test)
         local _item = items[1]:getItem()
         local square = items[1]:getSquare()
         if instanceof(_item, "Radio")  then
-            local _obj = nil
-            for i=0, square:getObjects():size()-1 do
-                local tObj = square:getObjects():get(i)
-                if instanceof(tObj, "IsoRadio") then
-                    if tObj:getModData().RadioItemID == _item:getID() .. "tm" then
-                        _obj = tObj
-                        break
+            if TCMusic.WalkmanPlayer[_item:getFullType()] then
+                context:removeOptionTsar(context:getOptionFromName(getText("IGUI_DeviceOptions")))
+            else
+                local _obj = nil
+                for i=0, square:getObjects():size()-1 do
+                    local tObj = square:getObjects():get(i)
+                    if instanceof(tObj, "IsoRadio") then
+                        if tObj:getModData().RadioItemID == _item:getID() .. "tm" then
+                            _obj = tObj
+                            break
+                        end
                     end
                 end
-            end
-            if _obj ~= nil then
-                context:addOptionOnTop(getText("IGUI_DeviceOptions"), playerObj, function(pl, obj) ISRadioWindow.activate(pl, obj, true) end, _obj );
+                if _obj ~= nil then
+                    context:addOptionOnTop(getText("IGUI_DeviceOptions"), playerObj, function(pl, obj) ISRadioWindow.activate(pl, obj, true) end, _obj );
+                end
             end
         end
     end

@@ -53,8 +53,7 @@ end
 
 function TCRWMGridPower:toggleOnOff()
     if self:doWalkTo() then
-    -- print("TCRWMGridPower:toggleOnOff()")
-        ISTimedActionQueue.add(ISTCBoomboxAction:new("ToggleOnOff",self.player, self.device));
+        ISTimedActionQueue.add(ISTCBoomboxAction:new("ToggleOnOff", self.player, self.device));
     end
 end
 
